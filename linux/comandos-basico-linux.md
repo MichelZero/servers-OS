@@ -101,3 +101,15 @@ Lembre-se que a maioria dos comandos aceitam opções (flags) que modificam seu 
 
 Este é apenas um resumo dos comandos mais comuns.  Há muitos outros comandos úteis disponíveis no Linux.  Explore e aprenda mais à medida que for usando o sistema!
 
+## Links Úteis:
+* [Linux Command Line Basics](https://linuxjourney.com/)
+* [Linux Command Cheat Sheet](https://www.cheatography.com/davechild/cheat-sheets/linux-command-line-cheat-sheet/)
+* [Linux Documentation Project](https://www.tldp.org/)
+* [Linux Command Line for Beginners](https://www.codecademy.com/learn/learn-the-command-line)
+* [Linux Command Line Tutorial](https://ryanstutorials.net/linuxtutorial/)
+* [Linux Command Line and Shell Scripting Bible](https://www.amazon.com/Linux-Command-Line-Shell-Scripting/dp/1119471628)
+* [Linux Command Line Essentials](https://www.udemy.com/course/linux-command-line-essentials/)
+* [Linux Command Line Basics Course](https://www.edx.org/course/linux-command-line-basics)
+* [Linux Command Line Cheat Sheet PDF](https://www.linuxtrainingacademy.com/linux-command-line-cheat-sheet/)
+* [Linux Command Line Cheat Sheet - Cheatography](https://cheatography.com/davechild/cheat-sheets/linux-command-line-cheat-sheet/)
+* [Linux Command Line Cheat Sheet - OverAPI](https://overapi.com/linux)
