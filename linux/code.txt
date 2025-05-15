@@ -1,0 +1,106 @@
+# Configurando páginas web pessoais para novos usuários com Nginx no Linux
+
+Este guia descreve como configurar um diretório `skel` no Linux para que, ao adicionar um novo usuário, seja criada automaticamente sua página web pessoal, servida pelo Nginx.
+
+## Passos
+
+1. **Criar o diretório skel e a estrutura da página web:**
+
+```bash
+sudo mkdir -p /etc/skel/public_html
+Use code with caution.
+Markdown
+Criar um arquivo index.html básico:
+sudo nano /etc/skel/public_html/index.html
+Use code with caution.
+Bash
+Cole o seguinte conteúdo HTML:
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Página Pessoal de ~usuário</title>
+</head>
+<body>
+    <h1>Bem-vindo à página de ~usuário!</h1>
+    <p>Esta é a página web padrão.</p>
+</body>
+</html>
+Use code with caution.
+Html
+Configurar as permissões:
+sudo chown root:root /etc/skel/public_html
+sudo chmod 0755 /etc/skel/public_html
+sudo chmod 0644 /etc/skel/public_html/index.html
+Use code with caution.
+Bash
+Substitua www-data pelo usuário e grupo do seu Nginx se necessário.
+Criar um template de configuração do Nginx:
+sudo nano /etc/nginx/templates/user.conf.template
+Use code with caution.
+Bash
+Cole o seguinte conteúdo, adaptando www-data e example.com conforme necessário:
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name ~^(\w+)\.example\.com$;
+
+    root /home/$1/public_html;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+Use code with caution.
+Nginx
+Criar um script para configurar o novo usuário no Nginx:
+sudo nano /usr/local/bin/setup-user-web
+Use code with caution.
+Bash
+Cole o seguinte conteúdo, adaptando conforme necessário:
+#!/bin/bash
+
+USERNAME=$1
+
+if [ -z "$USERNAME" ]; then
+    echo "Uso: $0 <nome_de_usuario>"
+    exit 1
+fi
+
+mkdir -p /home/$USERNAME/public_html
+chown $USERNAME:$USERNAME /home/$USERNAME/public_html
+chmod 0755 /home/$USERNAME/public_html
+
+sed "s/~usuário/$USERNAME/g" /etc/skel/public_html/index.html > /home/$USERNAME/public_html/index.html
+chown $USERNAME:$USERNAME /home/$USERNAME/public_html/index.html
+
+cp /etc/nginx/templates/user.conf.template /etc/nginx/sites-available/$USERNAME.conf
+sed -i "s/$1/$USERNAME/g" /etc/nginx/sites-available/$USERNAME.conf
+
+ln -s /etc/nginx/sites-available/$USERNAME.conf /etc/nginx/sites-enabled/
+
+systemctl reload nginx
+Use code with caution.
+Bash
+Torne o script executável:
+sudo chmod +x /usr/local/bin/setup-user-web
+Use code with caution.
+Bash
+Integrar o script com a criação de usuários:
+Adicione a seguinte linha ao final de /etc/adduser.local:
+/usr/local/bin/setup-user-web "$USERNAME"
+Use code with caution.
+Bash
+Testar:
+sudo adduser teste
+Use code with caution.
+Bash
+Acesse teste.example.com no seu navegador.
+Considerações importantes
+Segurança: Verifique as permissões de arquivo.
+Domínio: Substitua example.com pelo seu domínio.
+Usuário e Grupo do Nginx: Utilize o usuário e grupo correto do Nginx.
+Firewall: Abra a porta 80 (ou 443 para HTTPS).
+Complexidade: Para cenários mais complexos, utilize ferramentas como Puppet, Chef ou Ansible.

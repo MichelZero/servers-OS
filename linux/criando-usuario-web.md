@@ -1,0 +1,189 @@
+# Configurando páginas web pessoais automáticas com Nginx e skel no Linux
+
+Este guia descreve como configurar um diretório `skel` no Linux para criar automaticamente uma página web pessoal para novos usuários, servida pelo Nginx.
+
+## Passos
+
+1. **Criar o diretório skel e a estrutura da página web:**
+
+    ```bash
+    sudo mkdir -p /etc/skel/public_html
+    ```
+
+
+2. **Criar um arquivo index.html básico:**
+
+    ```bash
+    sudo nano /etc/skel/public_html/index.html
+    ```
+
+    Cole o seguinte conteúdo HTML:
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Página Pessoal de ~usuário</title>
+    </head>
+    <body>
+        <h1>Bem-vindo à página de ~usuário!</h1>
+        <p>Esta é a página web padrão.</p>
+    </body>
+    </html>
+    ```
+
+
+3. **Configurar as permissões:**
+
+    ```bash
+    sudo chown root:root /etc/skel/public_html
+    sudo chmod 0755 /etc/skel/public_html
+    sudo chmod 0644 /etc/skel/public_html/index.html
+    ```
+
+
+4. **Criar um template de configuração do Nginx:**
+    ```bash
+    sudo nano /etc/nginx/templates/user.conf.template
+    ```
+
+5. **Cole o seguinte conteúdo, substituindo `www-data` pelo usuário e grupo do seu Nginx, se necessário:**
+
+  ```bash
+  server {
+      listen 80;
+      listen [::]:80;
+
+      server_name ~^(\w+)\.example\.com$; # Substitua example.com pelo seu domínio
+
+      root /home/$1/public_html;
+      index index.html;
+
+      location / {
+          try_files $uri $uri/ =404;
+      }
+  }
+  ```
+
+    **Nota:** O `server_name` usa uma expressão regular para capturar o subdomínio. O `$1` representa o nome do usuário.
+
+
+
+6. **Criar um script para configurar o novo usuário no Nginx (recomendado):**
+
+Crie um script que será executado após a criação de um novo usuário. Este script copiará o template de configuração e o adaptará para o novo usuário.
+  ```bash
+  sudo nano /usr/local/bin/setup-user-web
+  ```
+
+Cole o seguinte conteúdo, adaptando conforme necessário:
+
+```bash
+#!/bin/bash
+
+USERNAME=$1
+
+if [ -z "$USERNAME" ]; then
+    echo "Uso: $0 <nome_de_usuario>"
+    exit 1
+fi
+
+mkdir -p /home/$USERNAME/public_html
+chown $USERNAME:$USERNAME /home/$USERNAME/public_html
+chmod 0755 /home/$USERNAME/public_html
+
+sed "s/~usuário/$USERNAME/g" /etc/skel/public_html/index.html > /home/$USERNAME/public_html/index.html
+chown $USERNAME:$USERNAME /home/$USERNAME/public_html/index.html
+
+cp /etc/nginx/templates/user.conf.template /etc/nginx/sites-available/$USERNAME.conf
+sed -i "s/$1/$USERNAME/g" /etc/nginx/sites-available/$USERNAME.conf
+
+ln -s /etc/nginx/sites-available/$USERNAME.conf /etc/nginx/sites-enabled/
+
+systemctl reload nginx
+```
+
+Torne o script executável:
+```bash
+sudo chmod +x /usr/local/bin/setup-user-web
+```
+
+7. **Integrar o script com a criação de usuários:**
+
+Adicione a seguinte linha ao final do arquivo `/etc/adduser.local`:
+```bash	
+/usr/local/bin/setup-user-web "$USERNAME"
+```
+
+8. **Testar:**
+Crie um novo usuário teste: 
+```bash
+sudo adduser teste
+```
+Isso criará o diretório `/home/teste/public_html` e copiará o arquivo `index.html` para lá.
+O Nginx também criará um arquivo de configuração em `/etc/nginx/sites-available/teste.conf` e criará um link simbólico em `/etc/nginx/sites-enabled/teste.conf`.
+9. **Recarregar o Nginx:**
+```bash
+sudo systemctl reload nginx
+``` 
+10. **Testar a configuração:**
+Acesse `http://teste.example.com` no seu navegador (substitua `teste` e `example.com` pelos valores corretos).
+```bash
+sudo nginx -t
+```
+Isso verificará a configuração do Nginx. Se tudo estiver correto, você verá uma mensagem de sucesso.
+
+
+11. **Remover o usuário:**
+Para remover o usuário e sua página web, use o seguinte comando:
+```bash
+sudo deluser --remove-home teste
+``` 
+Isso removerá o diretório do usuário e a configuração do Nginx.
+```bash
+sudo rm /etc/nginx/sites-available/teste.conf
+sudo rm /etc/nginx/sites-enabled/teste.conf
+``` 
+```bash
+sudo systemctl reload nginx
+```
+Isso removerá o link simbólico e recarregará o Nginx.
+12. **Verificar o status do Nginx:**
+```bash
+sudo systemctl status nginx
+```
+Isso mostrará o status do Nginx e se há algum erro na configuração.
+13. **Verificar os logs do Nginx:**
+```bash 
+sudo tail -f /var/log/nginx/error.log
+```
+Isso mostrará os logs de erro do Nginx em tempo real. Você pode verificar se há erros ao acessar a página web.
+
+
+
+# Considerações importantes
+
+Segurança: Verifique as permissões de arquivo.
+
+Domínio: Substitua example.com pelo seu domínio. Configure o DNS corretamente.
+
+Usuário e Grupo do Nginx: Utilize os valores corretos.
+
+Firewall: Abra a porta 80 (ou 443 para HTTPS).
+
+Complexidade: Para cenários complexos, use ferramentas como Puppet, Chef ou Ansible.
+
+# Conclusão
+Com esses passos, você terá configurado um diretório `skel` no Linux para criar automaticamente uma página web pessoal para novos usuários, servida pelo Nginx. Isso facilita a criação de páginas web pessoais para cada novo usuário criado no sistema.
+# Referências
+- [Nginx Documentation](https://nginx.org/en/docs/)
+- [Linux adduser Command](https://linux)
+- [Linux skel Directory](https://linux)
+- [Nginx Configuration](https://nginx.org/en/docs/beginners_guide.html)
+- [Nginx Server Blocks](https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-ubuntu-20-04)
+- [Nginx Templates](https://www.nginx.com/resources/wiki/start/topics/examples/server_blocks/)
+- [Nginx Error Logs](https://www.nginx.com/resources/wiki/start/topics/tutorials/logging/)
+- [Nginx Security](https://www.nginx.com/resources/wiki/start/topics/tutorials/security/)
+- [Linux Permissions](https://linux)
+- [Linux File Permissions](https://linux)
