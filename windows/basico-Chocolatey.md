@@ -24,7 +24,10 @@ Este guia rápido cobre os comandos mais comuns e úteis do gerenciador de pacot
     ```
 
 ## Gerenciamento de Pacotes:
+* **Atualizar o Chocolatey:** `choco upgrade chocolatey`
 
+* **procurando pacotes:** `choco list -lo` (local only)
+* **procurando na web** [https://community.chocolatey.org/packages](https://community.chocolatey.org/packages)
 * **Instalar um pacote:** `choco install <nome_do_pacote>` (Ex: `choco install googlechrome`)
     * Múltiplos pacotes: `choco install <pacote1> <pacote2> <pacote3>`
     * Versão específica: `choco install <nome_do_pacote> --version <numero_da_versão>`
