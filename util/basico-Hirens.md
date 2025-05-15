@@ -71,7 +71,7 @@ Considerando que o Hiren's BootCD é descontinuado, as seguintes alternativas of
 Lembre-se de pesquisar e escolher as ferramentas que melhor atendem às suas necessidades. Este Cheat Sheet serve apenas como um ponto de partida.  Priorize sempre a segurança e faça backups importantes antes de usar qualquer ferramenta de recuperação ou reparo.
 
 
-# Hiren's BootCD PE x64 Cheat Sheet (Versões não oficiais) {#Hirens-Versoes-nao-oficiais}
+# Hiren's BootCD PE x64 Cheat Sheet (Versões não oficiais)
 Hiren's BootCD PE x64 Cheat Sheet (Versões não oficiais) 
 
 
@@ -109,9 +109,7 @@ Como o Hiren's BootCD original foi descontinuado e as versões PE x64 são recon
 * **Clonezilla Live:** Distribuição Linux para clonagem e criação de imagens de disco.
 
 Lembre-se de que este Cheat Sheet serve apenas como um guia geral.  A pesquisa e a compreensão das ferramentas que você está usando são essenciais para evitar danos acidentais aos seus dados ou sistema.  Sempre faça backup de dados importantes antes de usar qualquer ferramenta de recuperação ou reparo.
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Markdown
-IGNORE_WHEN_COPYING_END
+
+# Hiren's BootCD PE x64 Cheat Sheet (Versões não oficiais)
+##Links úteis
+* [Hiren's BootCD PE x64](https://www.hirensbootcd.org/download/)
