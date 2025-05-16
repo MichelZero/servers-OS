@@ -104,6 +104,45 @@ ln -s /etc/nginx/sites-available/$USERNAME.conf /etc/nginx/sites-enabled/
 systemctl reload nginx
 ```
 
+7. **Exemplo de script aprimorado com tratamento de erros:**
+
+```bash
+#!/bin/bash
+
+USERNAME=$1
+
+if [ -z "$USERNAME" ]; then
+    echo "Erro: Nome de usuário não fornecido." >&2
+    exit 1
+fi
+
+mkdir -p /home/$USERNAME/public_html || { echo "Erro ao criar o diretório public_html." >&2; exit 1; }
+chown $USERNAME:$USERNAME /home/$USERNAME/public_html || { echo "Erro ao definir o proprietário do diretório public_html." >&2; exit 1; }
+chmod 0755 /home/$USERNAME/public_html || { echo "Erro ao definir as permissões do diretório public_html." >&2; exit 1; }
+
+sed "s/~usuário/$USERNAME/g" /etc/skel/public_html/index.html > /home/$USERNAME/public_html/index.html || { echo "Erro ao criar o index.html." >&2; exit 1; }
+chown $USERNAME:$USERNAME /home/$USERNAME/public_html/index.html || { echo "Erro ao definir o proprietário do index.html." >&2; exit 1; }
+
+
+if ! cp /etc/nginx/templates/user.conf.template /etc/nginx/sites-available/$USERNAME.conf; then
+  echo "Erro ao copiar o template de configuração." >&2
+  exit 1
+fi
+
+sed -i "s/\$1/$USERNAME/g" /etc/nginx/sites-available/$USERNAME.conf || { echo "Erro ao substituir o placeholder no arquivo de configuração." >&2; exit 1; }
+
+ln -s /etc/nginx/sites-available/$USERNAME.conf /etc/nginx/sites-enabled/ || { echo "Erro ao criar o link simbólico." >&2; exit 1; }
+
+systemctl reload nginx || { echo "Erro ao recarregar o Nginx." >&2; exit 1; }
+echo "Configuração concluída para o usuário $USERNAME."
+```
+**Nota:** O script acima verifica se o nome de usuário foi fornecido e se as operações foram bem-sucedidas. Se algo falhar, ele exibirá uma mensagem de erro apropriada.
+**Permissões do script:**
+```bash
+sudo chown root:root /usr/local/bin/setup-user-web
+```
+
+
 Torne o script executável:
 ```bash
 sudo chmod +x /usr/local/bin/setup-user-web
@@ -187,3 +226,37 @@ Com esses passos, você terá configurado um diretório `skel` no Linux para cri
 - [Nginx Security](https://www.nginx.com/resources/wiki/start/topics/tutorials/security/)
 - [Linux Permissions](https://linux)
 - [Linux File Permissions](https://linux)
+
+### Quando a execução do `/usr/local/bin/setup-user-web "$USERNAME"` falhar.
+12. **Criar um script wrapper:**
+Você pode criar um script que chama o adduser e, em seguida, executa o setup-user-web. Por exemplo:
+```bash
+#!/bin/bash
+# Cria um novo usuário e configura a página web
+
+adduser "$1"
+
+if [[ $? -eq 0 ]]; then # Verifica se o adduser foi executado com sucesso
+    /usr/local/bin/setup-user-web "$1"
+fi
+```
+Salve este script como `adduser-web.sh`, torne-o executável e use-o para criar novos usuários.
+```bash
+chmod +x /usr/local/sbin/adduser-web.sh
+```
+Agora, você pode usar `adduser-web.sh` para criar novos usuários e configurar automaticamente suas páginas web.
+```bash
+sudo /usr/local/sbin/adduser-web.sh nome_do_usuario
+```
+### Observações
+- **Segurança:** Certifique-se de que o diretório `public_html` e os arquivos dentro dele tenham as permissões corretas para evitar acesso não autorizado.
+- **Firewall:** Se você estiver usando um firewall, certifique-se de que as portas 80 e 443 estejam abertas para permitir o tráfego HTTP e HTTPS.
+- **HTTPS:** Considere configurar HTTPS para proteger as páginas web pessoais. Você pode usar o Let's Encrypt para obter certificados SSL gratuitos.
+- **Backup:** Considere fazer backup das configurações do Nginx e dos diretórios `public_html` regularmente.
+- **Documentação:** Consulte a documentação do Nginx e do Linux para obter mais informações sobre configuração e segurança.
+- **Testes:** Sempre teste suas configurações em um ambiente de desenvolvimento antes de aplicá-las em produção.
+- **Logs:** Monitore os logs do Nginx para identificar problemas de configuração ou segurança.
+- **Atualizações:** Mantenha o Nginx e o sistema operacional atualizados para garantir a segurança e a estabilidade.
+- **Limpeza:** Periodicamente, revise e limpe as configurações de usuários e páginas web que não são mais necessárias.
+- **Automação:** Considere usar ferramentas de automação para gerenciar usuários e configurações de servidores, especialmente em ambientes de produção.
+
