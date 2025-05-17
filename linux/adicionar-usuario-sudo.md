@@ -1,4 +1,3 @@
-```markdown
 # Adicionando um Usuário ao Grupo Sudo no Linux
 
 Existem algumas maneiras de adicionar um usuário ao grupo sudo no Linux, dependendo da distribuição. O método mais comum e recomendado é usar o comando `usermod`.
@@ -50,4 +49,19 @@ id joao
 * **Reiniciando a Sessão ou Usando `newgrp sudo`:** Para que as alterações tenham efeito, o usuário precisa reiniciar a sessão ou executar o comando `newgrp sudo` no terminal.
 
 **Cuidado:** Use o comando `sudo` e a concessão de privilégios de administrador com responsabilidade.
-```
+
+## Conclusão
+Adicionar um usuário ao grupo sudo é uma tarefa simples, mas deve ser feita com cuidado. Sempre verifique se o usuário realmente precisa de privilégios administrativos e esteja ciente das implicações de segurança.
+A concessão de acesso sudo deve ser feita com responsabilidade, garantindo que o usuário tenha a formação e o conhecimento necessários para operar com esses privilégios. 
+Além disso, é sempre uma boa prática revisar periodicamente os usuários com acesso sudo e remover aqueles que não precisam mais desse nível de acesso.
+## Referências  
+- [Documentação do Ubuntu sobre sudo](https://help.ubuntu.com/community/RootSudo)
+- [Documentação do Debian sobre sudo](https://wiki.debian.org/sudo)
+- [Documentação do CentOS sobre sudo](https://wiki.centos.org/HowTos/PrivilegeEscalation)
+- [Documentação do Fedora sobre sudo](https://docs.fedoraproject.org/en-US/packaging-guidelines/RootSudo/)
+- [Documentação do RHEL sobre sudo](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/security_guide/index#sec-Using_sudo)
+- [Documentação do Arch Linux sobre sudo](https://wiki.archlinux.org/title/Sudo)
+- [Documentação do Manjaro sobre sudo](https://wiki.manjaro.org/index.php?title=Sudo)
+- [Documentação do OpenSUSE sobre sudo](https://en.opensuse.org/Sudo)
+- [Documentação do Gentoo sobre sudo](https://wiki.gentoo.org/wiki/Sudo)
+- [Documentação do Slackware sobre sudo](https://docs.slackware.com/howtos:security:sudo)
