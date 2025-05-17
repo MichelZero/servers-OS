@@ -236,10 +236,19 @@ Você pode criar um script que chama o adduser e, em seguida, executa o setup-us
 
 adduser "$1"
 
-if [[ $? -eq 0 ]]; then # Verifica se o adduser foi executado com sucesso
-    /usr/local/bin/setup-user-web "$1"
+if [[ $? -eq 0 ]]; then
+    if /usr/local/bin/setup-user-web "$1"; then
+        echo "Usuário '$1' criado e setup-user-web executado com sucesso."
+    else
+        echo "Usuário '$1' criado, mas houve um erro ao executar setup-user-web." >&2  # Envia a mensagem de erro para stderr
+        exit 1 # Retorna um código de erro
+    fi
+else
+    echo "Erro ao criar o usuário '$1'." >&2
+    exit 1
 fi
 ```
+
 Salve este script como `adduser-web.sh`, torne-o executável e use-o para criar novos usuários.
 ```bash
 chmod +x /usr/local/sbin/adduser-web.sh
