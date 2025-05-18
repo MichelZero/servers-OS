@@ -6,7 +6,7 @@ Este repositório é um guia prático com comandos e dicas essenciais para admin
 
 Aqui você encontrará informações sobre:
 
-* **Linux:** [Comandos](./linux/comandos-basico-linux.md) para gerenciamento de usuários, processos, sistema de arquivos, rede, segurança, entre outros. Exemplos de distribuições abordadas: Ubuntu, CentOS, Debian.
+* **Linux:** [Comandos](./linux/comandos-basicos-linux.md) para gerenciamento de usuários, processos, sistema de arquivos, rede, segurança, entre outros. Exemplos de distribuições abordadas: Ubuntu, CentOS, Debian.
 * **Windows Server:** Comandos PowerShell, configurações de Active Directory, gerenciamento de usuários e grupos, configuração de rede e segurança.
 * **[NGinx](./nginx/configuracao-nginx.md):** Coleção de scripts para automatizar tarefas comuns em ambos os sistemas operacionais.
 * **Scripts úteis:** Coleção de scripts para automatizar tarefas comuns em ambos os sistemas operacionais.
