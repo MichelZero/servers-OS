@@ -9,7 +9,7 @@ Este diretório contém documentação e recursos relacionados ao sistema operac
 - [Configuração](./configuracao.md)
 - [Comandos Básicos](./comandos-basicos-linux.md)
 - [Gerenciamento de Processos](./gerenciamento-processos.md)
-- [Gerenciamento de Usuários](./gerenciamento-usuarios.md)
+- [Gerenciamento de Usuários](./usuarios/gerenciamento-usuarios.md)
 - [Segurança](./seguranca.md)
 - [Referências](./referencias.md)
 
