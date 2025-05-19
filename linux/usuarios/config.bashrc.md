@@ -40,14 +40,19 @@ fi
 ```
 
 ### 5. Comandos para melhorar a experiência
-**histappend** e **autocd**:
+
 * `histappend` faz com que o histórico do terminal seja salvo ao invés de sobrescrito.
 * `autocd` permite que você mude de diretório apenas digitando o nome do diretório.
+* `checkwinsize` atualiza o tamanho da janela do terminal após redimensioná-la.
+* `globstar` permite o uso de `**` para recursão em diretórios.
 ```bash
-# Habilitar histappend e autocd
+# Habilitar histappend, autocd, checkwinsize e globstar
 
 shopt -s histappend
 shopt -s autocd
+shopt -s checkwinsize
+shopt -s globstar
+
 ```
 
 
