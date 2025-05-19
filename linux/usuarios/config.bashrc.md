@@ -5,6 +5,8 @@ O arquivo `.bashrc` é executado toda vez que um novo terminal interativo é abe
 ## Exemplos de configurações
 
 ### 1. Alias úteis
+Os aliases são atalhos para comandos mais longos. Eles ajudam a economizar tempo e digitação. Aqui estão alguns exemplos comuns:
+
 ```bash
 alias ll='ls -lah'
 alias gs='git status'
