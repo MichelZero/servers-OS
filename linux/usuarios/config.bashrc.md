@@ -14,11 +14,15 @@ alias ..='cd ..'
 ```
 
 ### 2. Variáveis de ambiente
-deixando o ambiente mais amigável e funcional. definindo o editor padrão, tamanho do histórico e adicionando um diretório ao PATH.
+Deixando o ambiente mais amigável e funcional. definindo o editor padrão, tamanho do histórico e adicionando um diretório ao PATH.
 O exemplo abaixo define o editor padrão como `nano`, aumenta o tamanho do histórico para 10.000 comandos e adiciona um diretório `bin` no diretório home ao PATH.
+Não inserir o diretório `bin` do sistema, pois pode causar problemas de segurança.
+Para evitar que seja inserido no histórico linhas duplicadas, o comando `HISTCONTROL` é utilizado, além de ignorar linhas que começam com espaço. Também é possível definir o tamanho máximo do arquivo de histórico.
 ```bash
 export EDITOR=nano
 export HISTSIZE=10000
+export HISTFILESIZE=20000
+export HISTCONTROL=ignoredups:erasedups:ignoreboth
 export PATH="$HOME/bin:$PATH"
 ```
 
