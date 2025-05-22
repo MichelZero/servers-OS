@@ -129,10 +129,10 @@ ssh user@your_server_ip
 ```
 # alternativa simples
 ```bash
-sudo apt install neofetch
+sudo apt install screenfetch
 ```
 ```bash
-sudo nano /etc/update-motd.d/99-neofetch
+sudo nano /etc/update-motd.d/99-screenfetch
 ```
 ```bash
 #!/bin/bash
@@ -140,7 +140,7 @@ sudo nano /etc/update-motd.d/99-neofetch
 if [ -f /usr/bin/screenfetch ]; then screenfetch; fi
 ```
 ```bash
-sudo chmod +x /etc/update-motd.d/99-neofetch
+sudo chmod +x /etc/update-motd.d/99-screenfetch
 ```
 ```bash
 sudo nano /etc/ssh/sshd_config
