@@ -1,5 +1,11 @@
 # Adicionando um Usuário ao Grupo Sudo no Linux
 
+com o usurário root, instale o sudo com o comando:
+
+```bash
+apt install sudo
+```
+
 Existem algumas maneiras de adicionar um usuário ao grupo sudo no Linux, dependendo da distribuição. O método mais comum e recomendado é usar o comando `usermod`.
 
 ## Usando o comando `usermod`
