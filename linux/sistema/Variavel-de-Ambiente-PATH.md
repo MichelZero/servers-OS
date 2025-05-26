@@ -61,6 +61,27 @@ export PATH=$PATH:/novo/diretorio ao final do arquivo ~/.bashrc ou ~/.profile.
 Substitua /novo/diretorio pelo caminho do diretório que você deseja adicionar. Após editar o arquivo, execute `source ~/.bashrc` ou `source ~/.profile` para aplicar as alterações imediatamente.
 
 
+## Onde a Variável PATH é Definida
+A variável `PATH` é definida em vários arquivos de configuração do sistema e do usuário. Os principais locais onde ela pode ser definida incluem:
+* `/etc/profile`: Configurações globais para todos os usuários.
+* `/etc/environment`: Configurações de ambiente globais.
+* `~/.bashrc`: Configurações específicas do usuário para o shell Bash.
+* `~/.profile`: Configurações de ambiente específicas do usuário.
+
+## Definições em Nível de Sistema (Afeta Todos os Usuários)
+As definições em nível de sistema são feitas nos arquivos `/etc/profile` e `/etc/environment`. Essas configurações afetam todos os usuários do sistema. Por exemplo, você pode adicionar um diretório comum a todos os usuários editando o arquivo `/etc/profile` e adicionando uma linha como:
+
+Nenhuma sintaxe de exportação é necessária aqui, pois é um arquivo de configuração de variáveis de ambiente simples.
+
+/etc/profile: Lido por shells de login. Frequentemente, ele define um PATH básico e, em seguida, executa scripts adicionais de /etc/profile.d/.
+Exemplo
+```bash
+# set PATH so it includes user's private bin if it exists
+if [ -d "/usr/local/sbin" ]; then
+  PATH="/usr/local/sbin:$PATH"
+fi
+# ... e outras adições
+```
 
 # Boas práticas
 
