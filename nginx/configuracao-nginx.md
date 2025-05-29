@@ -1,5 +1,35 @@
+```config
+# Configuração do Nginx para o site siteteste.serveminecraft.net
+server {
+    listen 80;
+    listen [::]:80;
+    server_name siteteste.serveminecraft.net;
+    root /var/www/html;
+    index index.html index.htm index.php;
 
+    location / {
+        try_files $uri $uri/ =404;
+    }
 
+    location /teste {
+        alias /var/www/teste;
+        index index.html index.htm index.php;
+        try_files $uri $uri/ =404;
+    }
+
+    # Adicione outros blocos location conforme necessário
+    # para recursos específicos, como CSS, JavaScript, imagens, etc.
+    # dentro de cada diretório.  Exemplo para /teste:
+    #
+    # location ~ ^/teste/images/ {
+    #     alias /var/www/teste/images/;
+    # }
+
+    # Configurações adicionais, como logs de acesso, etc.
+    access_log /var/log/nginx/siteteste.access.log;
+    error_log /var/log/nginx/siteteste.error.log;
+}
+```
 
 # Comandos:
 
