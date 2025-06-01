@@ -1,0 +1,64 @@
+graph TD
+    ISP_A[Internet ISP A] --- Modem1[Modem 1]
+    ISP_B[Internet ISP B] --- Modem2[Modem 2]
+
+    Modem1 ---|WAN 1| ER605[ER605 Router<br/>(Firewall & Gateway VLANs)]
+    Modem2 ---|WAN 2| ER605
+
+    subgraph ER605_Config [Configuração no Roteador ER605]
+        direction LR
+        VLAN10_GW[Interface VLAN 10<br/>192.168.10.1/24<br/>DHCP: 192.168.10.100-150]
+        VLAN20_GW[Interface VLAN 20<br/>192.168.20.1/24<br/>DHCP: 192.168.20.100-200]
+        VLAN30_GW[Interface VLAN 30<br/>192.168.30.1/24<br/>DHCP: 192.168.30.100-150]
+    end
+
+    ER605 ---|LAN Port X (TRUNK)<br/>Tagged: VLAN 10, 20, 30| TL_SG3428[TL-SG3428 Switch Principal]
+
+    subgraph Switch_Principal_TL_SG3428 [Switch Principal TL-SG3428]
+        direction TB
+        Port1_Uplink[Porta 1 (Uplink)<br/>Conectada ao ER605<br/>Tagged: VLAN 10, 20, 30]
+
+        subgraph VLAN10_Visitas [VLAN 10 - Visitas]
+            Port2_V10[Porta 2<br/>Untagged VLAN 10 (PVID 10)] --- WiFi_Visitas[Access Point<br/>(SSID Visitas -> VLAN 10)]
+            Port3_V10[Porta 3<br/>Untagged VLAN 10 (PVID 10)] --- PC_Visita[PC Visitante]
+        end
+
+        subgraph VLAN20_Residentes [VLAN 20 - Residentes]
+            Port10_V20[Porta 10<br/>Untagged VLAN 20 (PVID 20)] --- TV_Sala[Smart TV Sala]
+            Port11_V20[Porta 11<br/>Untagged VLAN 20 (PVID 20)] --- Console[Console Game]
+            Port12_V20[Porta 12<br/>Untagged VLAN 20 (PVID 20)] --- Impressora[Impressora]
+            Port13_V20[Porta 13<br/>Untagged VLAN 20 (PVID 20)] --- WiFi_Residentes[Access Point<br/>(SSID Residentes -> VLAN 20)]
+        end
+
+        subgraph VLAN30_Desenvolvimento [VLAN 30 - Desenvolvimento/Lab]
+            Port20_V30[Porta 20<br/>Untagged VLAN 30 (PVID 30)] --- PC_Dev[PC Desenvolvimento]
+            Port21_V30[Porta 21<br/>Untagged VLAN 30 (PVID 30)] --- Servidor_Lab[Servidor Lab]
+        end
+
+        Port28_Trunk_Sec[Porta 28 (TRUNK)<br/>Tagged: VLAN 10, 20, 30]
+    end
+
+    TL_SG3428 ---|Porta 28 (TRUNK)<br/>Tagged: VLAN 10, 20, 30| TL_SG108E[TL-SG108E Switch Secundário<br/>(Ex: Escritório)]
+
+    subgraph Switch_Secundario_TL_SG108E [Switch Secundário TL-SG108E (Escritório)]
+        direction TB
+        Port1_Uplink_Sec[Porta 1 (Uplink)<br/>Conectada ao TL-SG3428<br/>Tagged: VLAN 10, 20, 30]
+
+        subgraph VLAN20_Residentes_Sec [VLAN 20 - Residentes (no Escritório)]
+             Port2_V20_Sec[Porta 2<br/>Untagged VLAN 20 (PVID 20)] --- PC_Familia_Esc[PC Família Escritório]
+        end
+
+        subgraph VLAN30_Desenvolvimento_Sec [VLAN 30 - Desenvolvimento/Lab (no Escritório)]
+            Port5_V30_Sec[Porta 5<br/>Untagged VLAN 30 (PVID 30)] --- Notebook_Dev_Esc[Notebook Dev Escritório]
+            Port6_V30_Sec[Porta 6<br/>Untagged VLAN 30 (PVID 30)] --- Equip_Teste_Lab[Equipamento Teste Lab]
+        end
+    end
+
+    style ER605 fill:#f9f,stroke:#333,stroke-width:2px
+    style TL_SG3428 fill:#bbf,stroke:#333,stroke-width:2px
+    style TL_SG108E fill:#bbf,stroke:#333,stroke-width:2px
+    style VLAN10_Visitas fill:#FFD700,stroke:#333,stroke-width:1px
+    style VLAN20_Residentes fill:#ADD8E6,stroke:#333,stroke-width:1px
+    style VLAN30_Desenvolvimento fill:#90EE90,stroke:#333,stroke-width:1px
+    style VLAN20_Residentes_Sec fill:#ADD8E6,stroke:#333,stroke-width:1px
+    style VLAN30_Desenvolvimento_Sec fill:#90EE90,stroke:#333,stroke-width:1px

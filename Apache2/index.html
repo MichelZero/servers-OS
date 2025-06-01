@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como Contribuir - Servidor de Testes de Aplicativos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Servidor de Testes de Aplicativos</h1>
+            <p>Aprenda como contribuir para o nosso <strong>Projeto Exemplo</strong> no GitHub!</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="introducao">
+            <h2>Bem-vindo(a) ao Guia de Contribuição!</h2>
+            <p>
+                Este guia irá te orientar passo a passo sobre como contribuir para o nosso
+                <a href="https://github.com/SEU-USUARIO-OU-ORG/projeto-exemplo" target="_blank" rel="noopener noreferrer">Projeto Exemplo</a>
+                hospedado no GitHub. Contribuir para projetos open source é uma ótima forma de aprender,
+                ganhar experiência e ajudar a comunidade.
+            </p>
+            <p><strong>Link do Repositório Exemplo:</strong> <a href="https://github.com/SEU-USUARIO-OU-ORG/projeto-exemplo" target="_blank" rel="noopener noreferrer">https://github.com/SEU-USUARIO-OU-ORG/projeto-exemplo</a></p>
+            <p class="importante"><strong>Importante:</strong> Substitua <code>SEU-USUARIO-OU-ORG/projeto-exemplo</code> pelo link real do seu projeto no GitHub!</p>
+        </section>
+
+        <section id="pre-requisitos">
+            <h2>Pré-requisitos</h2>
+            <ul>
+                <li>Uma conta no <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>.</li>
+                <li>Git instalado na sua máquina. Se não tiver, baixe <a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreferrer">aqui</a>.</li>
+                <li>Um editor de código de sua preferência (VS Code, Sublime Text, Atom, etc.).</li>
+                <li>Conhecimento básico de Git e GitHub (fork, clone, branch, commit, push, pull request).</li>
+            </ul>
+        </section>
+
+        <section id="passos">
+            <h2>Passos para Contribuir</h2>
+
+            <article class="step">
+                <h3>1. Faça um Fork do Repositório</h3>
+                <p>
+                    O primeiro passo é criar uma cópia ("fork") do repositório original para a sua conta no GitHub.
+                    Isso permite que você trabalhe em sua própria versão do projeto sem afetar o original.
+                </p>
+                <ol>
+                    <li>Acesse a página do <a href="https://github.com/SEU-USUARIO-OU-ORG/projeto-exemplo" target="_blank" rel="noopener noreferrer">Projeto Exemplo</a> no GitHub.</li>
+                    <li>Clique no botão "Fork" no canto superior direito da página.</li>
+                    <li>Selecione sua conta do GitHub para onde o repositório será forkado.</li>
+                </ol>
+                <img src="https://docs.github.com/assets/cb-26074/images/help/repository/fork-button.png" alt="Botão Fork no GitHub" class="step-image">
+            </article>
+
+            <article class="step">
+                <h3>2. Clone o Repositório Forkado</h3>
+                <p>
+                    Agora, clone o repositório que você acabou de "forkar" para a sua máquina local.
+                    Abra seu terminal ou Git Bash e use o comando abaixo, substituindo <code>SEU-USUARIO-GITHUB</code> pelo seu nome de usuário no GitHub.
+                </p>
+                <pre><code>git clone https://github.com/SEU-USUARIO-GITHUB/projeto-exemplo.git</code></pre>
+                <p>Navegue para o diretório do projeto clonado:</p>
+                <pre><code>cd projeto-exemplo</code></pre>
+            </article>
+
+            <article class="step">
+                <h3>3. Crie uma Nova Branch</h3>
+                <p>
+                    É uma boa prática criar uma nova "branch" (ramificação) para cada nova funcionalidade ou correção de bug.
+                    Isso mantém suas alterações isoladas e organizadas. Escolha um nome descritivo para sua branch.
+                </p>
+                <pre><code>git checkout -b nome-da-sua-branch</code></pre>
+                <p>Exemplos de nomes de branch:</p>
+                <ul>
+                    <li><code>feature/adicionar-nova-funcionalidade</code></li>
+                    <li><code>fix/corrigir-bug-no-login</code></li>
+                    <li><code>docs/atualizar-documentacao</code></li>
+                </ul>
+            </article>
+
+            <article class="step">
+                <h3>4. Faça suas Alterações</h3>
+                <p>
+                    Agora é hora de trabalhar! Abra o projeto no seu editor de código e faça as alterações necessárias.
+                    Pode ser adicionar um novo recurso, corrigir um bug, melhorar a documentação, etc.
+                </p>
+            </article>
+
+            <article class="step">
+                <h3>5. Faça Commit das Suas Alterações</h3>
+                <p>
+                    Após fazer suas alterações, adicione os arquivos modificados ao "stage" e faça um "commit" com uma mensagem clara e descritiva.
+                </p>
+                <pre><code>git add .  # Adiciona todos os arquivos modificados
+# Ou git add nome-do-arquivo-especifico.js
+
+git commit -m "Descreva suas alterações aqui de forma concisa"</code></pre>
+                <p><strong>Boas práticas para mensagens de commit:</strong></p>
+                <ul>
+                    <li>Seja breve e objetivo no título (primeira linha).</li>
+                    <li>Use o imperativo (ex: "Corrige bug" em vez de "Corrigido bug").</li>
+                    <li>Se necessário, adicione uma descrição mais detalhada após uma linha em branco.</li>
+                </ul>
+            </article>
+
+            <article class="step">
+                <h3>6. Envie (Push) suas Alterações para o Seu Fork</h3>
+                <p>
+                    Envie as alterações da sua branch local para o seu repositório forkado no GitHub.
+                </p>
+                <pre><code>git push origin nome-da-sua-branch</code></pre>
+            </article>
+
+            <article class="step">
+                <h3>7. Crie um Pull Request (PR)</h3>
+                <p>
+                    Agora que suas alterações estão no seu fork no GitHub, você pode propor que elas sejam incorporadas
+                    ao repositório original. Isso é feito através de um "Pull Request" (PR).
+                </p>
+                <ol>
+                    <li>Vá para a página do seu repositório forkado no GitHub (<code>https://github.com/SEU-USUARIO-GITHUB/projeto-exemplo</code>).</li>
+                    <li>Você verá uma notificação sugerindo a criação de um Pull Request para a branch que você acabou de enviar. Clique em "Compare & pull request".</li>
+                    <li>Se não vir a notificação, vá para a aba "Pull requests" e clique em "New pull request".</li>
+                    <li>Certifique-se de que a "base repository" é o repositório original (<code>SEU-USUARIO-OU-ORG/projeto-exemplo</code>) e a "base branch" é geralmente <code>main</code> ou <code>master</code>.</li>
+                    <li>A "head repository" deve ser o seu fork e a "compare branch" deve ser a sua <code>nome-da-sua-branch</code>.</li>
+                    <li>Adicione um título claro e uma descrição detalhada para o seu PR, explicando o que você fez e por quê. Se houver issues relacionadas, mencione-as (ex: "Closes #123").</li>
+                    <li>Clique em "Create pull request".</li>
+                </ol>
+                <img src="https://docs.github.com/assets/cb-137328/images/help/pull_requests/pull-request-start-review-button.png" alt="Botão Create Pull Request no GitHub" class="step-image">
+            </article>
+
+            <article class="step">
+                <h3>8. Aguarde a Revisão e Merge</h3>
+                <p>
+                    Os mantenedores do projeto irão revisar seu Pull Request. Eles podem fazer comentários, solicitar alterações ou aprovar e fazer o "merge" (incorporar) das suas contribuições.
+                    Fique atento às notificações do GitHub e responda a quaisquer feedbacks.
+                </p>
+                <p>Parabéns! Você fez sua primeira contribuição!</p>
+            </article>
+        </section>
+
+        <section id="dicas-finais">
+            <h2>Dicas Finais</h2>
+            <ul>
+                <li><strong>Comunicação:</strong> Se tiver dúvidas, abra uma "Issue" no repositório original antes de começar a trabalhar em algo grande.</li>
+                <li><strong>Mantenha seu fork atualizado:</strong> Antes de criar uma nova branch, sincronize seu fork com o repositório original para evitar conflitos.
+                    <pre><code># Adicionar o repositório original como "upstream" (só precisa fazer uma vez)
+git remote add upstream https://github.com/SEU-USUARIO-OU-ORG/projeto-exemplo.git
+
+# Buscar as atualizações do upstream
+git fetch upstream
+
+# Ir para sua branch principal (geralmente main ou master)
+git checkout main
+
+# Mesclar as atualizações do upstream/main na sua main local
+git merge upstream/main
+
+# Enviar as atualizações para sua main no GitHub
+git push origin main
+</code></pre>
+                </li>
+                <li><strong>Siga as diretrizes de contribuição:</strong> Muitos projetos têm um arquivo <code>CONTRIBUTING.md</code> com regras e diretrizes específicas. Leia-o!</li>
+                <li><strong>Escreva testes:</strong> Se o projeto utiliza testes, adicione testes para suas novas funcionalidades ou correções.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Servidor de Testes de Aplicativos. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
