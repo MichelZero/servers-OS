@@ -19,6 +19,7 @@ O vídeo explica como realizar o downgrade ou regravar a BIOS em notebooks Acer 
 1.  **Baixar a BIOS Desejada:**
     *   Acesse o site oficial de suporte da Acer.
     *   Identifique seu dispositivo (pelo número de série, SNID ou modelo).
+    ![alt text](image.png)
     *   Na seção de "BIOS/Firmware", baixe a versão da BIOS para a qual você deseja fazer o downgrade ou a mesma versão que você já tem, caso queira apenas regravar. O arquivo geralmente virá em formato `.zip`.
 
 2.  **Preparar os Arquivos (Desabilitar a Verificação de Versão):**
