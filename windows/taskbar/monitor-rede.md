@@ -23,6 +23,7 @@ A maneira nativa mais próxima é usar o **Gerenciador de Tarefas**:
     *   Portátil (não requer instalação em alguns casos).
 *   **Onde encontrar:** Geralmente no GitHub. Procure por `TrafficMonitor` (o do desenvolvedor `zhongyang219` ou forks populares).
 *   **Como usar:** Baixe o executável, execute-o. Ele deve adicionar um pequeno monitor à sua barra de tarefas. Você pode clicar com o botão direito nele para acessar as configurações.
+
 ![alt text](image.png)
 
 *   **Página Principal do Projeto (Repositório de `zhongyang219`):**
