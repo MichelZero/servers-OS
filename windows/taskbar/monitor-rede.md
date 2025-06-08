@@ -23,6 +23,7 @@ A maneira nativa mais próxima é usar o **Gerenciador de Tarefas**:
     *   Portátil (não requer instalação em alguns casos).
 *   **Onde encontrar:** Geralmente no GitHub. Procure por `TrafficMonitor` (o do desenvolvedor `zhongyang219` ou forks populares).
 *   **Como usar:** Baixe o executável, execute-o. Ele deve adicionar um pequeno monitor à sua barra de tarefas. Você pode clicar com o botão direito nele para acessar as configurações.
+![alt text](image.png)
 
 *   **Página Principal do Projeto (Repositório de `zhongyang219`):**
     `[TrafficMonitor (zhongyang219 on GitHub)](https://github.com/zhongyang219/TrafficMonitor)`
@@ -38,6 +39,7 @@ A maneira nativa mais próxima é usar o **Gerenciador de Tarefas**:
 *   **Observação:** Por ser mais antigo, a instalação pode exigir a execução em modo de compatibilidade no Windows 10/11.
 
 Como o original foi descontinuado, não há um "link oficial" único. Você precisará procurar por versões que foram adaptadas ou que funcionam com modo de compatibilidade. Sites de download de software confiáveis são um bom lugar para começar a procurar por "NetSpeedMonitor".
+![alt text](image-2.png)
 
 *   **Exemplo de link (MajorGeeks - verifique a compatibilidade e a data):**
     `[NetSpeedMonitor (MajorGeeks - pode precisar de modo de compatibilidade)](https://www.majorgeeks.com/files/details/netspeedmonitor_32_bit.html)`
@@ -50,6 +52,7 @@ Como o original foi descontinuado, não há um "link oficial" único. Você prec
     *   Relatórios detalhados de uso, alertas, cronômetro.
     *   Mais recursos do que os gratuitos, mas tem um custo.
 *   **Onde encontrar:** No site oficial do DU Meter.
+![alt text](image-1.png)
 
 *   **Site Oficial:**
     `[DU Meter (Official Website)](https://www.dumeter.com/)`
