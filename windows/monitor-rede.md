@@ -37,6 +37,12 @@ A maneira nativa mais próxima é usar o **Gerenciador de Tarefas**:
 *   **Onde encontrar:** Pesquise por `NetSpeedMonitor` e procure por versões compatíveis com seu sistema operacional. Sites como o MajorGeeks ou o Softpedia costumavam hospedar o original e podem ter links para alternativas.
 *   **Observação:** Por ser mais antigo, a instalação pode exigir a execução em modo de compatibilidade no Windows 10/11.
 
+Como o original foi descontinuado, não há um "link oficial" único. Você precisará procurar por versões que foram adaptadas ou que funcionam com modo de compatibilidade. Sites de download de software confiáveis são um bom lugar para começar a procurar por "NetSpeedMonitor".
+
+*   **Exemplo de link (MajorGeeks - verifique a compatibilidade e a data):**
+    `[NetSpeedMonitor (MajorGeeks - pode precisar de modo de compatibilidade)](https://www.majorgeeks.com/files/details/netspeedmonitor_32_bit.html)`
+    *(Nota: Este link específico é para a versão de 32 bits; procure por versões de 64 bits se necessário e sempre verifique os comentários e a compatibilidade com o seu sistema operacional. A instalação no Windows 10/11 geralmente requer a execução do instalador em modo de compatibilidade com o Windows 7).*
+
 ### 3. DU Meter:
 *   **O que é:** Um software comercial (pago, com período de teste) mais robusto.
 *   **Funcionalidades:**
@@ -45,6 +51,11 @@ A maneira nativa mais próxima é usar o **Gerenciador de Tarefas**:
     *   Mais recursos do que os gratuitos, mas tem um custo.
 *   **Onde encontrar:** No site oficial do DU Meter.
 
+*   **Site Oficial:**
+    `[DU Meter (Official Website)](https://www.dumeter.com/)`
+    *   **Página de Download:** Geralmente, o link de download está proeminente na página inicial ou em uma seção "Download".
+    `[DU Meter Download (via site oficial)](https://www.dumeter.com/download/)`
+
 ### 4. GlassWire:
 *   **O que é:** Mais do que apenas um monitor de tráfego; é também um firewall e uma ferramenta de segurança de rede.
 *   **Funcionalidades:**
@@ -52,6 +63,11 @@ A maneira nativa mais próxima é usar o **Gerenciador de Tarefas**:
     *   Mostra quais aplicativos estão usando a rede.
     *   A versão gratuita tem algumas limitações, mas o monitoramento básico está presente.
 *   **Onde encontrar:** No site oficial do GlassWire.
+
+*   **Site Oficial:**
+    `[GlassWire (Official Website)](https://www.glasswire.com/)`
+    *   **Página de Download:**
+    `[GlassWire Download Page](https://www.glasswire.com/download/)`
 
 ## Recomendação:
 
