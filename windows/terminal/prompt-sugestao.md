@@ -4,6 +4,7 @@
 * *Categoria: terminal*
 
 para o perfil no powershell do exemplo abaixo, você precisa instalar o Oh My Posh e o Terminal-Icons.
+modificar 2 arquivos, o $PROFILE do PowerShell e o arquivo de configuração do Oh My Posh (clean-detailed.omp.json).
 
 ![alt text](image-2.png)
 
@@ -76,4 +77,174 @@ Set-Alias -Name ls -Value la -Force -Option AllScope
 Set-Alias -Name l -Value lb -Option AllScope
 
 Write-Host "Perfil do PowerShell carregado com sucesso!" -ForegroundColor Green
+```
+
+### Configuração do Oh My Posh
+Para configurar o Oh My Posh, você precisa criar um diretório para os temas e colocar o arquivo de configuração `clean-detailed.omp.json` dentro dele.
+
+```powershell
+# Cria o diretório para os temas do Oh My Posh
+$ThemeDir = "$HOME\.config\powershell\temas-oh-my-posh"
+New-Item -ItemType Directory -Path $ThemeDir -Force
+
+# Copia o arquivo de configuração para o diretório criado
+Copy-Item -Path "caminho\para\clean-detailed.omp.json" -Destination $ThemeDir
+```
+no arquivo `clean-detailed.omp.json`, você pode personalizar o tema conforme suas preferências. O Oh My Posh possui uma documentação completa sobre como criar e modificar temas.
+Veja o exemplo de tema abaixo:
+
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "transient_prompt": {
+    "template": "\ue285 ",
+    "foreground": "#FEF5ED",
+    "background": "transparent"
+  },
+  "console_title_template": "{{ .Folder }}",
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "properties": {
+            "macos": "\uf179 ",
+            "ubuntu": "\uf31b ",
+            "windows": "\uf871 "
+          },
+          "style": "diamond",
+          "leading_diamond": "\ue0b2",
+          "trailing_diamond": "<transparent,#FEF5ED>\ue0b2</>",
+          "template": " {{ if .WSL }}WSL at {{ end }}{{.Icon}}",
+          "foreground": "#011627",
+          "background": "#FEF5ED",
+          "type": "os"
+        },
+        {
+          "style": "diamond",
+          "leading_diamond": "\ue0b2",
+          "trailing_diamond": "<transparent,#FEF5ED>\ue0b2</>",
+          "template": "\uf489 {{ .Name }}",
+          "foreground": "#011627",
+          "background": "#FEF5ED",
+          "type": "shell"
+        },
+        {
+          "style": "diamond",
+          "leading_diamond": "\ue0b2",
+          "template": "\uf85a CPU: {{ round .PhysicalPercentUsed .Precision }}% | ",
+          "foreground": "#ffffff",
+          "background": "#516BEB",
+          "type": "sysinfo"
+        },
+        {
+          "style": "diamond",
+          "trailing_diamond": "<transparent,#516BEB>\ue0b2</>",
+          "template": "MEM: {{ (div ((sub .PhysicalTotalMemory .PhysicalFreeMemory)|float64) 1000000000.0) }}/{{ (div .PhysicalTotalMemory 1000000000.0) }}GB \uf85a ",
+          "foreground": "#ffffff",
+          "background": "#516BEB",
+          "type": "sysinfo"
+        },
+        {
+          "properties": {
+            "style": "roundrock",
+            "threshold": 0
+          },
+          "style": "diamond",
+          "leading_diamond": "\ue0b2",
+          "trailing_diamond": "\ue0b0",
+          "template": " {{ .FormattedMs }} ",
+          "foreground": "#d6deeb",
+          "background": "#575656",
+          "type": "executiontime"
+        }
+      ],
+      "newline": true
+    },
+    {
+      "type": "prompt",
+      "alignment": "right",
+      "segments": [
+        {
+          "properties": {
+            "branch_icon": "\ue725 ",
+            "fetch_stash_count": true,
+            "fetch_status": true,
+            "fetch_upstream_icon": true,
+            "fetch_worktree_count": true
+          },
+          "style": "diamond",
+          "leading_diamond": "\ue0b2",
+          "trailing_diamond": "\ue0b0",
+          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \uf692 {{ .StashCount }}{{ end }} ",
+          "foreground": "#011627",
+          "background": "#17D7A0",
+          "type": "git"
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "style": "plain",
+          "template": "\u256d\u2500",
+          "foreground": "",
+          "background": "",
+          "type": "text"
+        },
+        {
+          "properties": {
+            "time_format": "15:04"
+          },
+          "style": "plain",
+          "template": " ♥ {{ .CurrentDate | date .Format }} |",
+          "foreground": "",
+          "background": "",
+          "type": "time"
+        },
+        {
+          "style": "plain",
+          "template": " \uf292 ",
+          "foreground": "",
+          "background": "",
+          "type": "root"
+        },
+        {
+          "properties": {
+            "folder_icon": "\uf07b ",
+            "folder_separator_icon": " \uf554 ",
+            "home_icon": "\uf7db "
+          },
+          "style": "plain",
+          "template": " {{ .Path }} ",
+          "foreground": "",
+          "background": "",
+          "type": "path"
+        }
+      ],
+      "newline": true
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "properties": {
+            "always_enabled": true
+          },
+          "style": "plain",
+          "template": "\u2570\u2500 ",
+          "foreground": "",
+          "background": "",
+          "type": "exit"
+        }
+      ],
+      "newline": true
+    }
+  ],
+  "version": 3
+}
 ```
