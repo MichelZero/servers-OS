@@ -91,6 +91,10 @@ Set-Alias -Name l -Value lb -Option AllScope
 
 Write-Host "Perfil do PowerShell carregado com sucesso!" -ForegroundColor Green
 ```
+se acontecer algum erro com o carregamento do histórico, use o seguinte comando para limpar o histórico:
+```powershell
+Remove-Item (Join-Path ([Environment]::GetFolderPath('UserProfile')) ".ps_history") -ErrorAction SilentlyContinue
+```
 
 ### Configuração do Oh My Posh
 Para configurar o Oh My Posh, você precisa criar um diretório para os temas e colocar o arquivo de configuração `clean-detailed.omp.json` dentro dele.
