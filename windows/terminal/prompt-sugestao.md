@@ -46,7 +46,7 @@ oh-my-posh init pwsh --config "$PSScriptRoot\temas-oh-my-posh\clean-detailed.omp
 Set-PSReadLineOption -MaximumHistoryCount 20000
 Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 
-# --- BLOCO PARA REMOVER ---
+# --- ESTOU USANDO ESSE BLOCO ---
 # Salva o histórico de comandos ao fechar o PowerShell
 $HistoryFilePath = Join-Path ([Environment]::GetFolderPath('UserProfile')) ".ps_history"
 Register-EngineEvent PowerShell.Exiting -Action { Get-History | Export-Clixml $HistoryFilePath } | Out-Null
@@ -54,10 +54,15 @@ Register-EngineEvent PowerShell.Exiting -Action { Get-History | Export-Clixml $H
 if (Test-Path $HistoryFilePath) {
     Import-Clixml $HistoryFilePath | Add-History
 }
+
+# NÃO ESTOU USANDO ESSE BLOCO, GEROU CONFLITO COM O PSReadLine
+# -- BLOCO ANTIGO DE HISTÓRICO --
+# -- BLOCO HISTÓRICO --
 # Configura o PSReadLine para salvar/carregar o histórico automaticamente.
 # Este método é mais moderno e seguro, salvando os comandos à medida que são executados.
 #Set-PSReadLineOption -HistorySaveStyle SaveIncrementally
 #Set-PSReadLineOption -HistorySavePath (Join-Path ([Environment]::GetFolderPath('UserProfile')) ".ps_history")
+# -- FIM DO BLOCO HISTÓRICO --
 
 # Configura as setas para cima/baixo para pesquisar no histórico
 Set-PSReadLineOption -HistorySearchCursorMovesToEnd
