@@ -1,6 +1,9 @@
 # Chave de segurança (chave GPG) para atualizar repositórios APT no Linux
 
-# Este guia aborda como resolver o erro de chave GPG ausente ao atualizar repositórios
+## Este guia aborda como resolver o erro de chave GPG ausente ao atualizar repositórios
+* *Autor: Michel*
+* *Data: 19/06/2025*
+* *Categoria: terminal*
 
 # Kali Linux, Debian ou Ubuntu.
 ## O erro comum é algo como:
