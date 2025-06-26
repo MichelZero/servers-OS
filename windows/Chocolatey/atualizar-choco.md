@@ -74,7 +74,7 @@ Use `choco upgrade all -y --ignore-dependencies` com extrema cautela e apenas se
  * **Instalar um pacote:** `choco install <nome_do_pacote>`
  * **Desinstalar um pacote:** `choco uninstall <nome_do_pacote>`
  * **Atualizar um pacote específico:** `choco upgrade <nome_do_pacote>`
- * **Atualizar todos os pacotes:** `choco upgrade all -y`
+ <!-- * **Atualizar todos os pacotes:** `choco upgrade all -y` -->
  * **Procurar um pacote:** `choco search <nome_do_pacote>`
  * **Exibir informações sobre um pacote:** `choco info <nome_do_pacote>`
  # 
