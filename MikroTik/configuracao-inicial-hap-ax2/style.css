@@ -1,0 +1,156 @@
+/* --- Global Styles & Fonts --- */
+:root {
+    --primary-font: 'Lato', sans-serif;
+    --code-font: 'Fira Code', monospace;
+    --bg-color: #f4f7f9;
+    --card-bg-color: #ffffff;
+    --header-bg-color: #2c3e50;
+    --text-color: #34495e;
+    --accent-color: #3498db;
+    --revert-accent-color: #e74c3c;
+    --code-bg: #2d2d2d;
+    --code-text: #cccccc;
+    --border-color: #ecf0f1;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--primary-font);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.7;
+}
+
+/* --- Layout & Container --- */
+.container {
+    max-width: 960px;
+    margin: 30px auto;
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+header {
+    background-color: var(--header-bg-color);
+    color: white;
+    padding: 40px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+main {
+    padding: 40px;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+/* --- Script Code Block --- */
+.code-container {
+    background-color: var(--code-bg);
+    border-radius: 8px;
+    padding: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #444;
+}
+
+pre, code {
+    font-family: var(--code-font);
+    color: var(--code-text);
+    font-size: 0.9em;
+    line-height: 1.6;
+}
+
+/* --- Explanation Sections --- */
+.explanation-section h2, .script-section h2 {
+    font-size: 2em;
+    color: var(--header-bg-color);
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.step {
+    margin-bottom: 30px;
+}
+
+.step h3 {
+    font-size: 1.4em;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.step ul {
+    list-style-position: inside;
+    padding-left: 10px;
+}
+
+.step li {
+    margin-bottom: 8px;
+}
+
+blockquote {
+    border-left: 5px solid var(--accent-color);
+    background-color: #f8f9fa;
+    padding: 15px 20px;
+    margin: 20px 0;
+    font-style: italic;
+    color: #555;
+    border-radius: 0 5px 5px 0;
+}
+
+/* --- Revert Section Specifics --- */
+.revert-section h2 {
+    border-bottom-color: var(--revert-accent-color);
+}
+
+.revert-section blockquote {
+    border-left-color: var(--revert-accent-color);
+}
+
+
+/* --- Footer --- */
+footer {
+    background-color: #ecf0f1;
+    text-align: center;
+    padding: 20px;
+    font-size: 1em;
+    color: #7f8c8d;
+    border-radius: 0 0 10px 10px;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    header, main {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.6em;
+    }
+}

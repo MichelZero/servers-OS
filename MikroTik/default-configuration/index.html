@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuração Padrão do RouterOS - Mikrotik</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>RouterOS Default Configuration</h1>
+            <p>Esta janela é o sumário da configuração padrão de fábrica do seu roteador Mikrotik, informando como ele vem pré-configurado para uso imediato.</p>
+        </header>
+        <div class="default-conf-image" style="text-align:center; margin: 2em 0;">
+            <img src="default-conf.png" alt="Diagrama da configuração padrão do Mikrotik" style="max-width:100%; height:auto;">
+            <p style="font-size:0.95em; color:#555;">Figura 01: Diagrama da configuração padrão do Mikrotik</p>
+        </div>
+
+        <main>
+            <section class="info-block">
+                <h2>Welcome to RouterOS! (Recomendações)</h2>
+                <p>Uma lista de boas práticas de segurança que você deve seguir:</p>
+                <ol>
+                    <li>Definir uma senha forte para o roteador.</li>
+                    <li>Atualizar o software (RouterOS) para a versão mais recente.</li>
+                    <li>Manter o firewall ativado para redes não confiáveis.</li>
+                    <li>Definir uma senha forte e personalizada para o Wi-Fi.</li>
+                    <li>Configurar seu país para seguir as regulamentações de rádio locais.</li>
+                </ol>
+            </section>
+
+            <section class="info-block">
+                <h2>RouterMode (Modo do Roteador)</h2>
+                <p>Descreve a lógica principal da configuração:</p>
+                <ul>
+                    <li>A porta <strong>WAN</strong> (internet) está protegida por firewall e configurada para receber IP automaticamente.</li>
+                    <li>As interfaces <strong>Wireless</strong> e <strong>Ethernet</strong> (exceto a WAN) estão agrupadas em uma <strong>ponte (bridge)</strong>, funcionando como uma única rede local (LAN).</li>
+                </ul>
+            </section>
+
+            <section class="info-block">
+                <h2>LAN Configuration (Rede Local)</h2>
+                <p>Detalhes da sua rede interna:</p>
+                <ul>
+                    <li>Endereço IP do roteador: <code>192.168.88.1/24</code></li>
+                    <li>Servidor DHCP: <strong>Ativado</strong> (distribui IPs automaticamente).</li>
+                    <li>Servidor DNS: <strong>Ativado</strong> (permite a navegação por nomes).</li>
+                </ul>
+            </section>
+
+            <section class="info-block">
+                <h2>Wi-Fi Configuration (Redes Wireless)</h2>
+                <div class="wifi-config-container">
+                    <div class="wifi-card">
+                        <h3>wifi1 (5GHz)</h3>
+                        <dl>
+                            <dt>mode:</dt><dd>ap (Access Point)</dd>
+                            <dt>band:</dt><dd>5ghz-ax (Wi-Fi 6)</dd>
+                            <dt>tx-chains/rx-chains:</dt><dd>0;1</dd>
+                            <dt>installation:</dt><dd>any</dd>
+                            <dt>ht-extension:</dt><dd>20/40/80mhz</dd>
+                            <dt>wpa2:</dt><dd>yes (Segurança ativada)</dd>
+                        </dl>
+                    </div>
+                    <div class="wifi-card">
+                        <h3>wifi2 (2.4GHz)</h3>
+                        <dl>
+                            <dt>mode:</dt><dd>ap (Access Point)</dd>
+                            <dt>band:</dt><dd>2ghz-ax (Wi-Fi 6)</dd>
+                            <dt>tx-chains/rx-chains:</dt><dd>0;1</dd>
+                        </dl>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-block">
+                <h2>Ações Disponíveis (Botões)</h2>
+                <div class="button-explanation">
+                    <h4><code>Remove Configuration</code></h4>
+                    <p>Apaga <strong>completamente</strong> a configuração padrão, deixando o roteador "em branco". Use com cuidado, pois o acesso via IP será perdido.</p>
+                </div>
+                <div class="button-explanation">
+                    <h4><code>Show Script...</code></h4>
+                    <p>Exibe os comandos exatos do RouterOS usados para criar esta configuração. Ótimo para aprendizado.</p>
+                </div>
+                <div class="button-explanation">
+                    <h4><code>OK</code></h4>
+                    <p>Ação mais comum. Fecha esta janela informativa e permite que você comece a usar o roteador com a configuração padrão ativa.</p>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>Esta janela é o "mapa" inicial do seu Mikrotik, projetada para um início rápido e seguro.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
