@@ -13,7 +13,7 @@
 
     <header class="hero">
         <div class="container">
-            <h1>Instale o EVE-NG Community no VirtualBox</h1>
+            <h1><mark>Instale o EVE-NG Community no VirtualBox</mark></h1>
             <p class="subtitle">O seu guia passo a passo para criar um laboratório de redes poderoso e gratuito.</p>
         </div>
     </header>
@@ -110,9 +110,18 @@
                             <li>Não instale nenhum software adicional (snaps). Aguarde a instalação terminar e reinicie a VM.</li>
                         </ul>
                     </li>
-                     <li>
+                    <li>
                         <strong>Instale o EVE-NG:</strong> Após o login no console do Ubuntu, execute o seguinte comando para baixar e executar o script de instalação automática do EVE-NG.
-                        <pre><code>wget -O - https://www.eve-ng.net/focal/install-eve.sh | bash -i</code></pre>
+                        <pre><code id="eve-install-cmd">wget -O - https://www.eve-ng.net/focal/install-eve.sh | bash -i</code></pre>
+                        <button onclick="copyEveCmd()" class="copy-btn">Copiar comando</button>
+                        <script>
+                        function copyEveCmd() {
+                            const code = document.getElementById('eve-install-cmd').innerText;
+                            navigator.clipboard.writeText(code).then(function() {
+                                alert('Comando copiado!');
+                            });
+                        }
+                        </script>
                         <p>O script fará todo o trabalho. Ao final, o sistema será reiniciado.</p>
                     </li>
                     <li>
