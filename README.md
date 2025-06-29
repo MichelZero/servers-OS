@@ -1,6 +1,11 @@
 # Servers-OS: Comandos e dicas para Linux e Windows
 
-Este repositório é um guia prático com comandos e dicas essenciais para administração de sistemas operacionais Linux e Windows, utilizado como material de apoio para aulas de Sistemas Operacionais. O objetivo é centralizar comandos úteis, scripts e configurações que facilitam o dia a dia da administração de servidores, além de servir como um ponto de partida para estudantes e entusiastas da área.
+Explore os tópicos para acessar guias, scripts e dicas práticas sobre administração de servidores Linux, Windows e outros sistemas. Este repositório reúne anotações de aulas e experiências reais, organizadas para consulta rápida e aprendizado contínuo. O conteúdo é atualizado periodicamente — contribuições e sugestões são bem-vindas!
+Nota: Este repositório é um material de apoio para aulas de Desenvolvimento, Sistemas Operacionais, Redes de Computadores, e Segurança da Informação. As informações são baseadas em experiências práticas e podem ser atualizadas com frequência.
+
+Obs: Muitos arquivos ainda estão em formato Markdown.
+
+Alerta: Este repositório não é um material oficial e pode conter erros ou informações desatualizadas. Utilize por sua conta e risco.
 
 ## Conteúdo
 

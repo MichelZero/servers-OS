@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Instalação do EVE-NG no VirtualBox</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Instale o EVE-NG Community no VirtualBox</h1>
+            <p class="subtitle">O seu guia passo a passo para criar um laboratório de redes poderoso e gratuito.</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section id="introducao">
+            <h2>O que é o EVE-NG?</h2>
+            <p>O <strong>EVE-NG (Emulated Virtual Environment - Next Generation)</strong> é uma plataforma de emulação de redes que permite a criação de laboratórios complexos com dispositivos de múltiplos fornecedores (Cisco, Juniper, Fortinet, Check Point, etc.). É uma ferramenta essencial para estudantes, engenheiros de rede e profissionais de TI que precisam testar configurações, estudar para certificações ou simular ambientes de produção.</p>
+        </section>
+
+        <section id="requisitos">
+            <h2>Pré-requisitos</h2>
+            <p>Antes de começar, garanta que você tem o seguinte:</p>
+            <ul>
+                <li><strong>Oracle VirtualBox:</strong> Instalado e funcionando no seu computador.</li>
+                <li><strong>Hardware com Virtualização:</strong> A tecnologia de virtualização (Intel VT-x ou AMD-V) deve estar ativada na BIOS/UEFI do seu computador.</li>
+                <li><strong>Recursos Mínimos:</strong> Pelo menos 8 GB de RAM e 40 GB de espaço em disco livre são recomendados para um bom desempenho.</li>
+                <li><strong>Conexão com a Internet:</strong> Para baixar os arquivos necessários.</li>
+            </ul>
+        </section>
+
+        <section id="metodos">
+            <h2>Escolha o seu Método de Instalação</h2>
+            <p>Existem duas formas principais de instalar o EVE-NG no VirtualBox. Recomendamos o <strong>Método 1 (via OVF)</strong> por ser mais rápido e simples.</p>
+
+            <article class="metodo">
+                <h3>Método 1: Instalação via OVF (Recomendado)</h3>
+                <p>Este método utiliza uma máquina virtual pré-configurada (formato OVF) fornecida diretamente pelo time do EVE-NG.</p>
+                <ol>
+                    <li>
+                        <strong>Baixe o arquivo OVF:</strong> Acesse a <a href="https://www.eve-ng.net/index.php/download/" target="_blank">página de downloads do EVE-NG</a> e baixe a versão "EVE-NG Community Edition OVF" para "Bare EVE on VMWare". Não se preocupe, o arquivo funciona perfeitamente no VirtualBox.
+                    </li>
+                    <li>
+                        <strong>Importe a Appliance no VirtualBox:</strong>
+                        <ul>
+                            <li>Abra o VirtualBox.</li>
+                            <li>Vá em <code>Arquivo > Importar Appliance...</code>.</li>
+                            <li>Na janela que abrir, selecione o arquivo <code>.ovf</code> que você baixou e clique em "Próximo".</li>
+                            <li>Revise as configurações da VM (pode aumentar a RAM e o número de CPUs se desejar) e clique em "Importar".</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Ajuste a Rede:</strong>
+                        <ul>
+                            <li>Com a nova VM (EVE-NG) selecionada, vá em <code>Configurações > Rede</code>.</li>
+                            <li>No <strong>Adaptador 1</strong>, mude a opção "Conectado a" para <strong>"Placa de Rede em Modo Bridge"</strong>. Isso fará com que sua VM pegue um IP da sua rede local, facilitando o acesso.</li>
+                            <li>Clique em "OK".</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Inicie a VM:</strong> Inicie a máquina virtual EVE-NG. Uma tela de console preta aparecerá.
+                    </li>
+                    <li>
+                        <strong>Acesse o EVE-NG:</strong> Após a inicialização, a tela de login mostrará o endereço IP da máquina virtual. Anote este IP.
+                        <ul>
+                            <li>Abra seu navegador e acesse <code>http://[ENDEREÇO_IP_DA_VM]</code>.</li>
+                            <li>As credenciais padrão são: Usuário: <code>admin</code> / Senha: <code>eve</code>.</li>
+                            <li>Pronto! Você está no painel do EVE-NG.</li>
+                        </ul>
+                    </li>
+                </ol>
+                <div class="note">
+                    <strong>Nota:</strong> As credenciais de login para o console (tela preta) são: Usuário: <code>root</code> / Senha: <code>eve</code>.
+                </div>
+            </article>
+
+            <article class="metodo">
+                <h3>Método 2: Instalação em um Servidor Ubuntu (Avançado)</h3>
+                <p>Este método oferece mais flexibilidade, pois você instala o EVE-NG sobre uma instalação limpa do Ubuntu Server.</p>
+                <ol>
+                    <li><strong>Baixe o Ubuntu Server:</strong> Baixe a imagem ISO do <a href="https://ubuntu.com/download/server" target="_blank">Ubuntu Server 22.04 LTS</a>.</li>
+                    <li>
+                        <strong>Crie uma Nova VM no VirtualBox:</strong>
+                        <ul>
+                            <li>Clique em "Novo".</li>
+                            <li>Nomeie a VM (ex: EVE-NG Ubuntu), selecione a imagem ISO do Ubuntu que você baixou.</li>
+                            <li>Marque a opção "Skip Unattended Installation".</li>
+                            <li>Aloque recursos: no mínimo 4GB de RAM, 2 CPUs e 40GB de disco.</li>
+                            <li>Finalize a criação da VM.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Configure a Rede:</strong> Antes de iniciar, vá em <code>Configurações > Rede</code> e mude o <strong>Adaptador 1</strong> para <strong>"Placa de Rede em Modo Bridge"</strong>.
+                    </li>
+                    <li>
+                        <strong>Instale o Ubuntu Server:</strong> Inicie a VM e siga o assistente de instalação do Ubuntu.
+                        <ul>
+                            <li>Selecione o idioma e layout de teclado.</li>
+                            <li>Na configuração de rede, deixe o padrão (DHCP).</li>
+                            <li>Use o disco inteiro para a partição.</li>
+                            <li>Defina seu nome, nome do servidor, nome de usuário e senha.</li>
+                            <li><strong>Importante:</strong> Na etapa "SSH Setup", marque a opção <strong>"Install OpenSSH server"</strong>.</li>
+                            <li>Não instale nenhum software adicional (snaps). Aguarde a instalação terminar e reinicie a VM.</li>
+                        </ul>
+                    </li>
+                     <li>
+                        <strong>Instale o EVE-NG:</strong> Após o login no console do Ubuntu, execute o seguinte comando para baixar e executar o script de instalação automática do EVE-NG.
+                        <pre><code>wget -O - https://www.eve-ng.net/focal/install-eve.sh | bash -i</code></pre>
+                        <p>O script fará todo o trabalho. Ao final, o sistema será reiniciado.</p>
+                    </li>
+                    <li>
+                        <strong>Acesse o EVE-NG:</strong> Após reiniciar, a tela de login mostrará o endereço IP. Use esse IP no seu navegador para acessar a interface web com as credenciais padrão (<code>admin</code>/<code>eve</code>).
+                    </li>
+                </ol>
+            </article>
+
+        </section>
+
+        <section id="proximos-passos">
+            <h2>Próximos Passos</h2>
+            <p>Parabéns! Seu laboratório EVE-NG está pronto. O próximo passo é o mais importante: <strong>adicionar as imagens dos sistemas operacionais</strong> (como Cisco IOS, ASA, Juniper Junos, etc.) que você deseja usar em seus laboratórios.</p>
+            <p>Este processo envolve o upload de arquivos de imagem (QEMU, IOL, Dynamips) para diretórios específicos dentro da VM do EVE-NG. Consulte a <a href="https://www.eve-ng.net/index.php/documentation/how-to-add-images/" target="_blank">documentação oficial do EVE-NG</a> para obter instruções detalhadas sobre como adicionar cada tipo de imagem.</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Criado como um guia prático. Sempre consulte a documentação oficial para informações atualizadas.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
