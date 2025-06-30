@@ -1,0 +1,187 @@
+/* --- Reset e Configurações Globais --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.7;
+    background-color: #f4f7f9;
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- Tipografia e Links --- */
+h1, h2, h3, h4 {
+    line-height: 1.2;
+    margin-bottom: 15px;
+    color: #0d2c4e;
+}
+
+h1 {
+    font-size: 2.8rem;
+}
+
+h2 {
+    font-size: 2rem;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: #1a5ca3;
+}
+
+h4 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-top: 20px;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+ul, ol {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+strong {
+    color: #113c6c;
+}
+
+/* --- Header / Hero Section --- */
+.hero {
+    background: linear-gradient(90deg, #c42a2a 0%, #a31a1a 100%); /* Cor de alerta/erro */
+    color: #fff;
+    padding: 60px 0;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.hero .subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* --- Seções Principais --- */
+section {
+    background-color: #fff;
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Estilo dos Passos de Solução --- */
+.passo {
+    border: 1px solid #e0e6ed;
+    padding: 25px;
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: #fbfdff;
+}
+
+.passo:not(:last-child) {
+    margin-bottom: 30px;
+}
+
+/* --- Elementos de Código e Notas --- */
+pre, code {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+code {
+    background-color: #eef2f5;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 0.95em;
+}
+
+pre {
+    background-color: #2d3748;
+    color: #e2e8f0;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+.note {
+    background-color: #fffbe6;
+    border-left: 5px solid #f9bf2d;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 0 4px 4px 0;
+}
+
+/* NOVO: Caixa de destaque para a solução principal */
+.highlight-box {
+    background-color: #e6ffed;
+    border-left: 5px solid #28a745;
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 0 4px 4px 0;
+}
+
+.highlight-box strong {
+    color: #155724;
+    font-size: 1.1em;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #777;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    section, .passo {
+        padding: 20px;
+    }
+
+    .hero {
+        padding: 40px 0;
+    }
+}

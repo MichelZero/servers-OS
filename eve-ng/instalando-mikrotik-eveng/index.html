@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como Adicionar MikroTik RouterOS (CHR) no EVE-NG</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Adicione o MikroTik RouterOS ao seu EVE-NG</h1>
+            <p class="subtitle">Emule roteadores MikroTik e teste suas configurações de BGP, OSPF, VPNs e muito mais em um ambiente virtual.</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section id="introducao">
+            <h2>Por que usar MikroTik no EVE-NG?</h2>
+            <p>O <strong>MikroTik RouterOS</strong> é um sistema operacional de roteamento extremamente versátil e leve. A sua versão <strong>CHR (Cloud Hosted Router)</strong> é perfeita para virtualização, permitindo que você crie laboratórios complexos com baixo consumo de recursos. É uma ferramenta fantástica para aprender e testar funcionalidades avançadas de rede.</p>
+        </section>
+
+        <section id="requisitos">
+            <h2>Pré-requisitos</h2>
+            <p>Antes de começar, você precisa ter:</p>
+            <ul>
+                <li><strong>EVE-NG Community já instalado</strong> e funcionando.</li>
+                <li><strong>Acesso SSH à sua VM do EVE-NG</strong> (usando o Terminal, PowerShell ou um cliente como o <a href="https://www.putty.org/" target="_blank">PuTTY</a>).</li>
+                <li><strong>Um cliente SCP/SFTP</strong> para transferir arquivos (como o <a href="https://winscp.net/" target="_blank">WinSCP</a> para Windows ou o comando `scp` no Linux/macOS).</li>
+            </ul>
+        </section>
+
+        <section id="passos">
+            <h2>Guia de Instalação Passo a Passo</h2>
+            <p>O processo consiste em baixar a imagem correta, criar o diretório no EVE-NG, enviar a imagem e corrigir as permissões.</p>
+
+            <article class="passo">
+                <h3>Passo 1: Baixar a Imagem do MikroTik CHR</h3>
+                <ol>
+                    <li>
+                        Acesse a <a href="https://mikrotik.com/download" target="_blank">página de downloads oficial da MikroTik</a>.
+                    </li>
+                    <li>
+                        Na seção "Cloud Hosted Router (CHR)", encontre a versão estável (Stable) mais recente.
+                    </li>
+                    <li>
+                        <strong>Importante:</strong> Baixe o arquivo no formato <strong>"Raw disk image"</strong>, que terá a extensão <code>.img</code>. Por exemplo: <code>chr-7.15.img</code>.
+                    </li>
+                </ol>
+                <div class="note">
+                    <strong>Atenção:</strong> Não baixe a versão VDI, VMDK ou VHD. O EVE-NG funciona melhor com o formato de imagem raw que será convertido para QCOW2.
+                </div>
+            </article>
+
+            <article class="passo">
+                <h3>Passo 2: Criar o Diretório da Imagem no EVE-NG</h3>
+                <p>Cada imagem QEMU no EVE-NG precisa de seu próprio diretório. O nome do diretório é padronizado.</p>
+                <ol>
+                    <li>Conecte-se à sua VM EVE-NG via SSH com o usuário <code>root</code> (senha padrão: <code>eve</code>).</li>
+                    <li>
+                        O nome do diretório deve começar com <code>mikrotik-</code> seguido da versão que você baixou. Por exemplo, para a versão 7.15, o diretório será <code>mikrotik-7.15</code>.
+                    </li>
+                    <li>
+                        Crie o diretório com o seguinte comando (ajuste a versão se necessário):
+                        <pre><code>mkdir /opt/unetlab/addons/qemu/mikrotik-7.15</code></pre>
+                    </li>
+                </ol>
+            </article>
+
+            <article class="passo">
+                <h3>Passo 3: Enviar e Renomear a Imagem</h3>
+                <p>Agora, vamos transferir o arquivo <code>.img</code> para a pasta que acabamos de criar e renomeá-lo para o padrão do EVE-NG.</p>
+                <ol>
+                    <li>
+                        Use um cliente SCP (como WinSCP) ou o comando <code>scp</code> para enviar o arquivo <code>chr-x.xx.img</code> do seu computador para o diretório recém-criado na VM do EVE-NG.
+                        <p>Exemplo com o comando <code>scp</code>:</p>
+                        <pre><code>scp chr-7.15.img root@[IP_DO_SEU_EVE]:/opt/unetlab/addons/qemu/mikrotik-7.15/</code></pre>
+                    </li>
+                    <li>
+                        Após o upload, acesse novamente o terminal SSH do seu EVE-NG.
+                    </li>
+                    <li>
+                        Navegue até a pasta e renomeie o arquivo para <code>hda.qcow2</code>. Este é o nome que o EVE-NG espera encontrar.
+                        <pre><code>cd /opt/unetlab/addons/qemu/mikrotik-7.15
+mv chr-7.15.img hda.qcow2</code></pre>
+                    </li>
+                </ol>
+            </article>
+            
+            <article class="passo">
+                <h3>Passo 4: Corrigir as Permissões</h3>
+                <p>Este é um passo final e <strong>obrigatório</strong> para que o EVE-NG possa utilizar a nova imagem.</p>
+                <ol>
+                    <li>
+                        Ainda no terminal SSH do EVE-NG, execute o seguinte comando:
+                        <pre><code>/opt/unetlab/wrappers/unl_wrapper -a fixpermissions</code></pre>
+                    </li>
+                    <li>O script irá verificar e corrigir as permissões de todos os arquivos de imagem, incluindo a que acabamos de adicionar.</li>
+                </ol>
+            </article>
+
+        </section>
+
+        <section id="verificacao">
+            <h2>Usando o MikroTik no seu Laboratório</h2>
+            <p>Se tudo correu bem, o MikroTik já está disponível!</p>
+            <ol>
+                <li>Abra ou atualize a interface web do seu EVE-NG no navegador.</li>
+                <li>Crie um novo laboratório ou abra um existente.</li>
+                <li>Clique com o botão direito e selecione "Add a node".</li>
+                <li>Na lista de nós disponíveis, procure por "Mikrotik". Ele deverá aparecer.</li>
+                <li>Adicione o nó ao seu laboratório, inicie-o e acesse o console.</li>
+            </ol>
+             <div class="note">
+                <strong>Login Padrão do MikroTik CHR:</strong><br>
+                Usuário: <code>admin</code><br>
+                Senha: <em>(em branco - apenas pressione Enter)</em><br>
+                Na primeira vez, ele pedirá para que você defina uma nova senha.
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Guia criado para a comunidade. Para mais detalhes sobre imagens, consulte a documentação oficial do EVE-NG.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

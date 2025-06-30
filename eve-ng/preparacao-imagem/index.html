@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solução: MikroTik Inicia e Para no EVE-NG</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Resolvendo: MikroTik Inicia e Para no EVE-NG</h1>
+            <p class="subtitle">Um guia de troubleshooting para o problema comum de nós que não permanecem ligados no VirtualBox.</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section id="sintoma">
+            <h2>O Sintoma: O Nó Inicia e Para Imediatamente</h2>
+            <p>Você adiciona o nó MikroTik ao seu laboratório, clica em "Start" e o ícone fica azul por alguns segundos, mas logo em seguida volta a ficar cinza. O nó não permanece ligado e você não consegue acessar o console. O que está acontecendo?</p>
+            <p>Este comportamento é um sinal clássico de que o EVE-NG tentou executar a máquina virtual (VM) do MikroTik, mas encontrou um <strong>erro fatal</strong> durante a inicialização. Como resultado, o processo QEMU que roda o nó é encerrado.</p>
+        </section>
+
+        <section id="solucoes">
+            <h2>Causas e Soluções (Da Mais Comum à Menos Comum)</h2>
+            <p>Vamos investigar as causas mais prováveis para este problema e como resolvê-las.</p>
+
+            <article class="passo">
+                <h3>Causa 1: Virtualização Aninhada (Nested VT-x/AMD-V) Desabilitada</h3>
+                <p>Quando você roda o EVE-NG no VirtualBox, você está rodando uma VM (o MikroTik) dentro de outra VM (o EVE-NG). Para que isso funcione, o VirtualBox precisa permitir que a VM do EVE-NG use as extensões de virtualização do seu processador físico.</p>
+
+                <div class="highlight-box">
+                    <strong>Esta é a causa mais provável do problema.</strong> Comece por aqui.
+                </div>
+                
+                <h4>Como Corrigir:</h4>
+                <ol>
+                    <li><strong>Desligue completamente</strong> a sua VM do EVE-NG no VirtualBox (não salve o estado, escolha "Desligar").</li>
+                    <li>No VirtualBox, selecione a VM do EVE-NG na lista.</li>
+                    <li>Clique em <strong>Configurações</strong>.</li>
+                    <li>Navegue até a aba <strong>Sistema &rarr; Processador</strong>.</li>
+                    <li>Marque a caixa de seleção: <strong>"Habilitar VT-x/AMD-V Aninhado"</strong>.</li>
+                    <li>Clique em "OK" para salvar.</li>
+                    <li>Inicie a VM do EVE-NG novamente e tente iniciar o nó MikroTik no seu laboratório.</li>
+                </ol>
+            </article>
+
+            <article class="passo">
+                <h3>Causa 2: Erro na Preparação da Imagem (Renomear vs. Converter)</h3>
+                <p>Simplesmente renomear o arquivo <code>.img</code> para <code>hda.qcow2</code> pode não ser suficiente se o formato da imagem não for "raw" puro. A forma mais garantida de preparar a imagem é convertê-la usando as ferramentas do próprio EVE-NG.</p>
+
+                <h4>Como Corrigir:</h4>
+                <ol>
+                    <li>Conecte-se à sua VM EVE-NG via SSH com o usuário <code>root</code>.</li>
+                    <li>Navegue até o diretório da imagem do MikroTik. Exemplo:
+                        <pre><code>cd /opt/unetlab/addons/qemu/mikrotik-7.15/</code></pre>
+                    </li>
+                    <li>(Se necessário) Envie o arquivo <code>.img</code> original para esta pasta novamente.</li>
+                    <li>Use o comando <code>qemu-img convert</code> para criar um arquivo <code>hda.qcow2</code> novo e formatado corretamente. <strong>Este comando substitui o arquivo renomeado.</strong>
+                        <pre><code># Converte a imagem raw para o formato qcow2
+qemu-img convert -f raw -O qcow2 chr-7.15.img hda.qcow2</code></pre>
+                    </li>
+                    <li>Após converter, execute o comando de permissões. <strong>Este passo é obrigatório!</strong>
+                        <pre><code>/opt/unetlab/wrappers/unl_wrapper -a fixpermissions</code></pre>
+                    </li>
+                </ol>
+            </article>
+            
+            <article class="passo">
+                <h3>Causa 3: Erros de Nomenclatura ou Localização</h3>
+                <p>O EVE-NG é extremamente rigoroso com a estrutura de pastas e nomes de arquivos. Um pequeno erro de digitação pode impedir que tudo funcione.</p>
+                
+                <h4>Como Verificar:</h4>
+                <ul>
+                    <li><strong>Nome do Diretório:</strong> Verifique se o nome da pasta começa com <code>mikrotik-</code> (tudo minúsculo). Ex: <code>/opt/unetlab/addons/qemu/mikrotik-7.15</code>.</li>
+                    <li><strong>Nome do Arquivo:</strong> Verifique se o arquivo de disco se chama exatamente <code>hda.qcow2</code> (tudo minúsculo).</li>
+                </ul>
+                <p>Use o comando abaixo dentro da pasta para confirmar:</p>
+                <pre><code>ls -l /opt/unetlab/addons/qemu/mikrotik-7.15/</code></pre>
+                <p>A saída deve listar claramente o arquivo <code>hda.qcow2</code>.</p>
+            </article>
+
+        </section>
+
+        <section id="plano-de-acao">
+            <h2>Plano de Ação Resumido</h2>
+            <p>Não sabe por onde começar? Siga esta ordem:</p>
+            <ol>
+                <li><strong>Habilite o VT-x/AMD-V Aninhado</strong> no VirtualBox. Teste. Se funcionar, você terminou!</li>
+                <li>Se não funcionar, <strong>converta a imagem</strong> com <code>qemu-img convert</code> e corrija as permissões, como descrito na Causa 2.</li>
+                <li>Se ainda assim falhar, <strong>revise os nomes</strong> de pasta e arquivo (Causa 3) para garantir que não há erros de digitação.</li>
+            </ol>
+            <p>Com estes passos, seu nó MikroTik estará funcionando perfeitamente em seu laboratório EVE-NG.</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Guia prático para a comunidade EVE-NG. Problemas resolvidos abrem portas para o aprendizado.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
