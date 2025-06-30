@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Metadados Essenciais -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO e Informações da Página -->
+    <title>ssh-copy-id no Windows: O Guia Definitivo</title>
+    <meta name="description" content="Aprenda a usar o ssh-copy-id no PowerShell do Windows com 4 métodos fáceis: nativo, Chocolatey, Scoop e WSL. Copie sua chave SSH sem complicações.">
+    <meta name="keywords" content="ssh-copy-id, windows, powershell, openssh, wsl, chocolatey, scoop, chave ssh, guia, tutorial">
+    
+    <!-- Link para a Folha de Estilo -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Fontes do Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+
+    <!-- Ícone da Página (Favicon) - Descomente e substitua pelo seu -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+    <header class="hero">
+        <div class="container">
+            <h1>ssh-copy-id no Windows</h1>
+            <p class="subtitle">O Guia Definitivo para Copiar sua Chave SSH Diretamente do PowerShell</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section id="introducao">
+            <h2>O Problema: Cadê o `ssh-copy-id`?</h2>
+            <p>Se você veio do mundo Linux, sabe como o comando <code>ssh-copy-id</code> é prático para configurar a autenticação por chave SSH. Infelizmente, essa ferramenta não vem instalada com o OpenSSH nativo do Windows. Este guia apresenta <strong>quatro métodos eficazes</strong> para replicar essa funcionalidade e nunca mais precisar copiar e colar chaves manualmente.</p>
+        </section>
+
+        <section id="pre-requisitos">
+            <h2>Pré-requisitos</h2>
+            <p>Antes de começar, garanta que você já tem uma chave SSH. Se não tiver, abra o PowerShell e execute:</p>
+            <pre><code>ssh-keygen -t rsa -b 4096</code></pre>
+            <p>Pressione Enter para aceitar os padrões. Isso criará sua chave pública em <code>C:\Users\SeuUsuario\.ssh\id_rsa.pub</code>.</p>
+        </section>
+
+        <section id="metodos">
+            <h2>4 Maneiras de Copiar sua Chave SSH</h2>
+            <p>Escolha o método que melhor se adapta ao seu fluxo de trabalho.</p>
+
+            <article class="metodo">
+                <h3>Método 1: O Jeito PowerShell (Nativo e Recomendado)</h3>
+                <p>Esta é a solução mais limpa, pois não requer nenhuma instalação adicional. É um comando de uma linha que replica exatamente o que o `ssh-copy-id` faz.</p>
+                <ol>
+                    <li>
+                        <strong>Execute o comando mágico:</strong><br>
+                        Substitua <code>usuario</code> e <code>servidor.remoto</code> pelos seus dados.
+                        <pre><code>type $env:USERPROFILE\.ssh\id_rsa.pub | ssh usuario@servidor.remoto "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"</code></pre>
+                    </li>
+                    <li>
+                        <strong>Ajuste as permissões no servidor (passo crucial):</strong><br>
+                        Para que o SSH funcione, as permissões do arquivo precisam estar corretas. Execute este comando em seguida:
+                        <pre><code>ssh usuario@servidor.remoto "chmod 700 ~/.ssh; chmod 600 ~/.ssh/authorized_keys"</code></pre>
+                    </li>
+                </ol>
+                <div class="note">
+                    <strong>Como funciona?</strong> O primeiro comando lê sua chave pública (`type`), a envia (`|`) via SSH, onde um comando remoto cria o diretório `.ssh` e anexa (`>>`) a chave ao arquivo `authorized_keys`.
+                </div>
+            </article>
+
+            <article class="metodo">
+                <h3>Método 2: Usando Chocolatey</h3>
+                <p>Se você é fã do gerenciador de pacotes <a href="https://chocolatey.org/" target="_blank">Chocolatey</a>, a comunidade já resolveu isso para você.</p>
+                <ol>
+                    <li><strong>Instale o Chocolatey (se ainda não tiver):</strong><br>
+                        Abra o PowerShell como <strong>Administrador</strong> e siga as instruções no site oficial.
+                    </li>
+                    <li><strong>Instale o pacote:</strong>
+                        <pre><code>choco install ssh-copy-id -y</code></pre>
+                    </li>
+                    <li><strong>Use o comando:</strong><br>
+                        Após a instalação, você pode usar o comando como no Linux.
+                        <pre><code>ssh-copy-id usuario@servidor.remoto</code></pre>
+                    </li>
+                </ol>
+            </article>
+
+            <article class="metodo">
+                <h3>Método 3: Usando Scoop</h3>
+                <p>O <a href="https://scoop.sh/" target="_blank">Scoop</a> é outro excelente gerenciador de pacotes de linha de comando que oferece uma solução simples.</p>
+                <ol>
+                    <li><strong>Instale o Scoop (se ainda não tiver):</strong><br>
+                        Siga as instruções de instalação no site oficial.
+                    </li>
+                    <li><strong>Instale o pacote:</strong>
+                        <pre><code>scoop install ssh-copy-id-win</code></pre>
+                    </li>
+                    <li><strong>Use o comando:</strong>
+                        <pre><code>ssh-copy-id usuario@servidor.remoto</code></pre>
+                    </li>
+                </ol>
+            </article>
+
+             <article class="metodo">
+                <h3>Método 4: Usando o Windows Subsystem for Linux (WSL)</h3>
+                <p>Se você já tem o WSL instalado, pode simplesmente usar a versão Linux do comando apontando para sua chave do Windows.</p>
+                <ol>
+                    <li><strong>Instale o WSL (se ainda não tiver):</strong><br>
+                        No PowerShell como <strong>Administrador</strong>, execute <code>wsl --install</code>.
+                    </li>
+                    <li><strong>Abra o terminal do WSL (Ubuntu, etc.).</strong></li>
+                    <li>
+                        <strong>Execute o comando `ssh-copy-id` nativo:</strong><br>
+                        O WSL monta seu drive <code>C:</code> em <code>/mnt/c/</code>.
+                        <pre><code class="language-bash"># Substitua 'SeuUsuarioWindows' pelo seu nome de usuário do Windows
+ssh-copy-id -i /mnt/c/Users/SeuUsuarioWindows/.ssh/id_rsa.pub usuario@servidor.remoto</code></pre>
+                    </li>
+                </ol>
+            </article>
+        </section>
+
+        <section id="tabela-comparativa">
+            <h2>Qual Método Escolher?</h2>
+            <p>Use esta tabela para decidir rapidamente qual abordagem é a melhor para você.</p>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Método</th>
+                            <th>Necessita Instalação?</th>
+                            <th>Facilidade de Uso</th>
+                            <th>Ideal Para...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>PowerShell Nativo</strong></td>
+                            <td>Não</td>
+                            <td>Médio (precisa lembrar 2 comandos)</td>
+                            <td>Usuários que querem uma solução "pura", sem instalar nada extra.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Chocolatey</strong></td>
+                            <td>Sim (Chocolatey + pacote)</td>
+                            <td>Alta (após instalar)</td>
+                            <td>Usuários que já gerenciam software com Chocolatey.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Scoop</strong></td>
+                            <td>Sim (Scoop + pacote)</td>
+                            <td>Alta (após instalar)</td>
+                            <td>Desenvolvedores e usuários de CLI que já usam Scoop.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>WSL</strong></td>
+                            <td>Sim (WSL inteiro)</td>
+                            <td>Alta (se já estiver no ambiente)</td>
+                            <td>Usuários que já trabalham com o ambiente Linux no Windows.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Guia criado para simplificar o fluxo de trabalho SSH no Windows. Sempre que possível, use chaves em vez de senhas!</p>
+        </div>
+    </footer>
+
+</body>
+</html>
