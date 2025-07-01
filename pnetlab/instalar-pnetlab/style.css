@@ -1,0 +1,226 @@
+/* --- Variáveis de Cor e Fontes --- */
+:root {
+    --primary-color: #0a2540;
+    --secondary-color: #f6f9fc;
+    --accent-color: #007bff;
+    --accent-hover-color: #0056b3;
+    --text-color: #333;
+    --light-text-color: #fff;
+    --border-color: #e6e6e6;
+    --code-bg-color: #eef2f5;
+
+    --font-primary: 'Roboto', sans-serif;
+    --font-code: 'Source Code Pro', monospace;
+}
+
+/* --- Estilos Globais --- */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    color: var(--text-color);
+    background-color: #fff;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+h1 { font-size: 2.8rem; }
+h2 { font-size: 2.2rem; }
+h3 { font-size: 1.8rem; }
+h4 { font-size: 1.2rem; }
+
+p {
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--accent-color);
+    transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+    color: var(--accent-hover-color);
+}
+
+/* --- Estilos do Header --- */
+header {
+    background-color: var(--light-text-color);
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+header nav a {
+    color: var(--text-color);
+    margin-left: 1.5rem;
+    font-weight: 700;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s ease-in-out;
+}
+
+header nav a:hover {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+}
+
+/* --- Estilos da Seção Hero --- */
+.hero {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    text-align: center;
+    padding: 80px 0;
+}
+
+.hero h1 {
+    color: var(--light-text-color);
+}
+
+.hero .subtitle {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    opacity: 0.9;
+}
+
+.cta-button {
+    background-color: var(--accent-color);
+    color: var(--light-text-color);
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: inline-block;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease;
+}
+
+.cta-button:hover {
+    background-color: var(--accent-hover-color);
+    color: var(--light-text-color);
+    transform: translateY(-2px);
+}
+
+/* --- Estilos das Seções de Conteúdo --- */
+.prerequisites, .tutorial-steps, .conclusion {
+    padding: 60px 0;
+}
+
+.prerequisites, .conclusion {
+    background-color: var(--secondary-color);
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* --- Estilos dos Pré-requisitos --- */
+.prerequisites ul {
+    list-style: none;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.prerequisites li {
+    background-color: #fff;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-left: 4px solid var(--accent-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* --- Estilos do Tutorial Passo a Passo --- */
+.tutorial-steps h3 {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.tutorial-steps h3:first-of-type {
+    margin-top: 0;
+}
+
+.step {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.step ul {
+    list-style-position: inside;
+    margin-top: 10px;
+}
+
+.step li {
+    margin-bottom: 5px;
+}
+
+code {
+    font-family: var(--font-code);
+    background-color: var(--code-bg-color);
+    color: var(--primary-color);
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: block;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin-top: 10px;
+}
+
+/* --- Estilos da Seção de Conclusão --- */
+.conclusion .container {
+    text-align: center;
+}
+
+.conclusion p {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.1rem;
+}
+
+/* --- Estilos do Footer --- */
+footer {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9rem;
+}
+
+footer p {
+    margin: 0;
+    opacity: 0.8;
+}

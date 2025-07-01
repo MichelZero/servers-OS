@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Instalação PNETLab com VirtualBox</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header id="inicio">
+        <div class="container">
+            <span class="logo">Guia de Instalação PNETLab</span>
+            <nav>
+                <a href="#inicio">Início</a>
+                <a href="#tutorial">Instalação PNETLab</a>
+                <a href="#mikrotik">Instalação MikroTik</a>
+                <a href="#conclusao">Começar</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Seção Hero -->
+        <section class="hero">
+            <div class="container">
+                <h1>Construa Seu Laboratório de Redes com PNETLab e VirtualBox</h1>
+                <p class="subtitle">Um guia completo, do zero à primeira topologia, para você praticar e se tornar um especialista.</p>
+                <a href="#tutorial" class="cta-button">Começar o Tutorial</a>
+            </div>
+        </section>
+
+        <!-- Seção de Pré-requisitos -->
+        <section id="prerequisites" class="prerequisites">
+            <div class="container">
+                <h2>O que você precisa antes de começar</h2>
+                <p>Para seguir este guia sem problemas, certifique-se de que você já tem os seguintes itens prontos:</p>
+                <ul>
+                    <li>✅ Oracle VirtualBox já instalado e funcional na sua máquina.</li>
+                    <li>✅ Arquivo OVA do PNETLab (Baixe a versão mais recente em <a href="https://pnetlab.com/download" target="_blank">[Link para o site oficial do PNETLab para download]</a>).</li>
+                    <li>✅ Imagem do MikroTik CHR (Cloud Hosted Router) no formato .qcow2 (Baixe a versão "Raw disk image" em <a href="https://mikrotik.com/download" target="_blank">[Link para o site oficial da MikroTik para download]</a>).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Seção Principal do Tutorial -->
+        <section id="tutorial" class="tutorial-steps">
+            <div class="container">
+                <h2>Guia de Instalação Detalhado</h2>
+
+                <!-- Parte 1 -->
+                <h3 id="pnetlab-install">Parte 1: Instalando o PNETLab no VirtualBox</h3>
+                
+                <div class="step">
+                    <h4>Passo 1: Importando a VM</h4>
+                    <p>Abra o Oracle VirtualBox. No menu superior, vá em <strong>Arquivo > Importar Appliance...</strong>. Na janela que se abrir, clique no ícone da pasta, localize e selecione o arquivo <code>.ova</code> do PNETLab que você baixou. Clique em "Próximo" e depois em "Importar", aceitando os termos de licença.</p>
+                </div>
+
+                <div class="step">
+                    <h4>Passo 2: Configurando a Rede</h4>
+                    <p>Com a VM importada, selecione-a na lista e clique em "Configurações". Vá para a aba <strong>Rede</strong>. Certifique-se de que o <strong>Adaptador 1</strong> esteja habilitado e, no campo "Conectado a:", selecione <strong>Placa em modo Bridge (Bridged Adapter)</strong>. Isso permite que sua VM receba um endereço IP diretamente do seu roteador, facilitando o acesso.</p>
+                </div>
+                
+                <div class="step">
+                    <h4>Passo 3: Iniciando a VM e Acessando</h4>
+                    <p>Inicie a VM do PNETLab. Aguarde o processo de boot. Ao final, uma tela de login do console será exibida, mostrando o endereço IP que foi atribuído à máquina virtual (por exemplo, <code>http://192.168.1.105</code>). Anote este IP.</p>
+                </div>
+                
+                <div class="step">
+                    <h4>Passo 4: Primeiro Acesso Web</h4>
+                    <p>Abra seu navegador de internet preferido e digite o endereço IP que você anotou. A tela de login do PNETLab aparecerá. Use as credenciais padrão para o primeiro acesso:</p>
+                    <ul>
+                        <li><strong>Usuário:</strong> <code>admin</code></li>
+                        <li><strong>Senha:</strong> <code>pnet</code></li>
+                    </ul>
+                     <p>Você será solicitado a completar uma breve configuração inicial. Após isso, você estará no dashboard principal.</p>
+                </div>
+
+                <!-- Parte 2 -->
+                <h3 id="mikrotik">Parte 2: Adicionando o MikroTik ao PNETLab</h3>
+                
+                <div class="step">
+                    <h4>Passo 1: Fazendo o Upload da Imagem</h4>
+                    <p>Para adicionar novos equipamentos, precisamos transferir suas imagens para a VM do PNETLab. A maneira mais fácil é usando um cliente SCP, como o <strong>WinSCP</strong> (para Windows) ou o <strong>FileZilla</strong>. Conecte-se ao IP da sua VM PNETLab usando o usuário <code>root</code> e a senha <code>pnet</code>. Faça o upload do arquivo <code>.qcow2</code> do MikroTik CHR para o diretório <code>/root</code>.</p>
+                </div>
+
+                <div class="step">
+                    <h4>Passo 2: Criando a Estrutura de Pastas</h4>
+                    <p>Ainda conectado via SCP ou através de um terminal SSH, você precisa criar a pasta correta para a imagem do MikroTik. O nome da pasta é importante. Execute o seguinte comando (ajuste o nome da pasta se sua versão do MikroTik for diferente):</p>
+                    <code>mkdir -p /opt/unetlab/addons/qemu/mikrotik-6.49.7/</code>
+                </div>
+                
+                <div class="step">
+                    <h4>Passo 3: Movendo e Renomeando o Arquivo</h4>
+                    <p>Agora, mova o arquivo que você enviou do diretório <code>/root</code> para a pasta que acabamos de criar. Além disso, ele deve ser renomeado para <code>hda.qcow2</code>. Execute o comando:</p>
+                    <code>mv /root/chr-6.49.7.qcow2 /opt/unetlab/addons/qemu/mikrotik-6.49.7/hda.qcow2</code>
+                </div>
+
+                <div class="step">
+                    <h4>Passo 4: Corrigindo as Permissões</h4>
+                    <p>Este é o passo mais importante e frequentemente esquecido. O PNETLab precisa de permissões específicas para usar os arquivos. Execute o seguinte comando para que o sistema reconheça o novo equipamento:</p>
+                    <code>/opt/unetlab/wrappers/unl_wrapper -a fixpermissions</code>
+                    <p>Aguarde a conclusão do script. Depois disso, atualize a página do PNETLab no seu navegador. Agora você poderá adicionar um nó do MikroTik ao seu laboratório!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Conclusão -->
+        <section id="conclusao" class="conclusion">
+            <div class="container">
+                <h2>Tudo Pronto! E agora?</h2>
+                <p>Parabéns! Seu laboratório está pronto. Agora você pode criar seu primeiro projeto, adicionar o nó do MikroTik que acabamos de instalar e começar a construir suas topologias de rede. Explore, pratique e aprofunde seus conhecimentos. O céu é o limite!</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 -  Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
