@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troubleshooting PNETLab: VM MikroTik Não Inicia</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <span class="logo">PNETLab Troubleshooting</span>
+        </div>
+    </header>
+
+    <main>
+        <!-- Seção Hero -->
+        <section class="hero">
+            <div class="container">
+                <h1>Sua VM MikroTik Inicia e Para Imediatamente?</h1>
+                <p class="subtitle">Um guia de diagnóstico passo a passo para resolver o problema mais comum ao adicionar novos equipamentos no PNETLab.</p>
+                <a href="#diagnostico" class="cta-button">Iniciar Diagnóstico</a>
+            </div>
+        </section>
+
+        <!-- Seção de Identificação do Problema -->
+        <section class="intro">
+            <div class="container">
+                <h2>Identificando o Problema</h2>
+                <p>Você adicionou uma nova imagem ao PNETLab, arrastou o nó para a topologia e clicou em "Start". O ícone do equipamento fica azul por um ou dois segundos e depois volta a ficar cinza. Ao tentar abrir o console, ele não conecta ou fecha instantaneamente. Se isso descreve sua situação, você está no lugar certo.</p>
+                <p>Este comportamento quase sempre é causado por um dos seguintes fatores:</p>
+                <ul>
+                    <li>1. Permissões de arquivo incorretas (a causa mais provável).</li>
+                    <li>2. Estrutura de pastas ou nome do arquivo de imagem errados.</li>
+                    <li>3. Configurações inadequadas no próprio nó.</li>
+                    <li>4. Uma imagem corrompida ou incompatível.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Seção Principal de Troubleshooting -->
+        <section id="diagnostico" class="troubleshooting-steps">
+            <div class="container">
+                <h2>Guia de Solução Detalhado</h2>
+                <p class="section-intro">Siga estes passos na ordem. O primeiro é o mais comum e provavelmente resolverá seu problema.</p>
+
+                <div class="step">
+                    <h4>Solução 1: O Essencial `fixpermissions` (Causa Mais Comum)</h4>
+                    <p>O PNETLab requer permissões de sistema de arquivos muito específicas para executar as VMs. Se você adicionou a imagem manualmente, é quase certo que as permissões estão erradas. Este comando corrige isso.</p>
+                    <p>Acesse o terminal do seu PNETLab via SSH (com o usuário <strong>root</strong> e senha <strong>pnet</strong>) e execute:</p>
+                    <code>/opt/unetlab/wrappers/unl_wrapper -a fixpermissions</code>
+                    <p><strong>Lembrete:</strong> Execute este comando sempre que adicionar ou modificar qualquer imagem de equipamento. Após executar, tente iniciar o nó novamente.</p>
+                </div>
+
+                <div class="step">
+                    <h4>Solução 2: Verificando Nomes e Estrutura de Pastas</h4>
+                    <p>O PNETLab é extremamente rigoroso com nomes. Um erro de digitação fará o nó falhar. Verifique os seguintes pontos:</p>
+                    <ul>
+                        <li><strong>Caminho Completo:</strong> A pasta do seu equipamento deve estar em <code>/opt/unetlab/addons/qemu/</code>.</li>
+                        <li><strong>Nome da Pasta:</strong> O nome deve seguir o padrão <code>mikrotik-[versao]</code>. Exemplo: <code>mikrotik-7.1.1</code>.</li>
+                        <li><strong>Nome do Arquivo de Imagem:</strong> O arquivo dentro da pasta <strong>precisa</strong> se chamar <code>hda.qcow2</code>.</li>
+                    </ul>
+                    <p>Use o comando <code>ls -l /opt/unetlab/addons/qemu/mikrotik-7.1.1/</code> (ajuste a versão) para verificar. Se o nome estiver errado, renomeie com <code>mv</code> e execute `fixpermissions` novamente.</p>
+                </div>
+                
+                <div class="step">
+                    <h4>Solução 3: Ajustando as Configurações do Nó</h4>
+                    <p>Configurações incorretas podem impedir a inicialização. No seu laboratório, clique com o botão direito no nó do MikroTik e selecione <strong>"Edit"</strong>.</p>
+                    <ul>
+                        <li><strong>RAM:</strong> Certifique-se de que há pelo menos 256MB de RAM. 128MB pode ser muito pouco para versões recentes do RouterOS.</li>
+                        <li><strong>Console:</strong> Verifique se o tipo de console está definido como <strong>telnet</strong>. Se estiver como VNC, você não verá a linha de comando esperada.</li>
+                    </ul>
+                </div>
+                
+                <div class="step">
+                    <h4>Solução 4: Imagem Corrompida ou Incompatível</h4>
+                    <p>Se nada acima funcionou, é possível que o arquivo de imagem esteja corrompido ou tenha sido convertido incorretamente.</p>
+                    <ol>
+                        <li>Baixe novamente a imagem "Raw disk image" (.img) do site oficial da MikroTik.</li>
+                        <li>Converta-a para o formato <code>.qcow2</code> usando o comando <code>qemu-img convert</code>.</li>
+                        <li>Renomeie o novo arquivo para <code>hda.qcow2</code>.</li>
+                        <li>Faça o upload para a pasta correta no PNETLab, substituindo o arquivo antigo.</li>
+                        <li><strong>Execute o comando `fixpermissions` mais uma vez para garantir.</strong></li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 - PNETLab Troubleshooting Guide. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
