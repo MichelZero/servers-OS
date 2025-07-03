@@ -1,0 +1,135 @@
+/* --- Estilos Gerais --- */
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 20px 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* --- Títulos --- */
+h1, h2, h3 {
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+h1 {
+    color: #e53935; /* Vermelho Predator */
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #444;
+    padding-bottom: 15px;
+}
+
+h2 {
+    color: #e53935;
+    font-size: 1.8em;
+    margin-top: 40px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    color: #f5f5f5;
+    font-size: 1.3em;
+    margin-bottom: 5px;
+}
+
+/* --- Conteúdo Principal --- */
+p {
+    margin-bottom: 15px;
+}
+
+strong {
+    color: #ff7043; /* Laranja suave */
+    font-weight: 600;
+}
+
+code {
+    background-color: #333;
+    color: #f0f0f0;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 0.9em;
+}
+
+.main-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto 30px auto;
+    border-radius: 8px;
+    border: 3px solid #e53935;
+}
+
+.highlight {
+    background-color: rgba(229, 57, 53, 0.1);
+    border-left: 4px solid #e53935;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 4px;
+    font-style: italic;
+}
+
+/* --- Seção da Solução (Passos) --- */
+.steps {
+    list-style: none;
+    padding-left: 0;
+    counter-reset: step-counter;
+}
+
+.steps li {
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    position: relative;
+    counter-increment: step-counter;
+    padding-left: 60px;
+}
+
+.steps li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #e53935;
+    color: #fff;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* --- Rodapé --- */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+}
+
+footer .final-message {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #4caf50; /* Verde sucesso */
+    margin-top: 20px;
+}

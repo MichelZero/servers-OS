@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solução: Instalação do PredatorSense Travada</title>
+    <meta name="description" content="Um guia passo a passo para resolver o problema de instalação travada do PredatorSense Service, causado por conflitos com softwares como o TechPowerUp.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Solução: Instalação do PredatorSense Travada?</h1>
+        </header>
+
+        <main>
+            <section class="problem-intro">
+                <img src="predator-sense01.png" alt="Instalação do PredatorSense travada na tela de 'Estado'" class="main-image">
+                <p>Você está tentando instalar o <strong>PredatorSense Service</strong> no seu notebook Acer Predator, mas a instalação para e fica congelada nesta tela?</p>
+                <p>A mensagem "Aguarde enquanto o Assistente de Configuração instala o PredatorSense Service" aparece, mas a barra de <strong>"Estado"</strong> simplesmente não avança, não importa quanto tempo você espere.</p>
+                <p class="highlight">Se essa é a sua situação, você veio ao lugar certo. A solução pode ser mais simples do que parece.</p>
+            </section>
+
+            <section class="cause">
+                <h2>O Culpado Inesperado: Conflito de Software</h2>
+                <p>Após investigar o problema, a causa foi identificada: um conflito com outro programa que acessa os dados de hardware e energia do seu notebook. O principal suspeito é o <strong>TechPowerUp</strong> (incluindo utilitários como GPU-Z, ThrottleStop, etc.).</p>
+                <h3>Por que isso acontece?</h3>
+                <p>O instalador do PredatorSense precisa acessar e configurar os perfis de energia e os sensores do seu sistema. Softwares como o TechPowerUp também monitoram esses mesmos componentes em tempo real. Essa "disputa" pelo controle do hardware causa um impasse, travando a instalação. O "Estado" que não avança é, na verdade, o instalador esperando ter acesso livre a esses recursos.</p>
+            </section>
+
+            <section class="solution">
+                <h2>A Solução em 3 Passos Simples</h2>
+                <p>Siga este guia para resolver o problema e instalar o PredatorSense com sucesso.</p>
+                
+                <ol class="steps">
+                    <li>
+                        <h3>Passo 1: Desative o Software Conflitante</h3>
+                        <p>Feche completamente qualquer programa da <code>TechPowerUp</code> ou outro utilitário de monitoramento de hardware que esteja em execução. Não basta minimizar, certifique-se de que o processo foi encerrado (você pode verificar no Gerenciador de Tarefas com <code>Ctrl+Shift+Esc</code>).</p>
+                    </li>
+                    <li>
+                        <h3>Passo 2: Reinicie o Notebook</h3>
+                        <p>Este é o passo mais importante! Reiniciar o sistema garante que todos os serviços em segundo plano do software conflitante sejam totalmente desativados, liberando o acesso do hardware para o instalador do PredatorSense.</p>
+                    </li>
+                    <li>
+                        <h3>Passo 3: Reinstale o PredatorSense</h3>
+                        <p>Após o notebook reiniciar, execute o instalador do PredatorSense novamente (se possível, clique com o botão direito e "Executar como administrador"). Você verá que a instalação, que antes estava travada, agora prosseguirá rapidamente e será concluída sem problemas.</p>
+                    </li>
+                </ol>
+            </section>
+        </main>
+
+        <footer>
+            <h2>Missão Cumprida!</h2>
+            <p>É isso! O problema não era um arquivo corrompido ou uma versão errada do PredatorSense, mas um simples conflito de software.</p>
+            <p>Agora que o PredatorSense está devidamente instalado e funcionando, você pode voltar a usar o TechPowerUp ou seus outros utilitários normalmente.</p>
+            <p class="final-message">Volte a ter o controle total do seu Predator!</p>
+        </footer>
+    </div>
+
+</body>
+</html>
