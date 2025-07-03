@@ -1,0 +1,122 @@
+/* --- Estilos Gerais --- */
+body {
+    background-color: #1e1e1e; /* Cor de fundo do VS Code */
+    color: #d4d4d4; /* Cor do texto do VS Code */
+    font-family: "Segoe UI", "Menlo", "Monaco", "Consolas", "Courier New", monospace;
+    line-height: 1.7;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+/* --- Cabeçalho --- */
+header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+header h1 {
+    font-size: 2.6em;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+header .subtitle {
+    font-size: 1.1em;
+    color: #a0a0a0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* --- Seções do Guia --- */
+.guide-section {
+    background-color: #252526;
+    border: 1px solid #3c3c3c;
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.guide-section h2 {
+    font-size: 1.8em;
+    color: #569cd6; /* Azul do VS Code */
+    margin-top: 0;
+    border-bottom: 1px solid #3c3c3c;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+.step {
+    margin-bottom: 30px;
+}
+
+.step h3 {
+    font-size: 1.3em;
+    color: #c586c0; /* Roxo/Rosa do VS Code */
+    margin-bottom: 10px;
+}
+
+/* --- Bloco de Código --- */
+.code-block {
+    background-color: #1e1e1e;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 15px;
+    overflow-x: auto; /* Para rolagem em telas pequenas */
+    position: relative;
+}
+
+.code-block pre {
+    margin: 0;
+}
+
+.code-block code {
+    color: #9cdcfe; /* Azul claro para comandos */
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 1.1em;
+}
+
+/* --- Notas Importantes --- */
+.important-note {
+    background-color: rgba(206, 145, 120, 0.1);
+    border: 1px solid #ce9178; /* Cor de "aviso" do VS Code */
+    border-left-width: 5px;
+    border-radius: 5px;
+    padding: 25px;
+}
+
+.important-note h3 {
+    color: #ce9178;
+    margin-top: 0;
+}
+
+.important-note ol {
+    padding-left: 20px;
+}
+
+/* --- Rodapé --- */
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #3c3c3c;
+    color: #808080;
+}
+
+/* --- Elementos Inline --- */
+code:not(pre code) {
+    background-color: #3e3e3e;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+strong {
+    color: #4ec9b0; /* Verde-água do VS Code */
+    font-weight: 600;
+}

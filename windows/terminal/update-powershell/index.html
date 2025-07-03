@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como Atualizar o PowerShell Diretamente no VS Code</title>
+    <meta name="description" content="Um guia rápido e prático para atualizar o PowerShell usando o terminal do Visual Studio Code com o comando winget.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Atualize o PowerShell sem Sair do VS Code</h1>
+            <p class="subtitle">Recebeu a notificação de PowerShell desatualizado? Resolva isso em 60 segundos com um único comando no seu terminal.</p>
+        </header>
+
+        <div class="image-section"></div>
+            <img src="update-powershell01.png" alt="Exemplo de atualização do PowerShell no terminal do VS Code" style="max-width:100%;height:auto;display:block;margin:2rem auto;">
+        </div>
+
+        <main>
+            <section class="guide-section" id="winget-method">
+                <h2>Método Recomendado: Atualização via Winget</h2>
+                <p>O <strong>Winget</strong> é o gerenciador de pacotes oficial do Windows, já integrado ao sistema. É a forma mais limpa e moderna de gerenciar seus aplicativos via linha de comando.</p>
+                
+                <div class="step">
+                    <h3>Passo 1: Abra o Terminal no VS Code</h3>
+                    <p>Use o atalho <code>Ctrl + '</code> para abrir o painel do terminal. Certifique-se de que a aba selecionada é o <strong>PowerShell</strong>.</p>
+                </div>
+
+                <div class="step">
+                    <h3>Passo 2: Execute o Comando de Atualização</h3>
+                    <p>Copie e cole o comando abaixo no seu terminal e pressione Enter. Ele encontrará e atualizará o PowerShell para a versão mais recente.</p>
+                    <div class="code-block">
+                        <pre><code>winget upgrade Microsoft.PowerShell</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Passo 3: Reinicie o Terminal e Verifique</h3>
+                    <p>Após a instalação ser concluída, <strong>feche e reabra o terminal</strong> (clicando no ícone da lixeira). A sessão antiga não usará a nova versão. Para confirmar, execute:</p>
+                    <div class="code-block">
+                        <pre><code>$PSVersionTable.PSVersion</code></pre>
+                    </div>
+                    <p>A saída deverá mostrar a nova versão que você acabou de instalar.</p>
+                </div>
+            </section>
+
+            <section class="guide-section alternative" id="choco-method">
+                <h2>Alternativa: Usando Chocolatey</h2>
+                <p>Se você já é um usuário do gerenciador de pacotes <strong>Chocolatey</strong>, o comando é igualmente simples.</p>
+                <div class="code-block">
+                    <pre><code>choco upgrade powershell -y</code></pre>
+                </div>
+            </section>
+
+            <section class="important-note">
+                <h3>Ponto Importante: Permissões de Administrador</h3>
+                <p>Para instalar ou atualizar software, o terminal precisa de privilégios elevados. Se o comando falhar com um erro de acesso negado, você precisará:</p>
+                <ol>
+                    <li>Fechar completamente o VS Code.</li>
+                    <li>Clicar com o botão direito no ícone do VS Code.</li>
+                    <li>Selecionar <strong>"Executar como administrador"</strong>.</li>
+                    <li>Repetir o comando de atualização no terminal.</li>
+                </ol>
+            </section>
+        </main>
+
+        <footer>
+            <p>Mantenha seu ambiente de desenvolvimento moderno e eficiente. Um terminal atualizado é o primeiro passo.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

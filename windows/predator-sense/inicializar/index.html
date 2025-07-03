@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Solução: PredatorSense Não Inicia com o Windows</title>
+    <meta name="description" content="Um guia completo com soluções passo a passo para resolver o problema do Acer PredatorSense que não inicia automaticamente com o Windows.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>PredatorSense Não Inicia com o Windows?</h1>
+            <p class="subtitle">Siga nosso guia completo para resolver o problema e voltar a ter controle total do seu notebook.</p>
+        </header>
+
+        <main>
+            <section class="problem-intro">
+                <p>É um problema comum: você liga seu notebook Predator esperando que o software de controle inicie, mas o <strong>PredatorSense não abre automaticamente</strong>. Isso pode acontecer após uma atualização do Windows ou por um conflito de software. Felizmente, a solução geralmente é simples. Siga os passos abaixo, do mais fácil ao mais complexo.</p>
+            </section>
+
+            <div class="solution-card" id="solution1">
+                <h2>Solução 1: Verificar o Gerenciador de Tarefas</h2>
+                <p>O primeiro passo é garantir que o PredatorSense está habilitado para iniciar com o sistema.</p>
+                <ol>
+                    <li>Pressione <code>Ctrl + Shift + Esc</code> para abrir o <strong>Gerenciador de Tarefas</strong>.</li>
+                    <li>Navegue até a aba <strong>"Inicializar"</strong> (ou "Aplicativos de Inicialização" no Windows 11).</li>
+                    <li>Procure por <strong>"PredatorSense"</strong> na lista.</li>
+                    <li>Se o status estiver "Desabilitado", clique com o botão direito e selecione <strong>"Habilitar"</strong>.</li>
+                    <li>Reinicie o computador e verifique se o problema foi resolvido.</li>
+                </ol>
+            </div>
+
+            <div class="solution-card" id="solution2">
+                <h2>Solução 2: Configurar o Serviço do PredatorSense</h2>
+                <p>O serviço principal do software pode estar configurado para não iniciar automaticamente.</p>
+                <ol>
+                    <li>Pressione <code>Windows + R</code>, digite <code>services.msc</code> e pressione Enter.</li>
+                    <li>Na lista de serviços, encontre o <strong>"PredatorSense Service"</strong>.</li>
+                    <li>Dê um duplo clique para abrir suas propriedades.</li>
+                    <li>Mude o "Tipo de inicialização" para <strong>"Automático"</strong>.</li>
+                    <li>Se o serviço estiver parado, clique em <strong>"Iniciar"</strong>.</li>
+                    <li>Clique em "Aplicar" e reinicie o seu notebook.</li>
+                </ol>
+            </div>
+
+            <div class="solution-card" id="solution3">
+                <h2>Solução 3: Desativar a Inicialização Rápida</h2>
+                <p>A "Inicialização Rápida" do Windows pode impedir que alguns aplicativos carreguem corretamente. Desativá-la pode resolver o conflito.</p>
+                <ol>
+                    <li>Abra o <strong>Painel de Controle</strong> e vá para <strong>"Opções de Energia"</strong>.</li>
+                    <li>No menu à esquerda, clique em "Escolher a função dos botões de energia".</li>
+                    <li>Clique em "Alterar configurações não disponíveis no momento".</li>
+                    <li>Desmarque a caixa <strong>"Ligar inicialização rápida (recomendado)"</strong>.</li>
+                    <li>Salve as alterações e reinicie o computador.</li>
+                </ol>
+            </div>
+
+            <div class="solution-card important" id="solution4">
+                <h2>Solução 4: Reinstalação Limpa do PredatorSense</h2>
+                <p>Se nada mais funcionar, uma reinstalação completa geralmente resolve o problema de forma definitiva.</p>
+                <ol>
+                    <li><strong>Desinstale:</strong> Vá em "Configurações" > "Aplicativos" e desinstale o <strong>PredatorSense</strong> e o <strong>PredatorSense Service</strong>. Reinicie o PC.</li>
+                    <li><strong>Baixe a versão correta:</strong> Acesse o <a href="https://www.acer.com/support" target="_blank" rel="noopener noreferrer">site de suporte da Acer</a>, insira o modelo do seu notebook e baixe a versão mais recente do PredatorSense na seção "Aplicativos".</li>
+                    <li><strong>Instale como Administrador:</strong> Extraia o arquivo baixado, clique com o botão direito no <code>Setup.exe</code> e selecione <strong>"Executar como administrador"</strong>.</li>
+                    <li>Após a instalação, reinicie o computador novamente.</li>
+                </ol>
+            </div>
+             <div class="solution-card" id="solution5">
+                <h2>Outras Possíveis Soluções</h2>
+                <p>Se o problema persistir, considere estas outras causas:</p>
+                <ul>
+                    <li><strong>Conflito de Software:</strong> Se você instalou o "AcerSense", ele pode estar em conflito. Considere remover um deles.</li>
+                    <li><strong>Drivers Desatualizados:</strong> Verifique no site da Acer se há atualizações para os drivers do seu chipset ou placa de vídeo.</li>
+                    <li><strong>Comando de Reparo:</strong> Abra o <strong>Prompt de Comando como administrador</strong>, digite o comando <code>lodctr /R</code>, pressione Enter e reinicie.</li>
+                </ul>
+            </div>
+        </main>
+
+        <footer>
+            <p>Esperamos que este guia tenha resolvido o seu problema. Para mais suporte, visite o site oficial da Acer.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
