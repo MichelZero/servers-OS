@@ -1,0 +1,220 @@
+/* --- Estilos Globais e Variáveis --- */
+:root {
+    --bg-color: #1e1e2e; /* Catppuccin Macchiato Base */
+    --surface-color: #282a36; /* Dracula BG */
+    --text-color: #cdd6f4; /* Catppuccin Macchiato Text */
+    --primary-color: #89b4fa; /* Catppuccin Macchiato Blue */
+    --accent-color: #a6e3a1; /* Catppuccin Macchiato Green */
+    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --font-mono: 'Fira Code', 'Courier New', monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+section {
+    padding: 4rem 0;
+}
+
+h1, h2, h3 {
+    line-height: 1.2;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2.25rem;
+    border-bottom: 2px solid var(--surface-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+code {
+    font-family: var(--font-mono);
+    background-color: var(--surface-color);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+/* --- Seções Específicas --- */
+
+/* Cabeçalho (Hero) */
+.hero {
+    background-color: var(--surface-color);
+    padding: 5rem 0;
+    text-align: center;
+}
+
+.hero .subtitle {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 1rem auto 0 auto;
+    opacity: 0.9;
+}
+
+.hero-image-placeholder {
+    background-color: var(--bg-color);
+    border: 1px solid #44475a; /* Dracula Comment */
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 3rem auto 0 auto;
+    max-width: 700px;
+    font-family: var(--font-mono);
+    text-align: left;
+}
+.hero-image-placeholder span {
+    display: block;
+    margin-top: 1rem;
+    color: var(--accent-color);
+}
+
+/* Tabela de Funcionalidades */
+#features table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+}
+
+#features th, #features td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--surface-color);
+}
+
+#features thead {
+    background-color: rgba(40, 42, 54, 0.5);
+}
+
+#features th {
+    color: var(--primary-color);
+}
+
+#features td:first-child {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+/* Guia de Instalação */
+.install-steps {
+    list-style: none;
+    counter-reset: steps-counter;
+}
+
+.install-steps li {
+    counter-increment: steps-counter;
+    margin-bottom: 2.5rem;
+    position: relative;
+    padding-left: 4rem;
+}
+
+.install-steps li::before {
+    content: counter(steps-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Blocos de Código */
+.code-block {
+    background-color: #2d2d2d;
+    color: #f2f2f2;
+    padding: 1.5rem;
+    border-radius: 8px;
+    font-family: var(--font-mono);
+    white-space: pre-wrap;
+    overflow-x: auto;
+    margin-top: 1rem;
+}
+
+.code-container {
+    position: relative;
+}
+
+.copy-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    transition: background-color 0.2s ease;
+}
+
+.copy-button:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+}
+
+/* Rodapé e CTA */
+.footer {
+    text-align: center;
+    padding: 4rem 0;
+    background-color: var(--surface-color);
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cta-button:hover {
+    text-decoration: none;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(166, 227, 161, 0.3);
+}

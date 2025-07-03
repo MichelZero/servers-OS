@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil PowerShell Moderno e Produtivo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Eleve Seu PowerShell a um Novo Nível</h1>
+            <p class="subtitle">Uma configuração completa e moderna para transformar seu terminal em uma ferramenta de produtividade poderosa, inteligente e visualmente incrível.</p>
+            <div class="hero-image-placeholder">
+                <p>PS C:\Users\Você> ls</p>
+                <span>✨ Seu terminal customizado em ação ✨</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="why" class="container">
+            <h2>Por que usar este perfil?</h2>
+            <p>O PowerShell padrão é funcional, mas falta o polimento e a inteligência das ferramentas de desenvolvimento modernas. Este script resolve isso, focando em três pilares: <strong>Produtividade</strong>, <strong>Clareza Visual</strong> e <strong>Inteligência</strong>.</p>
+        </section>
+
+        <section id="features" class="container">
+            <h2>Funcionalidades em Destaque</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ícone</th>
+                        <th>Funcionalidade</th>
+                        <th>O que você ganha com isso?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>✨</td>
+                        <td>Prompt Inteligente com Oh My Posh</td>
+                        <td>Um prompt limpo e detalhado que exibe o caminho atual, status do Git (branch, alterações), tempo de execução e muito mais.</td>
+                    </tr>
+                    <tr>
+                        <td>🚀</td>
+                        <td>Autocompletar e Histórico Avançados</td>
+                        <td>Complete comandos com <code>Tab</code> usando um menu interativo e receba sugestões de comandos enquanto digita.</td>
+                    </tr>
+                    <tr>
+                        <td>📂</td>
+                        <td>Ícones para Arquivos e Pastas</td>
+                        <td>Navegue pelos seus diretórios com muito mais clareza, identificando tipos de arquivos e pastas instantaneamente.</td>
+                    </tr>
+                    <tr>
+                        <td>⌨️</td>
+                        <td>Aliases para Produtividade</td>
+                        <td>Use comandos familiares como <code>ls</code>, <code>ll</code>, <code>which</code>, e <code>open</code> para agilizar seu fluxo de trabalho.</td>
+                    </tr>
+                    <tr>
+                        <td>📦</td>
+                        <td>Integração com Chocolatey</td>
+                        <td>O autocompletar para o <code>choco</code> já vem habilitado, tornando a gestão de pacotes no Windows mais rápida e fácil.</td>
+                    </tr>
+                    <tr>
+                        <td>💾</td>
+                        <td>Histórico Moderno e Seguro</td>
+                        <td>Seu histórico de comandos é salvo de forma incremental, garantindo que você nunca perca um comando importante.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="install" class="container">
+            <h2>Como Instalar (Guia Rápido)</h2>
+            <ol class="install-steps">
+                <li>
+                    <h3>1. Pré-requisitos</h3>
+                    <p>Garanta que você tenha os seguintes pacotes e módulos instalados:</p>
+                    <pre class="code-block"><code># Oh My Posh
+winget install JanDeDobbeleer.OhMyPosh
+
+# Módulos PowerShell
+Install-Module -Name Terminal-Icons -Scope CurrentUser
+Install-Module -Name PSReadLine -Scope CurrentUser
+Install-Module -Name posh-git -Scope CurrentUser</code></pre>
+                    <p><strong>Importante:</strong> Instale e configure uma <strong>Nerd Font</strong> (como a <a href="https://www.nerdfonts.com/font-downloads" target="_blank" rel="noopener noreferrer">FiraCode Nerd Font</a>) no seu terminal para que os ícones funcionem.</p>
+                </li>
+                <li>
+                    <h3>2. Acesse seu Perfil do PowerShell</h3>
+                    <p>Digite o comando abaixo para abrir seu arquivo de perfil. Crie-o se não existir.</p>
+                    <pre class="code-block"><code>notepad $PROFILE</code></pre>
+                </li>
+                <li>
+                    <h3>3. Crie a Estrutura do Tema</h3>
+                    <p>Dentro da pasta do seu perfil, crie uma subpasta <code>temas-oh-my-posh</code> e, dentro dela, um arquivo <code>clean-detailed.omp.json</code>. Você pode usar um tema de sua preferência.</p>
+                </li>
+                <li>
+                    <h3>4. Copie o Script e Reinicie</h3>
+                    <p>Cole o script completo abaixo no seu arquivo <code>$PROFILE</code>, salve e reinicie o PowerShell.</p>
+                </li>
+            </ol>
+        </section>
+
+        <section id="script" class="container">
+            <h2>O Script Completo</h2>
+            <p>Pronto para começar? Copie o código abaixo e siga as instruções.</p>
+            <div class="code-container">
+                <button class="copy-button" onclick="copyToClipboard(this)">Copiar</button>
+                <pre><code># --- Configuração do Chocolatey ---
+# Habilita o auto-completar para o 'choco'. É uma boa prática manter isso no topo.
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
+}
+
+
+# --- Módulos Principais ---
+# Importa os módulos para melhorar a experiência do terminal.
+# Terminal-Icons é preferível sobre Get-ChildItemColor por ser mais moderno.
+Import-Module -Name Terminal-Icons
+Import-Module -Name PSReadLine
+Import-Module -Name posh-git
+
+
+# --- Configuração do Prompt (Oh My Posh) ---
+# Inicializa o Oh My Posh usando um caminho absoluto para o tema, garantindo que ele sempre funcione.
+# $PSScriptRoot é a pasta onde este arquivo de perfil está salvo (ex: C:\Users\SeuNome\Documents\PowerShell).
+oh-my-posh init pwsh --config "$PSScriptRoot\temas-oh-my-posh\clean-detailed.omp.json" | Invoke-Expression
+
+
+# --- Configurações do PSReadLine (Edição e Histórico) ---
+Set-PSReadLineOption -MaximumHistoryCount 20000
+Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+
+# Configura o PSReadLine para salvar/carregar o histórico automaticamente.
+# Este método é mais moderno e seguro, salvando os comandos à medida que são executados.
+Set-PSReadLineOption -HistorySaveStyle SaveIncrementally
+Set-PSReadLineOption -HistorySavePath (Join-Path ([Environment]::GetFolderPath('UserProfile')) ".ps_history")
+
+# Configura as setas para cima/baixo para pesquisar no histórico
+Set-PSReadLineOption -HistorySearchCursorMovesToEnd
+Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
+
+# Ativa as dicas e previsões de comando com base no histórico
+Set-PSReadLineOption -ShowToolTips
+Set-PSReadLineOption -PredictionSource History
+
+
+# --- Aliases e Funções Customizadas ---
+# Aliases para comandos comuns de outros sistemas
+Set-Alias -Name which -Value Get-Command -Option AllScope
+Set-Alias -Name open -Value Invoke-Item -Option AllScope
+
+# Funções para diferentes formatos de listagem de arquivos
+function ll { Get-ChildItem | Format-Table }
+function la { Get-ChildItem | Format-Wide }
+function lb { Get-ChildItem | Format-List }
+
+# Substitui o 'ls' padrão para usar a função 'la' (listagem em colunas)
+# -Force é necessário para sobrescrever o alias padrão
+Set-Alias -Name ls -Value la -Force -Option AllScope
+Set-Alias -Name l -Value lb -Option AllScope
+
+Write-Host "Perfil do PowerShell carregado com sucesso!" -ForegroundColor Green</code></pre>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="container">
+                <p>Transforme sua ferramenta de trabalho hoje mesmo!</p>
+                <a href="#script" class="cta-button">Pegar o Script Agora</a>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        function copyToClipboard(buttonElement) {
+            const container = buttonElement.parentElement;
+            const codeBlock = container.querySelector('pre code');
+            const textToCopy = codeBlock.innerText;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = buttonElement.innerText;
+                buttonElement.innerText = 'Copiado!';
+                setTimeout(() => {
+                    buttonElement.innerText = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Falha ao copiar: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
