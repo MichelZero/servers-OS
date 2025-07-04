@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Solução: PnetLab + VirtualBox + MikroTik</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="top-nav">
+        <div class="container">
+            <span class="logo"><i class="fas fa-network-wired"></i> PnetLab Solutions</span>
+            <ul class="nav-links">
+                <li><a href="#requisitos"><i class="fas fa-list-check"></i> Requisitos</a></li>
+                <li><a href="#problemas"><i class="fas fa-bug"></i> Problemas</a></li>
+                <li><a href="#configuracao"><i class="fas fa-cogs"></i> Configuração</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <h1><i class="fas fa-tools"></i> Guia de Solução Definitivo</h1>
+            <p class="subtitle">PnetLab + VirtualBox + MikroTik: Resolvendo desafios de virtualização em ambiente Windows</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Seção de Requisitos -->
+        <section id="requisitos" class="card-section">
+            <h2><i class="fas fa-clipboard-list"></i> Requisitos do Sistema</h2>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <i class="fas fa-microchip card-icon"></i>
+                    <h3>Hardware</h3>
+                    <ul>
+                        <li>CPU Intel com suporte VT-x</li>
+                        <li>Mínimo 8GB RAM</li>
+                        <li>50GB Espaço em Disco</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-desktop card-icon"></i>
+                    <h3>Software</h3>
+                    <ul>
+                        <li>Windows 11 Pro</li>
+                        <li>VirtualBox 6.1.x</li>
+                        <li>Extension Pack</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-shield-alt card-icon"></i>
+                    <h3>Configurações</h3>
+                    <ul>
+                        <li>Hyper-V Desativado</li>
+                        <li>VT-x Habilitado na BIOS</li>
+                        <li>Modo de Boot UEFI</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Problemas e Soluções -->
+        <section id="problemas" class="card-section">
+            <h2><i class="fas fa-exclamation-triangle"></i> Problemas Comuns</h2>
+            <div class="problems-grid">
+                <div class="problem-card">
+                    <div class="problem-header">
+                        <i class="fas fa-times-circle"></i>
+                        <h3>Erro "Guru Meditation"</h3>
+                    </div>
+                    <div class="problem-content">
+                        <p class="cause">Incompatibilidade do VirtualBox 7.x com virtualização aninhada</p>
+                        <div class="solution">
+                            <h4><i class="fas fa-check-circle"></i> Solução:</h4>
+                            <ul>
+                                <li>Downgrade para VirtualBox 6.1.x</li>
+                                <li>Instalar Extension Pack compatível</li>
+                                <li>Desativar Hyper-V no Windows</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-header">
+                        <i class="fas fa-hdd"></i>
+                        <h3>Boot Travado no iPXE</h3>
+                    </div>
+                    <div class="problem-content">
+                        <p class="cause">Interface de disco incompatível (virtio)</p>
+                        <div class="solution">
+                            <h4><i class="fas fa-check-circle"></i> Solução:</h4>
+                            <ul>
+                                <li>Alterar interface para SATA</li>
+                                <li>Atualizar configuração do template</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-header">
+                        <i class="fas fa-microchip"></i>
+                        <h3>Erro KVM wrmsr</h3>
+                    </div>
+                    <div class="problem-content">
+                        <p class="cause">Incompatibilidade de instruções CPU</p>
+                        <div class="solution">
+                            <h4><i class="fas fa-check-circle"></i> Solução:</h4>
+                            <ul>
+                                <li>Usar CPU genérica (qemu64)</li>
+                                <li>Ajustar opções do QEMU</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-header">
+                        <i class="fas fa-file-archive"></i>
+                        <h3>Imagem Corrompida</h3>
+                    </div>
+                    <div class="problem-content">
+                        <p class="cause">Arquivo de imagem com problemas</p>
+                        <div class="solution">
+                            <h4><i class="fas fa-check-circle"></i> Solução:</h4>
+                            <ul>
+                                <li>Baixar imagem nova do site MikroTik</li>
+                                <li>Converter para formato correto</li>
+                                <li>Aplicar permissões adequadas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Configuração -->
+        <section id="configuracao" class="card-section">
+            <h2><i class="fas fa-code"></i> Configuração Final</h2>
+            <div class="config-card">
+                <div class="file-info">
+                    <i class="fas fa-file-code"></i>
+                    <span>mikrotik.yml</span>
+                </div>
+                <pre><code id="mikrotik-script"># Configuração QEMU otimizada para MikroTik no PnetLab
+type: qemu
+name: MikroTik
+description: RouterOS CHR
+icon: Router.png
+
+# Recursos de Hardware
+cpu: 1
+cpulimit: 1
+ram: 1024
+ethernet: 4
+
+# Configurações QEMU
+qemu_arch: x86_64
+qemu_version: 2.12.0
+qemu_disk_bus: 'sata'
+console: telnet
+
+# Opções avançadas para compatibilidade
+qemu_options: >-
+    -machine type=pc,accel=kvm 
+    -cpu qemu64 
+    -serial mon:stdio 
+    -nographic 
+    -no-user-config 
+    -nodefaults 
+    -display none 
+    -vga std 
+    -rtc base=utc</code></pre>
+                <button id="copy-btn" onclick="copyCode()">
+                    <i class="fas fa-copy"></i> Copiar Configuração
+                </button>
+            </div>
+            <div class="config-notes">
+                <div class="note-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h4>Dica de Uso</h4>
+                    <p>Após aplicar esta configuração, execute o comando de permissões para garantir o funcionamento correto.</p>
+                </div>
+                <div class="note-card">
+                    <i class="fas fa-info-circle"></i>
+                    <h4>Importante</h4>
+                    <p>Mantenha o VirtualBox na versão 6.1.x para evitar problemas de compatibilidade.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p><i class="fas fa-heart"></i> Desenvolvido para ajudar a comunidade PnetLab</p>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function copyCode() {
+            const codeBlock = document.getElementById('mikrotik-script');
+            const copyButton = document.getElementById('copy-btn');
+
+            navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+                copyButton.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                setTimeout(() => {
+                    copyButton.innerHTML = '<i class="fas fa-copy"></i> Copiar Configuração';
+                }, 2000);
+            }).catch(err => {
+                console.error('Falha ao copiar o texto:', err);
+            });
+        }
+
+        // Smooth scroll para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

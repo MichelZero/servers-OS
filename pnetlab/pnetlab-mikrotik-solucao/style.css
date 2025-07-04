@@ -1,0 +1,343 @@
+/* Tema Escuro Moderno com Cards */
+:root {
+    --bg-dark: #0f1221;
+    --bg-card: #1a1f35;
+    --bg-card-hover: #242b45;
+    --border-color: #2a314d;
+    --text-primary: #e0e6f0;
+    --text-secondary: #b8c1ec;
+    --accent-color: #eebc1d;
+    --accent-hover: #ffb300;
+    --nav-bg: #151929;
+    --error-color: #ff4d4d;
+    --success-color: #4caf50;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.7;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+/* Navegação */
+.top-nav {
+    background: var(--nav-bg);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.top-nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: var(--accent-color);
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--accent-color);
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-dark) 100%);
+    padding: 4rem 0;
+    text-align: center;
+    border-bottom: 4px solid var(--accent-color);
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.hero .subtitle {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Cards Grid */
+.card-section {
+    padding: 3rem 0;
+}
+
+.card-section h2 {
+    text-align: center;
+    color: var(--accent-color);
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.info-card {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    transition: transform 0.3s, background-color 0.3s;
+    border: 1px solid var(--border-color);
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    background: var(--bg-card-hover);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+}
+
+.info-card h3 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.info-card ul {
+    list-style: none;
+}
+
+.info-card ul li {
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+/* Problems Grid */
+.problems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.problem-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    border: 1px solid var(--border-color);
+}
+
+.problem-header {
+    background: var(--nav-bg);
+    padding: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.problem-header i {
+    color: var(--error-color);
+    font-size: 1.5rem;
+}
+
+.problem-content {
+    padding: 1.5rem;
+}
+
+.cause {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.solution {
+    background: rgba(76, 175, 80, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--success-color);
+}
+
+.solution h4 {
+    color: var(--success-color);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.solution ul {
+    list-style: none;
+    padding-left: 1.5rem;
+}
+
+.solution ul li {
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.solution ul li::before {
+    content: '✓';
+    position: absolute;
+    left: -1.5rem;
+    color: var(--success-color);
+}
+
+/* Config Section */
+.config-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 2rem;
+    position: relative;
+}
+
+.file-info {
+    background: var(--nav-bg);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.file-info i {
+    color: var(--accent-color);
+}
+
+pre {
+    background: #151929;
+    padding: 2rem;
+    overflow-x: auto;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.95em;
+}
+
+code {
+    color: var(--text-primary);
+}
+
+#copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--accent-color);
+    color: var(--bg-dark);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#copy-btn:hover {
+    background: var(--accent-hover);
+    transform: scale(1.05);
+}
+
+.config-notes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.note-card {
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+}
+
+.note-card i {
+    font-size: 2rem;
+    color: var(--accent-color);
+}
+
+/* Footer */
+footer {
+    background: var(--nav-bg);
+    padding: 2rem 0;
+    margin-top: 4rem;
+    border-top: 1px solid var(--border-color);
+}
+
+footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .cards-grid, .problems-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    footer .container {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
