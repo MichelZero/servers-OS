@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Configuração NTP no Linux</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <!-- Hero Section -->
+            <header class="hero">
+                <div class="hero-content">
+                    <div class="hero-icon">⏰</div>
+                    <h1>Dominando a Sincronização de Tempo no Linux</h1>
+                    <p class="hero-subtitle">Guia completo e moderno para configurar NTP e fuso horário no seu servidor Debian/Ubuntu/PNETLab</p>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Seção: Por que é importante -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">🎯</div>
+                        <h2>Por que a hora certa é fundamental?</h2>
+                    </div>
+                    <p>Manter o relógio do seu sistema sincronizado é crucial para a estabilidade, segurança e performance. Veja os principais motivos:</p>
+                    
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <div class="feature-icon">📊</div>
+                            <div class="feature-content">
+                                <strong>Logs Precisos:</strong> Facilita a análise de eventos e solução de problemas em ordem cronológica perfeita.
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon">🔒</div>
+                            <div class="feature-content">
+                                <strong>Segurança:</strong> Essencial para certificados SSL/TLS e protocolos de autenticação como Kerberos.
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon">🌐</div>
+                            <div class="feature-content">
+                                <strong>Consistência:</strong> Garante sincronização entre dispositivos em rede, vital para aplicações distribuídas.
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- Seção: Configuração -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">⚙️</div>
+                        <h2>Configuração Passo a Passo</h2>
+                    </div>
+                    <p>Utilizaremos o <span class="inline-code">systemd-timesyncd</span>, o cliente NTP padrão e eficiente das distribuições Linux modernas.</p>
+
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">1</div>
+                            <h3>Editar Arquivo de Configuração</h3>
+                        </div>
+                        <p>Abra o arquivo de configuração com um editor. Você precisa ter privilégios administrativos.</p>
+                        <div class="code-block">
+                            <code>nano /etc/systemd/timesyncd.conf</code>
+                        </div>
+                        <p>Descomente a linha <span class="inline-code">NTP=</span> e adicione os servidores brasileiros para máxima redundância:</p>
+                        <div class="code-block">
+                            <code># Arquivo Original (Exemplo)
+[Time]
+#NTP=
+#FallbackNTP=...
+
+# Arquivo Modificado
+[Time]
+NTP=a.ntp.br b.ntp.br pool.ntp.br
+FallbackNTP=0.pool.ntp.org 1.pool.ntp.org</code>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">2</div>
+                            <h3>Reiniciar o Serviço</h3>
+                        </div>
+                        <p>Para que as alterações tenham efeito imediato, reinicie o serviço de sincronização:</p>
+                        <div class="code-block">
+                            <code>systemctl restart systemd-timesyncd</code>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">3</div>
+                            <h3>Verificar a Sincronização</h3>
+                        </div>
+                        <p>Primeiro, verifique o status geral. Procure por <span class="inline-code">System clock synchronized: yes</span>:</p>
+                        <div class="code-block">
+                            <code>timedatectl status</code>
+                        </div>
+                        <p>Para ver com qual servidor específico você está sincronizado, consulte o log do serviço:</p>
+                        <div class="code-block">
+                            <code>journalctl -u systemd-timesyncd</code>
+                        </div>
+                        <p>Procure por uma linha similar a: <span class="inline-code">Synchronized to time server 200.160.7.186:123 (a.ntp.br)</span></p>
+                    </div>
+                </section>
+
+                <!-- Seção: Fuso Horário -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">🌍</div>
+                        <h2>Configurando o Fuso Horário</h2>
+                    </div>
+                    <p>Após garantir que a hora UTC está correta, ajuste a exibição para o seu fuso horário local.</p>
+
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">1</div>
+                            <h3>Definir o Fuso Horário</h3>
+                        </div>
+                        <p>Use o comando <span class="inline-code">timedatectl set-timezone</span> com a sua região. Exemplo para o Nordeste:</p>
+                        <div class="code-block">
+                            <code>timedatectl set-timezone America/Fortaleza</code>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-header">
+                            <div class="step-number">2</div>
+                            <h3>Verificar o Resultado</h3>
+                        </div>
+                        <p>Execute <span class="inline-code">timedatectl</span> novamente. A "Local time" agora deve ser diferente da "Universal time (UTC)":</p>
+                        <div class="code-block">
+                            <code># Saída esperada
+Local time: Sex 2025-07-04 09:15:30 -03
+Universal time: Sex 2025-07-04 12:15:30 UTC
+...
+Time zone: America/Fortaleza (-03, -0300)</code>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Seção: FAQ -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-icon">❓</div>
+                        <h2>Dúvida Comum</h2>
+                    </div>
+                    
+                    <div class="alert-card">
+                        <div class="alert-header">
+                            <div class="alert-icon">!</div>
+                            <h3>"RTC in local TZ: no" é um erro?</h3>
+                        </div>
+                        <p><strong>Não, é a configuração ideal!</strong></p>
+                        <p><strong>RTC (Real-Time Clock)</strong> é o relógio de hardware da sua máquina. A configuração <span class="inline-code">RTC in local TZ: no</span> significa que este relógio armazena a hora no padrão universal <strong>UTC</strong>.</p>
+                        <p>O sistema operacional lê a hora em UTC e a converte para o seu fuso horário local (como <span class="inline-code">America/Fortaleza</span>). Isso evita problemas com horário de verão e garante máxima compatibilidade. <strong>Não altere essa configuração!</strong></p>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <p>© 2025 - Guia desenvolvido para administradores de sistema Linux. Mantido atualizado com as melhores práticas.</p>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
