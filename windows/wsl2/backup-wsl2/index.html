@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Completo: Backup de Distribuições WSL2</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="meta-info">
+                <span>Por: Michel</span>
+                <span>Data: 15/06/2025</span>
+                <span>Categoria: Terminal</span>
+            </div>
+            <h1>Como Fazer Backup de Suas Máquinas (Distribuições) no WSL2</h1>
+            <p class="intro">
+                Fazer backups regulares das suas distribuições WSL2 é uma prática essencial para proteger seus dados, configurações e ambiente de desenvolvimento. Felizmente, o próprio WSL fornece ferramentas de linha de comando que tornam esse processo simples e eficiente.
+            </p>
+        </header>
+
+        <main>
+            <section id="passo1">
+                <h2>Passo 1: Listar as Distribuições Instaladas</h2>
+                <p>Antes de fazer o backup, você precisa saber o nome exato da distribuição que deseja salvar. Abra o PowerShell ou o CMD e execute o seguinte comando:</p>
+                <div class="code-block">
+                    <pre><code>wsl --list --verbose</code></pre>
+                </div>
+                <p>A saída será algo parecido com isto:</p>
+                <div class="code-block output">
+                    <pre><code>NAME            STATE           VERSION
+* Ubuntu-22.04    Running         2
+  docker-desktop  Running         2</code></pre>
+                </div>
+                <p>Você também pode usar a forma abreviada:</p>
+                <div class="code-block">
+                    <pre><code>wsl -l -v</code></pre>
+                </div>
+                
+                <figure>
+                    <!-- Substitua 'placeholder.png' pela sua imagem 'image.png' -->
+                    <img src="image.png" alt="Exemplo de saída do comando wsl -l -v no terminal.">
+                    <figcaption>Saída de exemplo do comando <code>wsl -l -v</code>.</figcaption>
+                </figure>
+                
+                <div class="info-box tip">
+                    <p><strong>Dica:</strong> Para garantir a consistência dos dados, é uma boa prática desligar a distribuição antes de exportá-la. Você pode desligar todas as instâncias com <code>wsl --shutdown</code> ou uma específica com <code>wsl --terminate &lt;NomeDaDistro&gt;</code>.</p>
+                </div>
+            </section>
+
+            <section id="passo2">
+                <h2>Passo 2: Fazer o Backup (Exportar)</h2>
+                <p>O comando <code>wsl --export</code> cria um arquivo <code>.tar</code> (um arquivo compactado) que contém todo o sistema de arquivos da sua distribuição.</p>
+                <div class="code-block">
+                    <pre><code>wsl --export &lt;NomeDaDistro&gt; &lt;Caminho\Para\O\Arquivo.tar&gt;</code></pre>
+                </div>
+                <h4>Exemplo Prático:</h4>
+                <p>Vamos exportar a distribuição <strong>Ubuntu-22.04</strong> para uma pasta <code>D:\Backups\WSL</code>.</p>
+                <div class="code-block powershell">
+                    <pre><code># Desligando a distro (recomendado)
+wsl --terminate Ubuntu-22.04
+
+# Executando o comando de exportação
+wsl --export Ubuntu-22.04 "D:\Backups\WSL\ubuntu-2204-backup.tar"</code></pre>
+                </div>
+                <p>Aguarde o processo terminar. Ao final, você terá um arquivo <code>ubuntu-2204-backup.tar</code> no local especificado. Este é o seu backup completo!</p>
+            </section>
+
+            <section id="passo3">
+                <h2>Passo 3: Restaurar o Backup (Importar)</h2>
+                <p>Para restaurar seu ambiente, use o comando <code>wsl --import</code>. Ele permite que você restaure o backup como uma nova distribuição, com um novo nome e em um local específico.</p>
+                <div class="code-block">
+                    <pre><code>wsl --import &lt;NovoNomeParaDistro&gt; &lt;LocalDeInstalacao&gt; &lt;Caminho\Do\Arquivo.tar&gt;</code></pre>
+                </div>
+                <h4>Exemplo Prático:</h4>
+                <div class="code-block powershell">
+                    <pre><code>wsl --import Ubuntu-Restaurada "C:\wsl_dists\ubuntu-restaurada" "D:\Backups\WSL\ubuntu-2204-backup.tar"</code></pre>
+                </div>
+                
+                <div class="info-box warning">
+                    <h4>Atenção: Configurando o Usuário Padrão Após a Restauração</h4>
+                    <p>Ao importar, o WSL define o login para o usuário <code>root</code>. Para corrigir isso:</p>
+                    <ol>
+                        <li>Inicie a nova distro: <code>wsl -d Ubuntu-Restaurada</code>.</li>
+                        <li>Como root, crie ou edite o arquivo <code>/etc/wsl.conf</code> com o comando <code>nano /etc/wsl.conf</code>.</li>
+                        <li>Adicione o seguinte conteúdo, substituindo <code>seu-usuario</code> pelo seu nome de usuário:</li>
+                    </ol>
+                    <div class="code-block ini">
+                        <pre><code>[user]
+default = seu-usuario</code></pre>
+                    </div>
+                    <ol start="4">
+                        <li>Salve, saia, e no PowerShell execute <code>wsl --terminate Ubuntu-Restaurada</code> para aplicar a mudança.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="bonus-section">
+                <h2>Seção Bônus: Automatizando o Backup</h2>
+                <p>Você pode usar este script PowerShell (<code>backup-wsl.ps1</code>) para automatizar o processo.</p>
+                <div class="code-block powershell">
+<pre><code># --- Configurações ---
+$distroName = "Ubuntu-22.04"
+$backupPath = "D:\Backups\WSL"
+
+# --- Lógica do Script ---
+if (-not (Test-Path -Path $backupPath)) {
+    New-Item -ItemType Directory -Path $backupPath
+}
+
+$timestamp = Get-Date -Format "yyyy-MM-dd"
+$backupFile = "$($backupPath)\$($distroName)-backup-$($timestamp).tar"
+
+Write-Host "Iniciando backup da distro '$distroName'..."
+wsl --terminate $distroName
+Start-Sleep -Seconds 3
+
+wsl --export $distroName $backupFile
+
+if ($?) {
+    Write-Host "Backup concluído com sucesso!" -ForegroundColor Green
+} else {
+    Write-Host "Ocorreu um erro durante o backup." -ForegroundColor Red
+}</code></pre>
+                </div>
+            </section>
+
+            <section class="links-uteis">
+                <h2>Links Úteis</h2>
+                <ul>
+                    <li><a href="https://docs.microsoft.com/pt-br/windows/wsl/" target="_blank">Documentação Oficial do WSL</a></li>
+                    <li><a href="https://github.com/microsoft/WSL" target="_blank">GitHub - WSL</a></li>
+                </ul>
+            </section>
+
+        </main>
+        <footer>
+            <p>&copy; 2025 Michel. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+</body>
+</html>

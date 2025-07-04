@@ -1,0 +1,231 @@
+/* ---- Reset e Variáveis de Cor ---- */
+:root {
+    --bg-color: #1a1b26;
+    --surface-color: #24283b;
+    --text-color: #c0caf5;
+    --primary-color: #7aa2f7;
+    --green-color: #9ece6a;
+    --orange-color: #ff9e64;
+    --border-color: #414868;
+    --code-bg: #101014;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.8;
+}
+
+/* ---- Layout Principal ---- */
+.container {
+    max-width: 850px;
+    margin: 50px auto;
+    padding: 40px;
+    background-color: var(--surface-color);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+/* ---- Cabeçalho ---- */
+header {
+    text-align: center;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 30px;
+    margin-bottom: 40px;
+}
+
+.meta-info {
+    font-size: 0.9rem;
+    color: #a9b1d6;
+    margin-bottom: 20px;
+}
+
+.meta-info span {
+    margin: 0 15px;
+}
+
+header h1 {
+    font-size: 2.8rem;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+header .intro {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto;
+    color: #a9b1d6;
+}
+
+/* ---- Seções e Tipografia ---- */
+section {
+    margin-bottom: 50px;
+}
+
+h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+h4 {
+    font-size: 1.2rem;
+    color: var(--orange-color);
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+p, li {
+    margin-bottom: 15px;
+}
+
+a {
+    color: var(--green-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #b9f27c;
+    text-decoration: underline;
+}
+
+/* ---- Bloco de Código ---- */
+.code-block {
+    background-color: var(--code-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 25px 0;
+    overflow-x: auto;
+}
+
+pre {
+    margin: 0;
+}
+
+code {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+/* Código inline no texto */
+p code, li code {
+    background-color: #363b57;
+    padding: 3px 7px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+/* ---- Imagens e Figuras ---- */
+figure {
+    margin: 25px 0;
+    text-align: center;
+}
+
+figure img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+figure figcaption {
+    font-size: 0.9rem;
+    color: #a9b1d6;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+/* ---- Caixas de Informação ---- */
+.info-box {
+    padding: 20px;
+    margin: 30px 0;
+    border-radius: 8px;
+    border-left: 5px solid;
+}
+
+.info-box p:last-child, .info-box ol:last-child {
+    margin-bottom: 0;
+}
+
+.tip {
+    background-color: rgba(122, 162, 247, 0.1);
+    border-color: var(--primary-color);
+}
+
+.warning {
+    background-color: rgba(255, 158, 100, 0.1);
+    border-color: var(--orange-color);
+}
+
+.warning h4 {
+    color: var(--orange-color);
+    margin-top: 0;
+}
+
+.warning ol {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+/* ---- Seções Específicas ---- */
+.bonus-section {
+    background-color: rgba(158, 206, 106, 0.05);
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--green-color);
+}
+
+.bonus-section h2 {
+    color: var(--green-color);
+    border-bottom-color: var(--green-color);
+}
+
+.links-uteis ul {
+    list-style: none;
+}
+
+.links-uteis li {
+    font-size: 1.1rem;
+}
+
+/* ---- Rodapé ---- */
+footer {
+    text-align: center;
+    border-top: 2px solid var(--border-color);
+    padding-top: 30px;
+    margin-top: 20px;
+    color: #a9b1d6;
+}
+
+/* ---- Responsividade ---- */
+@media (max-width: 768px) {
+    .container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    header h1 {
+        font-size: 2.2rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .meta-info span {
+        display: block;
+        margin: 5px 0;
+    }
+}

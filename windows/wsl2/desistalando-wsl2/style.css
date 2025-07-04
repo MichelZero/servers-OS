@@ -1,0 +1,194 @@
+/* ---- Reset e Estilos Globais ---- */
+:root {
+    --dark-bg: #1e1e1e;
+    --light-bg: #2d2d2d;
+    --text-color: #dcdcdc;
+    --primary-color: #4e9a06; /* Verde PNETLab */
+    --warning-color: #fca103;
+    --border-color: #444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Layout Principal ---- */
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px 40px;
+    background-color: var(--light-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+header {
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 10px;
+}
+
+header .subtitle {
+    font-size: 1.1rem;
+    color: #a0a0a0;
+}
+
+/* ---- Tipografia e Conteúdo ---- */
+h2 {
+    font-size: 1.8rem;
+    color: white;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+h3 {
+    font-size: 1.4rem;
+    color: #e0e0e0;
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+strong {
+    color: var(--warning-color);
+}
+
+/* ---- Estilos dos Passos (Lista Ordenada) ---- */
+.steps-list {
+    list-style: none;
+    counter-reset: steps-counter;
+    margin-top: 20px;
+}
+
+.steps-list li {
+    counter-increment: steps-counter;
+    margin-bottom: 40px;
+    position: relative;
+    padding-left: 60px;
+}
+
+.steps-list li::before {
+    content: counter(steps-counter);
+    position: absolute;
+    left: 0;
+    top: -5px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* ---- Blocos de Código ---- */
+.code-block {
+    background-color: #161616;
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 20px 0;
+    overflow-x: auto;
+}
+
+pre {
+    margin: 0;
+}
+
+code {
+    font-family: 'Source Code Pro', monospace;
+    color: #9cdcfe;
+    font-size: 0.95rem;
+}
+
+/* Para código inline no meio do texto */
+p code, li code {
+    background-color: #3a3a3a;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #ce9178;
+}
+
+/* ---- Alertas e Avisos ---- */
+.warning, .success {
+    padding: 20px;
+    margin: 30px 0;
+    border-radius: 5px;
+    border-left: 5px solid;
+}
+
+.warning {
+    background-color: rgba(252, 161, 3, 0.1);
+    border-color: var(--warning-color);
+}
+
+.warning h3 {
+    color: var(--warning-color);
+}
+
+.success {
+    background-color: rgba(78, 154, 6, 0.1);
+    border-color: var(--primary-color);
+}
+
+.success h3 {
+    color: var(--primary-color);
+}
+
+/* ---- Rodapé ---- */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* ---- Responsividade para Telas Menores ---- */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px 20px;
+        margin: 10px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .steps-list li {
+        padding-left: 0;
+    }
+
+    .steps-list li::before {
+        position: static;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+}

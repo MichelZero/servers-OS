@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Completo: Removendo o WSL2 para Liberar o VirtualBox</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Guia Definitivo: Removendo o WSL2</h1>
+            <p class="subtitle">Solucione o erro "Guru Meditation" no VirtualBox desativando o Hyper-V e o WSL.</p>
+        </header>
+
+        <main>
+            <div class="warning">
+                <h3>⚠️ Atenção: Backup de Dados Essencial!</h3>
+                <p>Este procedimento irá <strong>apagar permanentemente</strong> todas as suas máquinas virtuais WSL e os arquivos dentro delas. Faça backup de qualquer dado importante antes de continuar.</p>
+            </div>
+
+            <h2>Passo a Passo para a Remoção Completa</h2>
+            <p>Siga estas instruções usando o <strong>PowerShell como Administrador</strong> para garantir que todas as permissões necessárias sejam concedidas.</p>
+
+            <ol class="steps-list">
+                <li>
+                    <h3>Abra o PowerShell como Administrador</h3>
+                    <p>Clique no Menu Iniciar, digite "PowerShell", clique com o botão direito e selecione "Executar como administrador".</p>
+                </li>
+                
+                <li>
+                    <h3>Liste e Remova as Distribuições WSL</h3>
+                    <p>Primeiro, veja quais distribuições estão instaladas:</p>
+                    <div class="code-block">
+                        <pre><code>wsl --list -v</code></pre>
+                    </div>
+                    <p>Em seguida, para cada distribuição listada (como <code>Ubuntu-20.04</code> ou <code>docker-desktop-data</code>), execute o comando abaixo para removê-la completamente:</p>
+                    <div class="code-block">
+                        <pre><code>wsl --unregister NOME_DA_DISTRIBUICAO</code></pre>
+                    </div>
+                </li>
+
+                <li>
+                    <h3>Desative os Componentes de Virtualização do Windows</h3>
+                    <p>Esta é a etapa crucial. Execute os dois comandos a seguir, um de cada vez. Eles desativam as plataformas que causam conflito com o VirtualBox.</p>
+                    <p>Desativar a Plataforma de Máquina Virtual:</p>
+                    <div class="code-block">
+                        <pre><code>dism.exe /online /disable-feature /featurename:VirtualMachinePlatform</code></pre>
+                    </div>
+                    <p>Desativar o Subsistema do Windows para Linux:</p>
+                    <div class="code-block">
+                        <pre><code>dism.exe /online /disable-feature /featurename:Microsoft-Windows-Subsystem-Linux</code></pre>
+                    </div>
+                </li>
+
+                <li>
+                    <h3>Reinicie o Computador</h3>
+                    <p>Este passo é <strong>obrigatório</strong>. As alterações só terão efeito após uma reinicialização completa do seu PC. Não pule esta etapa!</p>
+                </li>
+            </ol>
+
+            <div class="success">
+                <h3>✅ Verificação Final</h3>
+                <p>Após reiniciar, o WSL estará completamente desativado. O VirtualBox agora terá acesso exclusivo aos recursos de virtualização do seu processador, e o erro "Guru Meditation" ao iniciar nós no PNETLab estará resolvido.</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>Guia criado para auxiliar a comunidade PNETLab & VirtualBox.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
