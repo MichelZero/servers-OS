@@ -25,9 +25,9 @@
 
     <!-- Hero Section -->
     <header class="hero">
-        <div class="container">
-            <h1><i class="fas fa-tools"></i> Guia de Solução Definitivo</h1>
-            <p class="subtitle">PnetLab + VirtualBox + MikroTik: Resolvendo desafios de virtualização em ambiente Windows</p>
+        <div class="container">            
+            <h1>PnetLab + VirtualBox + MikroTik: Resolvendo desafios de virtualização em ambiente Windows</h1>
+            <h2><i class="fas fa-tools"></i> Guia de Solução Definitivo</h2>
         </div>
     </header>
 
@@ -49,9 +49,10 @@
                     <i class="fas fa-desktop card-icon"></i>
                     <h3>Software</h3>
                     <ul>
-                        <li>Windows 11 Pro</li>
+                        <li>Windows 10 ou 11</li>
                         <li>VirtualBox 6.1.x</li>
                         <li>Extension Pack</li>
+                        <li>Windows integration pack (EVE-NG-Win-Client-Pack-2.0) <a href="https://mega.nz/file/G5liXYzK#oaSC1Jrh5m0HaNkReirurtrXhIHGw6NOZX3jgus1xqo">Download</a></li>
                     </ul>
                 </div>
                 <div class="info-card">
@@ -77,6 +78,9 @@
                     </div>
                     <div class="problem-content">
                         <p class="cause">Incompatibilidade do VirtualBox 7.x com virtualização aninhada</p>
+                        <div style="display: flex; justify-content: center;">
+                            <img src="guru-meditation.png" alt="Erro Guru Meditation" class="problem-image" style="max-width: 432px; display: block;">
+                        </div>
                         <div class="solution">
                             <h4><i class="fas fa-check-circle"></i> Solução:</h4>
                             <ul>
@@ -95,6 +99,9 @@
                     </div>
                     <div class="problem-content">
                         <p class="cause">Interface de disco incompatível (virtio)</p>
+                        <div style="display: flex; justify-content: center;">
+                            <img src="boot-ipxe.png" alt="Boot travado no iPXE" class="problem-image" style="max-width: 432px; display: block;">
+                        </div>
                         <div class="solution">
                             <h4><i class="fas fa-check-circle"></i> Solução:</h4>
                             <ul>
@@ -112,6 +119,9 @@
                     </div>
                     <div class="problem-content">
                         <p class="cause">Incompatibilidade de instruções CPU</p>
+                        <div style="display: flex; justify-content: center;">
+                            <img src="erro-kvm.png" alt="Erro KVM wrmsr" class="problem-image" style="max-width: 432px; display: block;">
+                        </div>
                         <div class="solution">
                             <h4><i class="fas fa-check-circle"></i> Solução:</h4>
                             <ul>
@@ -145,6 +155,16 @@
         <!-- Seção de Configuração -->
         <section id="configuracao" class="card-section">
             <h2><i class="fas fa-code"></i> Configuração Final</h2>
+            <div class="config-description">
+                <p>Esta é a configuração final para o MikroTik no PnetLab.</p>
+            </div>
+            <div class="config-example">
+                <h3>Edite o Template:
+Conecte-se via SSH e edite o arquivo mikrotik.yml no bash: </h3>
+
+<h2><code>nano /opt/unetlab/html/templates/mikrotik.yml</code></h2>
+</h4>
+            </div>
             <div class="config-card">
                 <div class="file-info">
                     <i class="fas fa-file-code"></i>
@@ -152,8 +172,10 @@
                 </div>
                 <pre><code id="mikrotik-script"># Configuração QEMU otimizada para MikroTik no PnetLab
 type: qemu
-name: MikroTik
-description: RouterOS CHR
+config_script: config_mikrotik.py
+description: MikroTik RouterOS
+name: Mikrotik
+cpulimit: 1
 icon: Router.png
 
 # Recursos de Hardware
@@ -169,16 +191,7 @@ qemu_disk_bus: 'sata'
 console: telnet
 
 # Opções avançadas para compatibilidade
-qemu_options: >-
-    -machine type=pc,accel=kvm 
-    -cpu qemu64 
-    -serial mon:stdio 
-    -nographic 
-    -no-user-config 
-    -nodefaults 
-    -display none 
-    -vga std 
-    -rtc base=utc</code></pre>
+qemu_options: -machine type=pc,accel=kvm -cpu kvm64 -serial mon:stdio -nographic -no-user-config -nodefaults -display none -vga std -rtc base=utc</code></pre>
                 <button id="copy-btn" onclick="copyCode()">
                     <i class="fas fa-copy"></i> Copiar Configuração
                 </button>
