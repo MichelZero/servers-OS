@@ -114,11 +114,19 @@ if (Test-Path($ChocolateyProfile)) {
 }
 
 
+
 # --- Módulos Principais ---
 # Importa os módulos para melhorar a experiência do terminal.
 # Terminal-Icons é preferível sobre Get-ChildItemColor por ser mais moderno.
 Import-Module -Name Terminal-Icons
-Import-Module -Name PSReadLine
+
+<# if (-not (...)): Significa "Se a condição a seguir NÃO for verdadeira...".
+Get-Module -Name PSReadLine: Tenta encontrar o módulo PSReadLine.
+-ErrorAction SilentlyContinue: Se o módulo não for encontrado, ele não mostrará um erro, apenas continuará silenciosamente.
+Resumindo: "Se o módulo PSReadLine ainda não estiver carregado, então carregue-o". #>
+if (-not (Get-Module -Name PSReadLine -ErrorAction SilentlyContinue)) {
+    Import-Module -Name PSReadLine
+}
 Import-Module -Name posh-git
 
 
