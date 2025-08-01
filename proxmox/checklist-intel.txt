@@ -1,0 +1,12 @@
+Checklist de Instalação - Intel
+
+1. Verifique se o processador suporta VT-x/VT-d
+2. Acesse a BIOS e ative VT-x/VT-d
+3. Atualize a BIOS para a versão mais recente
+4. Desabilite o Secure Boot
+5. Configure o boot pelo pendrive/ISO do Proxmox
+6. Siga o assistente de instalação do Proxmox
+7. Configure rede e armazenamento conforme necessidade
+8. Teste a criação de VMs
+9. Após instalação, atualize drivers e firmware
+10. Atenção a possíveis problemas de compatibilidade de hardware

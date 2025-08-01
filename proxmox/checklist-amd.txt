@@ -1,0 +1,17 @@
+Checklist de Instalação - AMD
+
+1. Verifique se o processador suporta SVM/IOMMU
+2. Acesse a BIOS e ative SVM/IOMMU
+3. Atualize a BIOS para a versão mais recente
+4. Desabilite o Secure Boot
+5. Configure o boot pelo pendrive/ISO do Proxmox
+6. Siga o assistente de instalação do Proxmox
+7. Configure rede e armazenamento conforme necessidade
+8. Para processadores com iGPU Barcelo:
+   - Consulte documentação oficial para configurar o passthrough
+   - Atenção especial à configuração de IOMMU e grupos PCI
+   - Verifique suporte do kernel e do Proxmox para Barcelo
+   - Teste o passthrough da iGPU
+9. Teste a criação de VMs
+10. Após instalação, atualize drivers e firmware
+11. Atenção a possíveis problemas de compatibilidade de hardware, especialmente com Barcelo

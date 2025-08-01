@@ -1,0 +1,89 @@
+.icon-h2 {
+    height: 28px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+.icon-li {
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+.icon-li-right {
+    height: 18px;
+    vertical-align: middle;
+    margin-left: 4px;
+}
+.img-logo {
+    max-width: 180px;
+    display: block;
+    margin: 18px auto;
+}
+.img-amd {
+    max-width: 120px;
+    display: block;
+    margin: 18px auto;
+}
+.card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+    padding: 24px 20px;
+    transition: box-shadow 0.2s;
+}
+.card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f8f9fa;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background: #343a40;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+nav {
+    background: #e9ecef;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+nav ul li {
+    margin: 8px 0;
+}
+nav ul li a {
+    color: #007bff;
+    text-decoration: none;
+}
+nav ul li a:hover {
+    text-decoration: underline;
+}
+main {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+h2 {
+    color: #343a40;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 5px;
+    margin-top: 0;
+}
+footer {
+    background: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 40px;
+    border-radius: 0 0 8px 8px;
+}
