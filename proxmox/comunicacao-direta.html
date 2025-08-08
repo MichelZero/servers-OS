@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuração de Rede Proxmox</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Configurando Comunicação Direta de 2.5Gb no Proxmox</h1>
+
+        <p>Para configurar a comunicação entre seus dois nós Proxmox (pve-01 e pve-02) utilizando as placas de rede <strong>enp3s0</strong> de 2.5Gb, você criará uma nova ponte (Linux Bridge) em cada nó. Isso estabelece um link dedicado de alta velocidade, ideal para comunicação de cluster, replicação e migrações.</p>
+
+        <div class="card">
+            <h2>Configuração do Nó <code>pve-01</code></h2>
+            <ol>
+                <li>Acesse a interface web do Proxmox.</li>
+                <li>Navegue para: <code>Datacenter</code> &rarr; <code>pve-01</code> &rarr; <code>Sistema</code> &rarr; <code>Rede</code>.</li>
+                <li>Clique em <strong>Criar</strong> e selecione <strong>"Ponte Linux" (Linux Bridge)</strong>.</li>
+                <li>Preencha os campos da seguinte forma:
+                    <ul>
+                        <li><strong>Nome:</strong> <code>vmbr1</code></li>
+                        <li><strong>Endereço IPv4/CIDR:</strong> <code>10.10.10.1/24</code></li>
+                        <li><strong>Portas da ponte:</strong> <code>enp3s0</code></li>
+                        <li><strong>Gateway:</strong> Deixe este campo <em>em branco</em>.</li>
+                        <li>Marque a opção <strong>"Autostart"</strong>.</li>
+                    </ul>
+                </li>
+                <li>Clique em <strong>Criar</strong> para finalizar.</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2>Configuração do Nó <code>pve-02</code></h2>
+            <ol>
+                <li>Acesse a interface web do Proxmox.</li>
+                <li>Navegue para: <code>Datacenter</code> &rarr; <code>pve-02</code> &rarr; <code>Sistema</code> &rarr; <code>Rede</code>.</li>
+                <li>Clique em <strong>Criar</strong> e selecione <strong>"Ponte Linux" (Linux Bridge)</strong>.</li>
+                <li>Preencha os campos da seguinte forma:
+                    <ul>
+                        <li><strong>Nome:</strong> <code>vmbr1</code></li>
+                        <li><strong>Endereço IPv4/CIDR:</strong> <code>10.10.10.2/24</code></li>
+                        <li><strong>Portas da ponte:</strong> <code>enp3s0</code></li>
+                        <li><strong>Gateway:</strong> Deixe este campo <em>em branco</em>.</li>
+                        <li>Marque a opção <strong>"Autostart"</strong>.</li>
+                    </ul>
+                </li>
+                <li>Clique em <strong>Criar</strong> para finalizar.</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2>Aplicar as Configurações e Verificar</h2>
+            <ol>
+                <li>Após criar as pontes em ambos os nós, um botão <strong>"Apply Configuration"</strong> aparecerá no topo. Clique nele em cada nó para aplicar as novas configurações.</li>
+                <li>Para verificar a comunicação, acesse o shell de cada nó e use o comando <code>ping</code>:</li>
+            </ol>
+            
+            <p>No shell do <strong>pve-01</strong>, execute:</p>
+            <pre><code>ping 10.10.10.2</code></pre>
+
+            <p>No shell do <strong>pve-02</strong>, execute:</p>
+            <pre><code>ping 10.10.10.1</code></pre>
+
+            <p>Se os pings forem bem-sucedidos, a comunicação direta pela rede de 2.5Gb estará funcionando corretamente.</p>
+        </div>
+    </div>
+
+</body>
+</html>
