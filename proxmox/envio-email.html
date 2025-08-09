@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Otimização: Configurando o Envio de E-mails no Proxmox</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Do Alerta à Caixa de Entrada</h1>
+            <p class="subtitle">Completando a configuração para o envio real de e-mails com um Relay SMTP.</p>
+        </header>
+
+        <main>
+            <section id="conceito">
+                <h2>As Duas Partes do Quebra-Cabeça do E-mail</h2>
+                <p>
+                    A "Nota Importante" que você viu revela uma verdade fundamental sobre o envio de e-mails em sistemas como o Proxmox. Para que uma notificação chegue até você, duas partes precisam trabalhar em conjunto:
+                </p>
+                <ul>
+                    <li>
+                        <strong>A Identidade (O Remetente):</strong>
+                        <br>
+                        Esta é a parte que já configuramos em <code>Datacenter &rarr; Options &rarr; Email from address</code>. É como preencher o campo "De:" de uma carta. Dizemos ao destinatário <strong>quem</strong> está enviando a mensagem.
+                    </li>
+                    <li>
+                        <strong>O Serviço Postal (O Entregador):</strong>
+                        <br>
+                        O Proxmox sabe *quem* ele é, mas ele não é um serviço de correios. Ele não sabe como navegar pela internet para encontrar e entregar a mensagem ao seu servidor de e-mail. Para isso, ele precisa entregar a "carta" para um serviço postal confiável, que fará a entrega final. Este serviço é chamado de <strong>Relay SMTP</strong>.
+                    </li>
+                </ul>
+            </section>
+
+            <section id="passo-a-passo">
+                <h2>Guia: Configurando o Postfix como Relay SMTP</h2>
+                <p>O Postfix é o serviço de e-mail padrão em sistemas baseados em Debian (como o Proxmox). Vamos configurá-lo para usar um serviço externo (como Gmail ou SendGrid) para enviar os e-mails do sistema. Este guia deve ser executado no shell de <strong>cada nó Proxmox</strong>.</p>
+                
+                <div class="aviso">
+                    <strong>Pré-requisitos:</strong> Antes de começar, você precisará das credenciais do seu serviço de e-mail. Para o Gmail, isso requer a criação de uma <strong>"Senha de App"</strong> específica, pois a sua senha normal não funcionará por motivos de segurança.
+                </div>
+
+                <ol>
+                    <li>
+                        <strong>Instale os Pacotes Necessários:</strong>
+                        Se ainda não estiverem instalados, abra o shell do seu nó Proxmox e execute:
+                        <pre><code>apt update && apt install -y postfix libsasl2-modules mailutils</code></pre>
+                        Durante a instalação, escolha a opção <strong>"Satellite system"</strong>. Para o "mail name", você pode usar o FQDN do seu servidor (ex: <code>pve-01.lab</code>). Para o "relay host", você já pode inserir o servidor SMTP do seu provedor (ex: <code>[smtp.gmail.com]:587</code>).
+                    </li>
+                    <li>
+                        <strong>Edite a Configuração Principal do Postfix:</strong>
+                        Abra o arquivo de configuração com <code>nano /etc/postfix/main.cf</code> e adicione ou modifique as seguintes linhas no final do arquivo:
+                        <pre><code># --- Configuração do Relay SMTP ---
+relayhost = [smtp.gmail.com]:587
+smtp_use_tls = yes
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtp_sasl_security_options = noanonymous
+smtp_tls_wrappermode = no
+smtp_tls_security_level = encrypt
+</code></pre>
+                        <p><strong>Nota:</strong> Altere <code>[smtp.gmail.com]:587</code> para os dados do seu provedor, se for diferente.</p>
+                    </li>
+                    <li>
+                        <strong>Crie o Arquivo de Senha:</strong>
+                        Agora, vamos criar o arquivo que armazena suas credenciais de forma segura.
+                        <pre><code>nano /etc/postfix/sasl_passwd</code></pre>
+                        Dentro deste arquivo, adicione uma única linha no seguinte formato:
+                        <pre><code>[smtp.gmail.com]:587    seuemail@gmail.com:sua_senha_de_app</code></pre>
+                    </li>
+                    <li>
+                        <strong>Processe e Proteja o Arquivo de Senha:</strong>
+                        Execute os seguintes comandos para converter o arquivo para um formato que o Postfix entende e para proteger as permissões:
+                        <pre><code>postmap /etc/postfix/sasl_passwd
+chmod 600 /etc/postfix/sasl_passwd /etc/postfix/sasl_passwd.db</code></pre>
+                    </li>
+                    <li>
+                        <strong>Reinicie o Postfix e Teste:</strong>
+                        Aplique as novas configurações e envie um e-mail de teste:
+                        <pre><code>systemctl restart postfix
+echo "Este é um e-mail de teste do meu servidor Proxmox" | mail -s "Teste Proxmox" seu_email_de_destino@exemplo.com</code></pre>
+                    </li>
+                </ol>
+            </section>
+            
+            <section id="resultado">
+                <h2>O Resultado: Um Sistema de Alertas Funcional</h2>
+                <p>
+                    Após seguir estes passos, seu servidor Proxmox estará totalmente equipado para enviar notificações. Agora, quando um backup terminar ou um evento de HA ocorrer, você receberá um e-mail na sua caixa de entrada, mantendo você sempre informado sobre a saúde do seu cluster.
+                </p>
+            </section>
+        </main>
+
+        <footer>
+            <p>Guia de configuração para um homelab Proxmox.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
