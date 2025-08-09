@@ -1,0 +1,193 @@
+/*
+ * TEMA: PROXMOX MODERN LIGHT
+ * Um design claro, profissional e vibrante inspirado na identidade visual do Proxmox.
+ */
+
+/* -- Paleta de Cores e Variáveis Globais -- */
+:root {
+    --cor-fundo: #f4f7f9; /* Um cinza muito claro para o fundo da página */
+    --cor-fundo-container: #ffffff; /* Branco puro para o container principal */
+    --cor-texto: #333740; /* Um cinza escuro para o texto, para boa legibilidade */
+    --cor-primaria: #E65A00; /* Laranja oficial do Proxmox */
+    --cor-secundaria: #0073A8; /* Um azul profissional para complementar */
+    --cor-borda: #e1e8ed; /* Um cinza claro para bordas suaves */
+    --cor-fundo-codigo: #2d2d2d; /* Fundo escuro para blocos de código, para alto contraste */
+    --cor-texto-codigo: #f1f1f1; /* Texto claro para o código */
+    --sombra: 0 8px 30px rgba(0, 0, 0, 0.08); /* Sombra mais suave e pronunciada */
+}
+
+/* -- Configurações Gerais -- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    line-height: 1.8; /* Mais espaço entre linhas para conforto na leitura */
+    padding: 20px;
+}
+
+/* -- Container Principal -- */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 40px;
+    background-color: var(--cor-fundo-container);
+    border-radius: 16px; /* Bordas mais arredondadas */
+    box-shadow: var(--sombra);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* -- Cabeçalho -- */
+header {
+    text-align: center;
+    border-bottom: 1px solid var(--cor-borda);
+    padding-bottom: 25px;
+    margin-bottom: 40px;
+}
+
+h1 {
+    color: var(--cor-primaria);
+    font-size: 2.8em;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.subtitle {
+    color: var(--cor-secundaria);
+    font-size: 1.2em;
+    font-style: normal; /* Look mais limpo sem itálico */
+}
+
+/* -- Seções e Títulos -- */
+section {
+    margin-bottom: 45px;
+}
+
+h2 {
+    color: var(--cor-texto);
+    border-bottom: 3px solid var(--cor-primaria);
+    display: inline-block; /* Faz a borda se ajustar ao tamanho do texto */
+    padding-bottom: 8px;
+    margin-bottom: 25px;
+    font-size: 1.9em;
+}
+
+/* -- Listas Estilizadas -- */
+ol {
+    list-style: none;
+    counter-reset: step-counter; /* Inicia um contador para a lista */
+    padding-left: 15px;
+}
+
+ol li {
+    counter-increment: step-counter; /* Incrementa o contador a cada item */
+    margin-bottom: 20px;
+    position: relative;
+    padding-left: 50px; /* Espaço para o número estilizado */
+}
+
+ol li::before {
+    content: counter(step-counter); /* Exibe o número do contador */
+    position: absolute;
+    left: 0;
+    top: -3px;
+    background-color: var(--cor-primaria);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%; /* Círculo perfeito */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-family: 'Source Code Pro', monospace;
+    box-shadow: 0 3px 6px rgba(230, 90, 0, 0.4);
+}
+
+ul {
+    list-style: none;
+    padding-left: 15px;
+}
+
+ul li {
+    position: relative;
+    padding-left: 35px;
+}
+
+ul li::before {
+    content: '✓'; /* Um checkmark para listas não ordenadas */
+    position: absolute;
+    left: 0;
+    top: -2px;
+    color: var(--cor-primaria);
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+/* -- Blocos de Código -- */
+pre {
+    background-color: var(--cor-fundo-codigo);
+    border-radius: 8px;
+    padding: 20px;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+code {
+    font-family: 'Source Code Pro', monospace;
+    color: var(--cor-texto-codigo);
+    font-size: 0.95em;
+}
+
+/* Código Inline */
+code:not(pre > code) {
+    background-color: rgba(230, 90, 0, 0.1); /* Fundo laranja bem claro */
+    color: var(--cor-primaria);
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* -- Bloco de Aviso -- */
+.aviso {
+    background-color: rgba(0, 115, 168, 0.08); /* Fundo azul bem claro */
+    border-left: 5px solid var(--cor-secundaria);
+    padding: 20px;
+    margin-top: 25px;
+    border-radius: 8px;
+}
+
+.aviso strong {
+    color: var(--cor-secundaria);
+}
+
+/* -- Estilo para Imagens do Tutorial -- */
+.tutorial-image {
+    max-width: 100%; /* Garante que a imagem seja responsiva */
+    height: auto; /* Mantém a proporção da imagem */
+    margin-top: 20px; /* Espaço entre o texto e a imagem */
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra suave */
+    display: block; /* Garante que a margem funcione corretamente */
+}
+
+/* -- Rodapé -- */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 25px;
+    border-top: 1px solid var(--cor-borda);
+    font-size: 0.9em;
+    color: #a0a0a0;
+}
