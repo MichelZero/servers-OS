@@ -1,0 +1,153 @@
+/* Estilo geral inspirado no tema Dark Modern do VS Code */
+body {
+    background-color: #1E1E1E;
+    color: #CCCCCC;
+    font-family: 'Segoe UI', 'Fira Code', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px 40px;
+    background-color: #252526;
+    border: 1px solid #3c3c3c;
+    border-radius: 8px;
+}
+
+header {
+    border-bottom: 1px solid #3c3c3c;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: #CE9178; /* Laranja/Pêssego para títulos principais */
+    font-size: 28px;
+    font-weight: 600;
+}
+
+h3 {
+    color: #9CDCFE; /* Azul claro para subtítulos */
+    border-left: 4px solid #9CDCFE;
+    padding-left: 10px;
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 40px;
+}
+
+h4 {
+    color: #4EC9B0; /* Verde/Azulado para subtítulos menores */
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 25px;
+}
+
+p, li {
+    font-size: 16px;
+    color: #D4D4D4;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+}
+
+li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #9CDCFE;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+strong {
+    color: #C586C0; /* Roxo para destaque */
+    font-weight: 600;
+}
+
+/* Estilo para código inline */
+code {
+    background-color: #333333;
+    color: #CE9178;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9em;
+}
+
+/* Estilo para blocos de código */
+.code-block {
+    background-color: #1E1E1E;
+    border: 1px solid #3c3c3c;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 20px 0;
+    overflow-x: auto;
+}
+
+.code-block pre {
+    margin: 0;
+}
+
+.code-block code {
+    background-color: transparent;
+    padding: 0;
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+/* Destaque de sintaxe simples para o JSON */
+.code-block .comment {
+    color: #6A9955; /* Verde para comentários */
+}
+.code-block .property {
+    color: #9CDCFE; /* Azul claro para propriedades */
+}
+.code-block .string {
+    color: #CE9178; /* Laranja/Pêssego para strings */
+}
+
+/* Placeholder para imagens */
+.image-placeholder {
+    background-color: #2D2D2D;
+    border: 1px dashed #4a4a4a;
+    border-radius: 5px;
+    padding: 40px 20px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.image-text {
+    color: #888;
+    font-style: italic;
+}
+
+/* Estilo para notas e avisos */
+.note {
+    background-color: rgba(78, 201, 176, 0.1);
+    border-left: 4px solid #4EC9B0;
+    padding: 10px 15px;
+    margin-top: 15px;
+    border-radius: 0 4px 4px 0;
+    color: #D4D4D4;
+}```
+
+### Como usar:
+
+1.  Crie uma pasta para o seu projeto.
+2.  Dentro dela, crie um arquivo chamado `tutorial.html` e cole o conteúdo HTML nele.
+3.  Na mesma pasta, crie outro arquivo chamado `style.css` e cole o conteúdo CSS.
+4.  Abra o arquivo `tutorial.html` em qualquer navegador para ver o resultado.
+
+O layout e as cores foram escolhidos para se assemelharem ao tema escuro padrão do VS Code, proporcionando uma experiência familiar e agradável para desenvolvedores.

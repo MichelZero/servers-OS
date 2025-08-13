@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial: Corretor Ortográfico em Português no VS Code</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Configurando o Corretor Ortográfico em Português no VS Code</h1>
+        </header>
+
+        <section id="introducao">
+            <p>Este tutorial mostra como configurar a verificação ortográfica para o idioma português no Visual Studio Code usando a extensão <strong>Code Spell Checker</strong>. O processo é simples e melhora muito a qualidade de textos, comentários e documentação em seus projetos.</p>
+        </section>
+
+        <section id="passo1">
+            <h3>Passo 1: Instale a Extensão Principal "Code Spell Checker"</h3>
+            <p>Esta é a extensão base que realiza a verificação ortográfica.</p>
+            <ul>
+                <li>Abra o VS Code e acesse a aba de <strong>Extensões</strong> na barra lateral (<code>Ctrl+Shift+X</code>).</li>
+                <li>Na barra de pesquisa, digite <code>Code Spell Checker</code>.</li>
+                <li>Clique em <strong>Instalar</strong> na extensão publicada por <em>Street Side Software</em>.</li>
+            </ul>
+            <div class="image-placeholder">
+                <img src="code-spell-checker.png" alt="Interface da extensão Code Spell Checker na loja do Visual Studio Code, mostrando um círculo verde com a palavra Spell e um símbolo de verificação, detalhes da extensão incluindo o publicador Street Side Software, avaliação de 4,5 estrelas de 295 usuários e descrição informando verificador ortográfico para código-fonte. O ambiente é uma janela do VS Code com tema escuro, exibindo abas de detalhes, recursos e changelog. O tom é profissional e informativo." class="extension-image" style="max-width: 680px; height: auto;">
+                <p class="image-text">Imagem da extensão "Code Spell Checker" na loja do VS Code.</p>
+            </div>
+        </section>
+
+        <section id="passo2">
+            <h3>Passo 2: Instale o Dicionário de Português</h3>
+            <p>Para adicionar o suporte ao português, você precisa instalar um dicionário específico.</p>
+            <ul>
+                <li>Ainda na aba de <strong>Extensões</strong>, pesquise por <code>Brazilian Portuguese - Code Spell Checker</code>.</li>
+                <li>Instale a extensão correspondente, também da <em>Street Side Software</em>. Isso adiciona o dicionário pt-BR ao corretor.</li>
+            </ul>
+             <div class="image-placeholder">
+                <img src="brasilian-portuguese.png" alt="Interface da extensão Brazilian Portuguese - Code Spell Checker na loja do Visual Studio Code, mostrando um círculo verde com a palavra Spell e um símbolo de verificação, detalhes da extensão incluindo o publicador Street Side Software, avaliação de usuários e descrição informando dicionário de português brasileiro para o Code Spell Checker. O ambiente é uma janela do VS Code com tema escuro. O tom é profissional e informativo." class="extension-image" style="max-width: 680px; height: auto;">
+                <p class="image-text">Imagem da extensão de dicionário português na loja do VS Code.</p>
+            </div>
+        </section>
+
+        <section id="passo3">
+            <h3>Passo 3: Habilite o Dicionário de Português</h3>
+            <p>Após a instalação, certifique-se de que o dicionário está ativo para seu ambiente de trabalho.</p>
+            <ul>
+                <li>Pressione <code>Ctrl+Shift+P</code> para abrir a Paleta de Comandos.</li>
+                <li>Digite <code>Spell Checker Configuration Info</code> e selecione a opção.</li>
+                <li>Na nova aba, marque a caixa correspondente a <strong>portuguese-brazil</strong> ou <strong>pt_BR</strong> para habilitá-lo.</li>
+            </ul>
+        </section>
+
+        <section id="configuracao-json">
+            <h2>Opção Avançada: Configuração via JSON</h2>
+            <p>Para um controle mais refinado, você pode editar diretamente os arquivos de configuração JSON. Esta é a abordagem recomendada para projetos específicos.</p>
+
+            <div class="sub-section">
+                <h4>1. Configuração Global (settings.json)</h4>
+                <p>Esta configuração se aplica a todos os seus projetos. Abra o arquivo <code>settings.json</code> (<code>Ctrl+Shift+P</code> > <code>Preferences: Open User Settings (JSON)</code>) e adicione a seguinte linha:</p>
+                <div class="code-block">
+                    <pre><code><span class="comment">// Dentro do seu settings.json</span>
+{
+  <span class="property">"cSpell.language"</span>: <span class="string">"en,pt,pt_BR"</span>
+}</code></pre>
+                </div>
+                <p class="note">Isso permite a verificação simultânea de inglês e português.</p>
+            </div>
+
+            <div class="sub-section">
+                <h4>2. Configuração por Projeto (cspell.json)</h4>
+                <p>Esta é a melhor prática para projetos, pois não afeta suas configurações globais. Crie um arquivo chamado <code>cspell.json</code> na raiz do seu projeto:</p>
+                <div class="code-block">
+                    <pre><code>{
+  <span class="property">"version"</span>: <span class="string">"0.2"</span>,
+  <span class="property">"language"</span>: <span class="string">"en,pt,pt_BR"</span>,
+  <span class="property">"words"</span>: [
+    <span class="comment">// Adicione aqui palavras personalizadas do projeto</span>
+    <span class="string">"meuFramework"</span>,
+    <span class="string">"minhaVariavel"</span>
+  ],
+  <span class="property">"ignorePaths"</span>: [
+    <span class="string">"node_modules/**"</span>,
+    <span class="string">"dist/"</span>
+  ]
+}</code></pre>
+                </div>
+                 <p class="note">O arquivo <code>cspell.json</code> tem prioridade sobre as configurações globais e é ideal para compartilhar as regras do corretor com a equipe do projeto.</p>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
