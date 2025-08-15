@@ -1,0 +1,124 @@
+/* Configurações Globais */
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+main {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.07);
+}
+
+/* Cabeçalho */
+header {
+    background-color: #0073e6;
+    color: #fff;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+header .subtitle {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+/* Seções */
+section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+section h2 {
+    color: #005bb5;
+    font-size: 2em;
+    margin-bottom: 1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+/* Blocos de Código */
+pre {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 20px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.95em;
+    line-height: 1.5;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+}
+
+code {
+    font-family: 'Source Code Pro', monospace;
+}
+
+/* Estilização específica para o terminal */
+.terminal-img {
+    width: 100%;
+    max-width: 700px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.caption {
+    text-align: center;
+    font-style: italic;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Divisores de passos */
+.passos {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+}
+
+.passos h3 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 2px solid #0073e6;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Rodapé */
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    color: #777;
+    font-size: 0.9em;
+}
