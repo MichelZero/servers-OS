@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial: Ativar Wake-on-LAN no Proxmox</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Guia para Ativar o Wake-on-LAN (WoL) no Proxmox VE</h1>
+            <p class="subtitle">Um passo a passo para diagnosticar e habilitar permanentemente o recurso de "acordar pela rede" no seu servidor.</p>
+        </header>
+
+        <section id="passo1">
+            <h2>Passo 1: Diagnosticar o Estado do Wake-on-LAN</h2>
+            <p>O primeiro passo é verificar se a sua placa de rede suporta Wake-on-LAN (WoL) e se ele está ativo. Para isso, usamos o comando <code>ethtool</code> numa interface de rede específica, como a <code>eno1</code>.</p>
+            <p>O resultado do comando <code>ethtool eno1 | grep Wake-on</code> nos dá toda a informação necessária:</p>
+            <img src="ethtool-output.png" alt="Resultado do comando ethtool mostrando o estado do Wake-on-LAN.">
+            
+            <h3>Análise do Resultado:</h3>
+            <ul>
+                <li><strong>Supports Wake-on: pumbg</strong>: Esta linha confirma que o hardware <strong>suporta</strong> múltiplos modos de WoL. O mais importante é o <code>g</code>, que representa o <strong>MagicPacket</strong>, o método padrão.</li>
+                <li><strong>Wake-on: d</strong>: Esta linha mostra o estado atual. O <code>d</code> significa <strong>disabled (desativado)</strong>.</li>
+            </ul>
+             <div class="note">
+                <strong>Conclusão:</strong> O seu hardware é compatível, mas a funcionalidade está desativada no sistema operacional. Nosso objetivo é mudar o estado de <code>d</code> para <code>g</code>.
+            </div>
+        </section>
+
+        <section id="passo2">
+            <h2>Passo 2: Ativação Temporária para Teste</h2>
+            <p>Para confirmar que tudo funciona, podemos ativar o WoL temporariamente. Esta configuração será perdida na próxima reinicialização.</p>
+            <p>Execute o seguinte comando no terminal do seu nó Proxmox:</p>
+            <pre><code>ethtool -s eno1 wol g</code></pre>
+            <p>Após executar, você pode verificar novamente com <code>ethtool eno1 | grep Wake-on</code>. A saída agora deve ser <code>Wake-on: g</code>.</p>
+        </section>
+
+        <section id="passo3">
+            <h2>Passo 3: Configurar a Ativação Permanente</h2>
+            <p>Para garantir que o Wake-on-LAN permaneça ativo mesmo após o servidor ser reiniciado, precisamos adicionar o comando de ativação ao arquivo de configuração de interfaces de rede.</p>
+            <ol>
+                <li>Abra o arquivo de configuração com um editor de texto, como o nano:
+                    <pre><code>nano /etc/network/interfaces</code></pre>
+                </li>
+                <li>Localize a secção correspondente à sua interface (<code>eno1</code>).</li>
+                <li>Adicione a linha <code>post-up ethtool -s eno1 wol g</code> ao final da configuração da interface. A diretiva <code>post-up</code> executa o comando logo após a interface ser ativada.</li>
+            </ol>
+            
+            <h4>Exemplo de Configuração:</h4>
+            <pre><code>auto eno1
+iface eno1 inet static
+    address 192.168.1.10/24
+    gateway 192.168.1.1
+    # ... outras configurações ...
+    post-up ethtool -s eno1 wol g</code></pre>
+            <p>Certifique-se de substituir <code>eno1</code> pelo nome correto da sua interface, se for diferente.</p>
+            <pre><code>auto lo
+iface lo inet loopback
+
+iface eno1 inet manual
+
+iface enp3s0 inet manual
+
+iface wlp2s0 inet manual
+
+auto vmbr0
+iface vmbr0 inet static
+        address 192.168.0.20/24
+        gateway 192.168.0.1
+        bridge-ports eno1
+        bridge-stp off
+        bridge-fd 0
+        post-up ethtool -s eno1 wol g</code></pre>
+
+
+            <p>Salve o arquivo (<code>Ctrl+O</code> em nano) e saia (<code>Ctrl+X</code>). A configuração agora é permanente.</p>
+        </section>
+        
+        <section id="passo4">
+            <h2>Passo 4: Verificação na BIOS/UEFI (Crucial)</h2>
+             <div class="note">
+                <strong>Não se Esqueça:</strong> Para que o Wake-on-LAN funcione, ele também <strong>precisa estar ativado nas configurações da BIOS/UEFI</strong> do seu servidor. Procure por opções como "Wake on LAN", "Power On by PCIE/PCI" ou similar e certifique-se de que estão habilitadas.
+            </div>
+        </section>
+
+        <footer>
+            <p>Configuração concluída! O seu servidor Proxmox agora pode ser "acordado" remotamente através da rede.</p>
+        </footer>
+    </div>
+</body>
+</html>

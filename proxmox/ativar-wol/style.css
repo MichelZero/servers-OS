@@ -1,0 +1,151 @@
+/*
+ * TEMA: PROXMOX MODERN LIGHT
+ * Um design claro, profissional e vibrante inspirado na identidade visual do Proxmox.
+ */
+
+/* Importa uma fonte moderna do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Variáveis de Cor */
+:root {
+    --color-proxmox-orange: #E64A19;
+    --color-dark-text: #333;
+    --color-light-text: #555;
+    --color-background: #f4f6f8;
+    --color-container-bg: #ffffff;
+    --color-border: #e0e0e0;
+    --color-code-bg: #2d2d2d;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-dark-text);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 30px 40px;
+    background-color: var(--color-container-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--color-border);
+}
+
+header {
+    text-align: center;
+    border-bottom: 2px solid var(--color-proxmox-orange);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: var(--color-dark-text);
+    font-weight: 700;
+    font-size: 2.2em;
+    margin: 0;
+}
+
+.subtitle {
+    color: var(--color-light-text);
+    font-size: 1.1em;
+    margin-top: 10px;
+}
+
+h2 {
+    color: var(--color-proxmox-orange);
+    font-weight: 500;
+    font-size: 1.8em;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 10px;
+    margin-top: 40px;
+}
+
+h3 {
+    font-size: 1.3em;
+    color: var(--color-dark-text);
+    margin-top: 25px;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+p, li {
+    font-size: 1em;
+    color: var(--color-light-text);
+}
+
+strong {
+    color: var(--color-dark-text);
+    font-weight: 500;
+}
+
+ol, ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* Estilo para código de comando */
+code {
+    background-color: #e8e8e8;
+    padding: 3px 7px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    color: #c7254e;
+    font-size: 0.95em;
+}
+
+/* Estilo para blocos de código */
+pre {
+    background-color: var(--color-code-bg);
+    color: #f8f8f2;
+    padding: 15px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 0.9em;
+}
+
+pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+}
+
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 25px auto;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.note {
+    background-color: #fff3e0;
+    border-left: 5px solid var(--color-proxmox-orange);
+    padding: 15px 20px;
+    margin: 25px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.note strong {
+    color: #bf360c;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-border);
+    color: #888;
+}
