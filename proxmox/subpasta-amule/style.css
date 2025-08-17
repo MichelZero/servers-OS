@@ -1,0 +1,139 @@
+/*
+ * TEMA: aMULE DARK MODERN
+ * Um tema escuro e funcional para tutoriais.
+ */
+
+/* Variáveis de Cor */
+:root {
+    --color-background: #1e2124; /* Fundo principal escuro */
+    --color-surface: #282b30;    /* Fundo para caixas de conteúdo */
+    --color-text: #e0e0e0;       /* Texto principal claro */
+    --color-text-muted: #a0a0a0; /* Texto secundário */
+    --color-primary: #4a90e2;    /* Azul vibrante aMule */
+    --color-border: #424549;     /* Cor da borda */
+    --color-code-bg: #16181a;    /* Fundo para blocos de código */
+    --color-code-text: #66d9ef;  /* Ciano para texto de código */
+}
+
+/* Reset Básico e Tipografia */
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.7;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+    padding: 2rem 1rem;
+    text-align: center;
+    border-bottom: 2px solid var(--color-border);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+header p {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--color-text-muted);
+}
+
+/* Conteúdo Principal */
+main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+section {
+    background-color: var(--color-surface);
+    margin-bottom: 2rem;
+    padding: 1.5rem 2rem;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Títulos */
+h2 {
+    color: var(--color-primary);
+    font-size: 1.7rem;
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+h3 {
+    font-size: 1.3rem;
+    color: #cccccc;
+    margin-top: 1.5rem;
+}
+
+/* Listas e Notas */
+ol {
+    padding-left: 25px;
+}
+
+li {
+    margin-bottom: 1rem;
+}
+
+.note {
+    font-style: italic;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* Blocos de Código */
+pre {
+    background-color: var(--color-code-bg);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+    padding: 1rem;
+    border-radius: 5px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95rem;
+    color: var(--color-code-text);
+}
+
+/* Código Inline */
+p > code, li > code {
+    background-color: var(--color-code-bg);
+    padding: 3px 7px;
+    border-radius: 4px;
+    color: #e6db74; /* Amarelo para código inline */
+}
+
+/* Imagens */
+.screenshot {
+    display: block;
+    max-width: 100%;
+    margin: 1.5rem auto;
+    border-radius: 6px;
+    border: 2px solid var(--color-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}

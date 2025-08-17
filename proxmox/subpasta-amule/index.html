@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aMule: Compartilhando Arquivos em Subpastas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Guia: Compartilhando Arquivos de Subpastas no aMule</h1>
+        <p>Mantenha seus arquivos organizados sem perder o compartilhamento na rede.</p>
+    </header>
+
+    <main>
+        <section id="problema">
+            <h2>O Problema: aMule Não Encontra Arquivos em Subdiretórios</h2>
+            <p>
+                Você organizou seus arquivos completos em subpastas dentro do diretório <code>/Incoming</code>, mas ao verificar a aba "Shared Files" no aMule, apenas os arquivos que estão na raiz do diretório aparecem. As pastas e seu conteúdo são completamente ignorados.
+            </p>
+            <img src="amule_subfolders_issue.png" alt="Comparativo entre os arquivos no disco e os arquivos compartilhados no aMule, mostrando que as subpastas não são lidas." class="screenshot">
+            <h3>Por que isso acontece?</h3>
+            <p>
+                Por padrão, o aMule (assim como o eMule original) é projetado para escanear apenas o primeiro nível dos seus diretórios compartilhados. Ele <strong>não busca arquivos recursivamente</strong> dentro de subpastas. Essa é uma característica de design do software.
+            </p>
+        </section>
+
+        <section id="solucao">
+            <h2>A Solução: Adicionar Subpastas como Diretórios Compartilhados</h2>
+            <p>
+                A boa notícia é que a solução é simples e não exige que você mude sua organização. Podemos instruir o aMule a tratar cada subpasta de interesse como um diretório compartilhado independente, editando diretamente seu arquivo de configuração.
+            </p>
+        </section>
+        
+        <section id="passos">
+            <h2>Passo a Passo para a Configuração</h2>
+            <p>
+                Para que o aMule reconheça os arquivos dentro de <code>alf-1-temporada</code> e <code>alf-2-temporada</code>, siga estas etapas:
+            </p>
+            <ol>
+                <li>
+                    <strong>Pare o aMule Daemon:</strong> É crucial parar o serviço antes de editar o arquivo de configuração para evitar que suas alterações sejam sobrescritas.
+                    <pre><code>pkill -u amule</code></pre>
+                </li>
+                <li>
+                    <strong>Edite o arquivo <code>amule.conf</code>:</strong> Abra o arquivo de configuração com um editor de texto como o nano.
+                    <pre><code>nano /home/amule/.aMule/amule.conf</code></pre>
+                </li>
+                <li>
+                    <strong>Adicione os Novos Diretórios:</strong> Navegue até a seção <code>[eDonkey]</code>. Abaixo das suas entradas existentes <code>IncomingDir</code> e <code>TempDir</code>, adicione uma nova linha <code>SharedDirectory=</code> para cada subpasta que deseja compartilhar.
+                    <pre><code>[eDonkey]
+...
+IncomingDir=/mnt/downloads/Incoming
+TempDir=/mnt/downloads/Temp
+...
+
+# ADICIONE AS LINHAS ABAIXO
+SharedDirectory=/mnt/downloads/Incoming/alf-1-temporada
+SharedDirectory=/mnt/downloads/Incoming/alf-2-temporada</code></pre>
+                    <p class="note">Você pode adicionar quantas linhas <code>SharedDirectory=</code> forem necessárias.</p>
+                </li>
+                <li>
+                    <strong>Salve e Saia:</strong> No nano, pressione <code>Ctrl+X</code>, depois <code>Y</code> para confirmar e <code>Enter</code> para salvar.
+                </li>
+                <li>
+                    <strong>Reinicie o aMule:</strong> Inicie o daemon e a interface web novamente.
+                    <pre><code>sudo -u amule amuled -f
+sudo -u amule amuleweb</code></pre>
+                </li>
+                <li>
+                    <strong>Verifique o Resultado:</strong> Acesse a interface web, vá para a aba "Shared Files" e clique no botão de recarregar (Reload). Os arquivos de dentro das subpastas agora deverão aparecer na lista, prontos para serem compartilhados!
+                </li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        <p>Agora você pode manter sua biblioteca organizada e totalmente compartilhada.</p>
+    </footer>
+</body>
+</html>

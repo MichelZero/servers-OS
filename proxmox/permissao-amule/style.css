@@ -1,0 +1,149 @@
+/*
+ * TEMA: PROXMOX MODERN LIGHT
+ * Um design claro, profissional e vibrante inspirado na identidade visual do Proxmox.
+ */
+
+/* Variáveis de Cor */
+:root {
+    --color-background: #f8f9fa; /* Fundo cinza muito claro */
+    --color-foreground: #ffffff; /* Fundo branco para o conteúdo principal */
+    --color-text: #343a40; /* Texto escuro, quase preto */
+    --color-primary: #e67e22; /* Laranja/vermelho Proxmox para títulos e destaques */
+    --color-secondary: #3498db; /* Azul para links */
+    --color-border: #dee2e6; /* Cinza claro para bordas */
+    --color-code-bg: #f1f3f5; /* Fundo para blocos de código */
+}
+
+/* Reset Básico e Tipografia */
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+    border-bottom: 5px solid rgba(0,0,0,0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+header p {
+    font-size: 1.1rem;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+/* Conteúdo Principal */
+main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--color-foreground);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+section {
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 1.5rem;
+}
+
+section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+/* Títulos das Seções */
+h2 {
+    color: var(--color-primary);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-primary);
+    display: inline-block;
+}
+
+h3 {
+    font-size: 1.4rem;
+    color: #495057; /* Cinza escuro */
+    margin-top: 1.5rem;
+}
+
+/* Listas */
+ul, ol {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+/* Links */
+a {
+    color: var(--color-secondary);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Blocos de Código */
+pre {
+    background-color: var(--color-code-bg);
+    border: 1px solid var(--color-border);
+    border-left: 5px solid var(--color-secondary);
+    padding: 1rem;
+    border-radius: 5px;
+    overflow-x: auto; /* Adiciona barra de rolagem se o código for muito longo */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95rem;
+    color: var(--color-text);
+}
+
+/* Código inline */
+p > code, li > code, strong > code {
+    background-color: var(--color-code-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    color: #6c757d; /* Cinza médio */
+    font-size: 0.9rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    main {
+        margin: 1rem;
+        padding: 1rem;
+    }
+}

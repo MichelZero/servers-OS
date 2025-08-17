@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Completo: MikroTik + aMule em Container Proxmox</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Guia Completo: MikroTik + aMule em Container Proxmox</h1>
+        <p>Do bloqueio de rede à permissão de arquivos, resolva todos os problemas.</p>
+    </header>
+
+    <main>
+        <section id="intro">
+            <h2>Introdução</h2>
+            <p>Este tutorial aborda uma série de problemas comuns ao configurar um serviço como o aMule em um container LXC (Proxmox), atrás de um novo roteador MikroTik. Cobriremos desde a restauração do acesso à rede local (LAN), passando pela configuração de redirecionamento de portas (NAT) para obter High ID, até a solução de um complexo problema de permissão de arquivos causado por containers não-privilegiados no Proxmox.</p>
+        </section>
+
+        <section id="part1">
+            <h2>Parte 1: Restaurando a Comunicação na Rede Local (LAN)</h2>
+            <h3>O Problema</h3>
+            <p>Após substituir um roteador doméstico por um MikroTik, o acesso a outras máquinas na mesma sub-rede (ex: 192.168.0.x) foi perdido. A causa é o firewall padrão do RouterOS, que é mais restritivo e não permite tráfego entre clientes da LAN pela cadeia <code>forward</code> por padrão.</p>
+            <h3>A Solução</h3>
+            <ol>
+                <li>Acesse seu MikroTik via WinBox e vá para <strong>IP → Firewall</strong>.</li>
+                <li>Na aba <strong>Filter Rules</strong>, clique no botão azul <strong>"+"</strong> para adicionar uma nova regra.</li>
+                <li>Na aba <strong>General</strong>, configure:
+                    <ul>
+                        <li><strong>Chain:</strong> <code>forward</code></li>
+                        <li><strong>Src. Address:</strong> <code>192.168.0.0/24</code> (ou sua sub-rede local)</li>
+                        <li><strong>Dst. Address:</strong> <code>192.168.0.0/24</code> (ou sua sub-rede local)</li>
+                    </ul>
+                </li>
+                <li>Vá para a aba <strong>Action</strong> e configure:
+                    <ul>
+                        <li><strong>Action:</strong> <code>accept</code></li>
+                    </ul>
+                </li>
+                <li>Clique em OK. Arraste esta nova regra para cima na lista, posicionando-a antes de quaisquer regras de <code>drop</code> na cadeia <code>forward</code>.</li>
+            </ol>
+        </section>
+
+        <section id="part2">
+            <h2>Parte 2: Configurando Port Forwarding (NAT) para Obter High ID</h2>
+            <h3>O Problema</h3>
+            <p>O cliente aMule conecta com "Low ID" e a rede Kad aparece como "Firewalled". Isso ocorre porque o firewall do MikroTik está bloqueando as conexões de entrada da internet, que são essenciais para o bom funcionamento da rede P2P.</p>
+            <h3>A Solução</h3>
+            <p>Precisamos criar regras de NAT para redirecionar as portas do aMule para o IP do container.</p>
+            <ol>
+                <li>Vá para <strong>IP → Firewall → NAT</strong>.</li>
+                <li>Clique no <strong>"+"</strong> para adicionar a regra TCP (porta padrão: 4662).
+                    <pre><code># Aba General
+Chain: dstnat
+Protocol: 6 (tcp)
+Dst. Port: 4662
+In. Interface: [Sua interface WAN, ex: ether1 ou pppoe-out1]
+
+# Aba Action
+Action: dst-nat
+To Addresses: 192.168.0.21 (IP do seu container aMule)
+To Ports: 4662</code></pre>
+                </li>
+                <li>Clique no <strong>"+"</strong> novamente para adicionar a regra UDP (porta padrão: 4672).
+                    <pre><code># Aba General
+Chain: dstnat
+Protocol: 17 (udp)
+Dst. Port: 4672
+In. Interface: [Sua interface WAN]
+
+# Aba Action
+Action: dst-nat
+To Addresses: 192.168.0.21
+To Ports: 4672</code></pre>
+                </li>
+                 <li><strong>Importante:</strong> Garanta que o IP do seu container aMule seja fixo, configurando uma reserva (Static Lease) em <strong>IP → DHCP Server → Leases</strong>.</li>
+            </ol>
+        </section>
+
+        <section id="part3">
+            <h2>Parte 3: Resolvendo o Pesadelo das Permissões de Diretório no Proxmox</h2>
+            <h3>O Problema</h3>
+            <p>Mesmo após configurar os caminhos no arquivo <code>amule.conf</code> para um disco montado (<code>/mnt/downloads</code>), o aMule continua usando o diretório antigo (<code>/home/amule/.aMule</code>). A tentativa de corrigir as permissões com <code>chown</code> dentro do container, mesmo como <code>root</code>, resulta no erro: <strong>"Operation not permitted"</strong>.</p>
+
+            <h3>Diagnóstico e Causa Raiz</h3>
+            <p>Após uma investigação, descobrimos:</p>
+            <ul>
+                <li>O sistema de arquivos era <code>ext4</code>, um formato nativo Linux.</li>
+                <li>Não havia atributos de imutabilidade (<code>lsattr</code>).</li>
+                <li>A causa raiz é o uso de um <strong>container LXC não-privilegiado</strong> no Proxmox. Por segurança, o usuário <code>root</code> dentro do container não é o <code>root</code> real do host. O Proxmox mapeia os IDs de usuário (UID) e grupo (GID) para uma faixa de IDs alta e sem privilégios no host.</li>
+            </ul>
+
+            <h3>A Solução Definitiva (Executada no Host Proxmox)</h3>
+            <ol>
+                <li><strong>Encontre o UID e GID corretos:</strong> Dentro do terminal do <strong>container</strong>, execute o comando para descobrir os IDs do usuário <code>amule</code>.
+                    <pre><code>cat /etc/passwd | grep amule</code></pre>
+                    <p>A saída será algo como: <code>amule:x:<strong>103</strong>:<strong>112</strong>:...</code>. Aqui, o UID é 103 e o GID é 112.</p>
+                </li>
+                <li><strong>Calcule os IDs Mapeados no Host:</strong> O Proxmox geralmente adiciona 100.000 ao valor do container.
+                    <ul>
+                        <li>UID no Host: 100.000 + 103 = <strong>100103</strong></li>
+                        <li>GID no Host: 100.000 + 112 = <strong>100112</strong></li>
+                    </ul>
+                </li>
+                <li><strong>Pare o Container:</strong> Na interface web do Proxmox, desligue o container do aMule.</li>
+                <li><strong>Altere a Propriedade no Host:</strong> Abra o shell do seu <strong>servidor Proxmox (Host)</strong> e execute o comando <code>chown</code> no diretório real do disco, usando os IDs mapeados.
+                    <pre><code># O caminho no host pode variar. Verifique suas configurações de montagem.
+chown -R 100103:100112 /caminho/real/do/diretorio/no/host</code></pre>
+                </li>
+                <li><strong>Inicie o Container:</strong> Ligue o container novamente.</li>
+            </ol>
+        </section>
+
+        <section id="part4">
+            <h2>Parte 4: Verificação Final e Conclusão</h2>
+            <p>Após iniciar o container, as permissões estarão corrigidas. O último passo é garantir que o aMule seja reiniciado para aplicar todas as mudanças.</p>
+            <ol>
+                <li>Acesse o terminal do <strong>container</strong>.</li>
+                <li>Pare qualquer processo antigo do aMule para garantir uma inicialização limpa:
+                    <pre><code>pkill -u amule</code></pre>
+                </li>
+                <li>Inicie o daemon e a interface web novamente:
+                    <pre><code>sudo -u amule amuled -f
+sudo -u amule amuleweb</code></pre>
+                </li>
+                <li>Verifique as permissões dentro do container. A saída deve ser a correta:
+                    <pre><code>ls -la /mnt/downloads/
+
+# Saída esperada:
+drwxr-xr-x 4 amule amule 4096 ... .
+drwxr-xr-x 2 amule amule 4096 ... Incoming
+drwxr-xr-x 2 amule amule 4096 ... Temp</code></pre>
+                </li>
+            </ol>
+            <p>Parabéns! Você configurou com sucesso sua rede, redirecionou as portas para o aMule e resolveu um complexo problema de permissões específico de ambientes virtualizados. Seu sistema agora está totalmente funcional.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Tutorial criado com base em uma sessão de troubleshooting real.</p>
+    </footer>
+</body>
+</html>
