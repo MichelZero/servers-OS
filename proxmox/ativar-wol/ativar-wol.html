@@ -27,6 +27,22 @@
              <div class="note">
                 <strong>Conclusão:</strong> O seu hardware é compatível, mas a funcionalidade está desativada no sistema operacional. Nosso objetivo é mudar o estado de <code>d</code> para <code>g</code>.
             </div>
+            <div class="note">
+                <strong>Nota:</strong> Se o comando <code>ethtool</code> não estiver instalado, você pode instalá-lo com <code>apt install ethtool</code>.
+            </div>
+            <div class="note">
+                <strong>Importante:</strong> Vamos detalhar cada linha:
+                <p><strong>Wake-on:</strong> Esta linha indica o estado atual do Wake-on-LAN na interface de rede.</p>
+                <p><strong></strong>Supports Wake-on:</strong> Esta linha informa quais modos de Wake-on-LAN (WoL) a sua placa de rede (eno1) suporta. O hardware é capaz de utilizar estes métodos.</p>
+                <p><strong>Decifrando as letras:</strong></p>
+                <ul>
+                    <li><code>p</code>: Wake on PHY activity (acordar com atividade na camada física da rede).</li>
+                    <li><code>u</code>: Wake on unicast messages (acordar ao receber um pacote destinado especificamente ao seu endereço MAC).</li>
+                    <li><code>m</code>: Wake on multicast messages (acordar ao receber um pacote de um grupo multicast).</li>
+                    <li><code>b</code>: Wake on broadcast messages (acordar ao receber um pacote de broadcast na rede).</li>
+                    <li><code>g</code>: Wake on MagicPacket™ (este é o método mais comum e recomendado para WoL).</li>
+                </ul>
+            </div>
         </section>
 
         <section id="passo2">
