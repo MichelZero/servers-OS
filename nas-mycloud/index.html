@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cloud - Configurações</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="main-header">
+            <div class="logo">My Cloud™</div>
+            <nav class="top-nav">
+                <!-- Ícones do cabeçalho (placeholders) -->
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </nav>
+        </header>
+
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">Página inicial</a></li>
+                <li><a href="#">Usuários</a></li>
+                <li><a href="#">Compartilhamentos</a></li>
+                <li><a href="#">Aplicativos</a></li>
+                <li><a href="#">Acesso à nuvem</a></li>
+                <li><a href="#">Armazenamento</a></li>
+                <li><a href="#" class="active">Configurações</a></li>
+            </ul>
+        </nav>
+
+        <main class="content-area">
+            <h1>Configurações</h1>
+            <div class="main-layout">
+                <aside class="sidebar">
+                    <ul>
+                        <li><a href="#">Gerais</a></li>
+                        <li><a href="#" class="active-submenu">Rede</a></li>
+                        <li><a href="#">Utilitários</a></li>
+                        <li><a href="#">Notificações</a></li>
+                        <li><a href="#">Atualização de firmware</a></li>
+                    </ul>
+                </aside>
+
+                <section class="main-content">
+                    <div class="content-block">
+                        <h2>Perfil de rede</h2>
+                        <div class="info-row">
+                            <span class="label">Status</span>
+                            <span class="value">Acesso à Internet</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Endereço MAC</span>
+                            <span class="value">00:14:EF:1A:83:A3</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">IPv4 Endereço IP</span>
+                            <span class="value">192.168.0.10</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">IPv4 Servidor DNS</span>
+                            <span class="value">8.8.8.8 , 8.8.4.4</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">IPv6 Endereço IP</span>
+                            <span class="value">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">IPv6 Servidor DNS</span>
+                            <span class="value">-</span>
+                        </div>
+                    </div>
+
+                    <div class="content-block">
+                        <h2>Serviço da rede</h2>
+                        <div class="info-row">
+                            <span class="label">IPv4 Modo de rede</span>
+                            <div class="button-group">
+                                <button class="btn btn-active">Estático</button>
+                                <button class="btn">DHCP</button>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">IPv6 Modo de rede</span>
+                             <div class="button-group">
+                                <button class="btn">Automática</button>
+                                <button class="btn">DHCP</button>
+                                <button class="btn">Estático</button>
+                                <button class="btn btn-active">Desativar</button>
+                            </div>
+                        </div>
+                         <div class="info-row">
+                            <span class="label">Velocidade do link</span>
+                            <div class="select-group">
+                                <select>
+                                    <option>Automática</option>
+                                    <option>1000 Mbps</option>
+                                    <option>100 Mbps</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-block">
+                        <h2>Guia de Acesso SSH</h2>
+                        <h3>Passo 1: Habilitando o Acesso SSH</h3>
+                        <p>Primeiro, ative o serviço SSH no painel de controle do seu My Cloud. Vá para <strong>Configurações > Rede</strong>. Na seção "Serviços de Rede", localize e ative a opção <strong>SSH</strong>. Será solicitado que você crie e confirme uma senha segura para o acesso.</p>
+
+                        <h3>Passo 2: Conectando-se via SSH</h3>
+                        <p>Com o SSH ativado, use um cliente SSH (como o Terminal no macOS/Linux ou o PuTTY/PowerShell no Windows) para se conectar.</p>
+                        
+                        <h4>Para macOS e Linux:</h4>
+                        <p>Abra o Terminal e digite o comando:</p>
+                        <pre><code>ssh sshd@192.168.0.10</code></pre>
+                        
+                        <h4>Para Windows (PowerShell/CMD):</h4>
+                        <p>Abra o PowerShell e use o mesmo comando:</p>
+                        <pre><code>ssh sshd@192.168.0.10</code></pre>
+                        
+                        <p>Ao se conectar pela primeira vez, você precisará aceitar a chave do host. Em seguida, insira a senha que você configurou no Passo 1.</p>
+                        
+                        <h3>Solução de Problemas Comuns</h3>
+                        <p>Se a conexão for recusada por causa de algoritmos de chave de host, tente usar o seguinte comando para permitir o algoritmo `ssh-dss`:</p>
+                        <pre><code>ssh -oHostKeyAlgorithms=+ssh-dss sshd@192.168.0.10</code></pre>
+
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
