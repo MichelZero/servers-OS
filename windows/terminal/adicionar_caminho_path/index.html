@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como Adicionar um Caminho ao PATH no Windows 11</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <h1>Tutorial: Adicionando um Caminho ao PATH do Windows 11</h1>
+        <p class="subtitle">Aprenda a executar programas de qualquer lugar no seu terminal.</p>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>Por que adicionar uma pasta ao PATH?</h2>
+            <p>
+                A variável de ambiente PATH é uma lista de diretórios que o Windows verifica sempre que você digita um comando em um terminal (como PowerShell ou Prompt de Comando). Ao adicionar a pasta de um programa (por exemplo, <code>D:\Caminho\Para\MeuApp</code>) ao PATH, você pode executar esse programa digitando apenas o nome dele (<code>MeuApp.exe</code>), sem precisar navegar até a pasta dele primeiro.
+            </p>
+        </section>
+
+        <section id="gui-method">
+            <h2>Método 1: Usando a Interface Gráfica (Recomendado)</h2>
+            <p>Este é o método mais visual e seguro para a maioria dos usuários.</p>
+
+            <ol class="steps">
+                <li>
+                    <strong>Abrir as Propriedades do Sistema:</strong>
+                    <p>Pressione as teclas <kbd>Windows</kbd> + <kbd>R</kbd> para abrir a caixa "Executar". Digite <code>sysdm.cpl</code> e pressione <strong>Enter</strong>.</p>
+                    <img src="sysdm.png" alt="Janela Executar com sysdm.cpl" class="step-image">
+                </li>
+                <li>
+                    <strong>Acessar as Variáveis de Ambiente:</strong>
+                    <p>Na janela "Propriedades do Sistema", vá para a aba <strong>Avançado</strong> e clique no botão <strong>Variáveis de Ambiente...</strong>.</p>
+                    <img src="propriedades_avancado.png" alt="Propriedades do Sistema, aba Avançado" class="step-image">
+                </li>
+                <li>
+                    <strong>Editar a Variável Path:</strong>
+                    <p>Na seção superior ("Variáveis de usuário"), selecione a linha que contém <strong>Path</strong> e clique em <strong>Editar...</strong>. Isso garante que a alteração afete apenas o seu perfil de usuário.</p>
+                    <img src="variaveis_ambiente.png" alt="Janela de Variáveis de Ambiente" class="step-image">
+                </li>
+                <li>
+                    <strong>Adicionar o Novo Caminho:</strong>
+                    <p>Clique em <strong>Novo</strong> e cole o caminho desejado (ex: <code>D:\Predator\OneDrive\Aplicativos\WhoIs</code>). Pressione <strong>Enter</strong> para confirmar a nova linha.</p>
+                    <img src="editando_variavel_path.png" alt="Editando a variável Path" class="step-image">
+                </li>
+                <li>
+                    <strong>Confirmar Todas as Alterações:</strong>
+                    <p>Clique em <strong>OK</strong> em todas as janelas abertas para salvar as mudanças.</p>
+                </li>
+                <li>
+                    <strong>Verificar o Resultado:</strong>
+                    <p><strong>Importante:</strong> Feche qualquer terminal que esteja aberto e abra um novo. Agora, digite o nome do executável (ex: <code>whois.exe</code>) e pressione Enter. Ele deve ser encontrado!</p>
+                </li>
+            </ol>
+        </section>
+
+        <hr>
+
+        <section id="powershell-method">
+            <h2>Método 2: Usando o PowerShell (Avançado)</h2>
+            <p>Este método é mais rápido para quem já está familiarizado com a linha de comando.</p>
+
+            <ol class="steps">
+                <li>
+                    <strong>Abra o PowerShell:</strong>
+                    <p>Clique no menu Iniciar, digite "PowerShell" e abra o aplicativo. Não precisa ser como Administrador.</p>
+                </li>
+                <li>
+                    <strong>Execute o Script:</strong>
+                    <p>Copie o bloco de código abaixo, cole no PowerShell e pressione <strong>Enter</strong>. Ele adiciona o caminho ao PATH do seu usuário de forma segura, sem apagar os caminhos existentes.</p>
+                    <div class="code-block">
+<pre><code>
+# 1. Especifique o caminho da sua pasta aqui
+$caminhoAdicionar = "D:\Caminho\OneDrive\Aplicativos\WhoIs"
+
+# 2. Busca o PATH atual do usuário
+$pathAtual = [System.Environment]::GetEnvironmentVariable("Path", "User")
+
+# 3. Adiciona o novo caminho (apenas se ele já não existir)
+if (-not ($pathAtual -split ';').Contains($caminhoAdicionar)) {
+    $novoPath = $pathAtual + ";" + $caminhoAdicionar
+    [System.Environment]::SetEnvironmentVariable("Path", $novoPath, "User")
+    Write-Host "Sucesso: O caminho foi adicionado ao seu PATH." -ForegroundColor Green
+} else {
+    Write-Host "Info: O caminho já existe no seu PATH." -ForegroundColor Yellow
+}
+
+Write-Host "Por favor, reinicie seu terminal para aplicar as mudanças."
+</code></pre>
+                    </div>
+                </li>
+                <li>
+                    <strong>Reinicie o Terminal:</strong>
+                    <p>Assim como no método anterior, feche e abra uma nova janela do PowerShell para que as alterações tenham efeito.</p>
+                </li>
+            </ol>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Tutorial criado para demonstrar a configuração de variáveis de ambiente no Windows 11.</p>
+    </footer>
+
+</body>
+</html>
