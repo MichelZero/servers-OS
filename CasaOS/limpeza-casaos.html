@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial: Limpeza de Disco no CasaOS</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Guia de Limpeza de Disco: CasaOS</h1>
+            <p>Aprenda a identificar e remover arquivos que estão lotando o seu armazenamento.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <main>
+            <section>
+                <h2>O Desafio dos 30 ou 40GB</h2>
+                <p>Ter um servidor com cerca de 30 ou 40GB de disco exige manutenção constante. Aplicativos como <strong>Jellyfin, Plex e Docker</strong> geram muitos arquivos temporários, logs e metadados que podem travar o seu sistema rapidamente.</p>
+                
+                <div class="importante">
+                    <p><strong>Dica de Ouro:</strong> Sempre verifique se seus downloads (qBittorrent) estão indo para a pasta <code>/DATA</code> e não para a raiz do sistema.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Passo a Passo da Investigação</h2>
+
+                <article class="step">
+                    <h3>1. Localizando o "Vilão"</h3>
+                    <p>O primeiro passo é saber qual pasta está ocupando mais espaço. No terminal, use o comando abaixo para listar o tamanho das pastas em <code>/var/lib</code>:</p>
+                    <pre><code>sudo du -sh /var/lib/* | sort -h</code></pre>
+                    <p>Geralmente, a pasta <code>/var/lib/docker</code> é a maior de todas.</p>
+                </article>
+
+                <article class="step">
+                    <h3>2. Limpando os Logs do Sistema</h3>
+                    <p>O Linux guarda registros (logs) de tudo o que acontece. Se o sistema estiver com erros, esses logs podem crescer gigabytes. Limpe-os para recuperar espaço imediato:</p>
+                    <pre><code>sudo journalctl --vacuum-size=100M
+sudo rm -rf /var/log/*.gz /var/log/*.[0-9]</code></pre>
+                </article>
+
+                <article class="step">
+                    <h3>3. Faxina no Docker</h3>
+                    <p>O CasaOS roda via Docker. Sempre que você atualiza um app, a "imagem" antiga pode ficar guardada sem uso. Remova lixos e imagens órfãs com:</p>
+                    <pre><code>docker system prune -a -f</code></pre>
+                    <div class="importante">
+                        <p><strong>Atenção:</strong> Esse comando remove apenas arquivos de instalação não utilizados. Seus dados e configurações dos apps ativos permanecem seguros.</p>
+                    </div>
+                </article>
+
+                <article class="step">
+                    <h3>4. Resolvendo o "Espaço Fantasma"</h3>
+                    <p>Às vezes você deleta um arquivo, mas o espaço não volta. Isso acontece porque o Docker ainda está "segurando" o arquivo na memória. A solução é reiniciar o serviço ou o servidor:</p>
+                    <pre><code>sudo systemctl restart docker
+# Ou reinicie o sistema completo
+sudo reboot</code></pre>
+                </article>
+
+                <article class="step">
+                    <h3>5. Configurações de Aplicativos</h3>
+                    <p>Verifique o caminho de armazenamento dos seus principais apps:</p>
+                    <ul>
+                        <li><strong>Jellyfin/Plex:</strong> Desative a geração de "Thumbnails" (miniaturas) de capítulos, que ocupam muito espaço em disco.</li>
+                        <li><strong>qBittorrent:</strong> Garanta que o caminho de download seja um HD externo ou a partição correta em <code>/DATA</code>.</li>
+                        <li><strong>AppData:</strong> Use o app "Files" do CasaOS para ver qual pasta em <code>AppData</code> está muito grande.</li>
+                    </ul>
+                </article>
+            </section>
+
+            <section>
+                <h2>Conclusão</h2>
+                <p>Com esses passos, você conseguirá manter seu CasaOS rodando liso mesmo em discos pequenos. Se o espaço continuar acabando rápido, considere expandir seu armazenamento com um SSD externo ou aumentar a cota da sua Máquina Virtual.</p>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Tutorial criado para usuários de CasaOS &bull; 2026</p>
+        </div>
+    </footer>
+
+</body>
+</html>
