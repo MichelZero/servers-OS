@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial: Aumentar Disco de VM Linux no Proxmox</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Guia Proxmox: Expandindo Armazenamento</h1>
+            <p>Como aumentar o HD de uma VM Linux e expandir a partição no sistema convidado.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <main>
+            <section>
+                <h2>O Processo de Expansão</h2>
+                <p>Aumentar o espaço de uma VM é um processo de duas etapas: primeiro alteramos o hardware virtual no Proxmox e, em seguida, ajustamos o sistema de arquivos dentro do Linux para reconhecer o novo espaço.</p>
+                
+                <div class="importante">
+                    <p><strong>SEGURANÇA:</strong> Antes de realizar qualquer alteração em partições, é altamente recomendável tirar um <strong>Snapshot</strong> da sua VM no Proxmox.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Fase 1: No Painel do Proxmox</h2>
+                <article class="step">
+                    <h3>1. Redimensionar o Disco Virtual</h3>
+                    <p>Acesse o painel web do Proxmox e siga os passos:</p>
+                    <ol>
+                        <li>Selecione a <strong>VM</strong> no menu lateral.</li>
+                        <li>Vá na aba <strong>Hardware</strong>.</li>
+                        <li>Selecione o <strong>Hard Disk</strong> (ex: scsi0).</li>
+                        <li>Clique em <strong>Disk Action</strong> e selecione <strong>Resize</strong>.</li>
+                        <li>Informe quanto espaço deseja <strong>adicionar</strong> (ex: 20 para somar 20GB ao total).</li>
+                    </ol>
+                </article>
+            </section>
+
+            <section>
+                <h2>Fase 2: No Terminal do Linux (Guest)</h2>
+                
+                <article class="step">
+                    <h3>2. Identificar as Partições</h3>
+                    <p>Use o comando abaixo para ver a estrutura atual do disco:</p>
+                    <pre><code>lsblk</code></pre>
+                    <p>Note que o disco pai (ex: <code>sda</code>) terá o tamanho novo, mas a partição (ex: <code>sda1</code>) ainda terá o tamanho antigo.</p>
+                </article>
+
+                <article class="step">
+                    <h3>3. Removendo Obstáculos (Swap)</h3>
+                    <p>Se houver uma partição de Swap logo após a partição principal, ela impedirá a expansão. O ideal é removê-la e criar um Swap File depois.</p>
+                    <pre><code>swapoff -a
+cfdisk /dev/sda</code></pre>
+                    <p>No <code>cfdisk</code>: Delete as partições de Swap e estendidas, selecione a partição principal, escolha <strong>Resize</strong>, depois <strong>Write</strong> e <strong>Quit</strong>.</p>
+                </article>
+
+                <article class="step">
+                    <h3>4. Expandir o Sistema de Arquivos</h3>
+                    <p>Agora, "estique" o sistema de arquivos para ocupar todo o espaço da nova partição:</p>
+                    <pre><code>resize2fs /dev/sda1</code></pre>
+                    <p>Verifique o novo tamanho com o comando: <code>df -h</code></p>
+                </article>
+            </section>
+
+            <section>
+                <h2>Fase 3: Criando um Swap File (Opcional)</h2>
+                <p>Como deletamos a partição de swap, é recomendável criar um arquivo de swap de 2GB para estabilidade do sistema:</p>
+                <article class="step">
+                    <pre><code>fallocate -l 2G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+echo '/swapfile none swap sw 0 0' >> /etc/fstab</code></pre>
+                </article>
+            </section>
+
+            <section>
+                <h2>Conclusão</h2>
+                <p>O uso de <strong>Swap Files</strong> em vez de partições é uma melhor prática em VMs, pois facilita futuras expansões de disco sem a necessidade de deletar e recriar partições complexas.</p>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Guia Técnico Proxmox &bull; Criado em 2026</p>
+        </div>
+    </footer>
+
+</body>
+</html>
